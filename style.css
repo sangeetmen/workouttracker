@@ -1591,3 +1591,37 @@ select.form-control {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.exercise-cards-container,
+#search-results-list,
+#all-exercises-list {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: var(--space-16);
+}
+
+/* Thumbnail + content layout inside the card */
+.exercise-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: var(--space-12);
+}
+
+/* Exercise thumbnail */
+.exercise-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-2);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Content area next to the image */
+.exercise-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
