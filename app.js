@@ -1,6 +1,32 @@
 $(document).ready(function() {
     console.log('FitTrack app initializing...');
-    
+
+
+
+    $('#new-exercise-image-url').on('input', function () {
+          const url = ($(this).val() || '').trim();
+          if (url) {
+            $('#new-exercise-image-preview').show();
+            $('#new-exercise-image-preview-img').attr('src', url);
+            $('#new-exercise-image-file').val(''); // clear file if URL is used
+          } else {
+            $('#new-exercise-image-preview').hide();
+            $('#new-exercise-image-preview-img').attr('src', '');
+          }
+        });
+        
+        $('#new-exercise-image-file').on('change', function () {
+          const file = this.files && this.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            $('#new-exercise-image-preview').show();
+            $('#new-exercise-image-preview-img').attr('src', e.target.result);
+            $('#new-exercise-image-url').val(''); // clear URL if file is used
+          };
+          reader.readAsDataURL(file);
+        });
+
     // Application state - using in-memory storage
     let currentSection = 'search-section';
     let exercises = [];
@@ -928,34 +954,79 @@ $(document).ready(function() {
     }
 
     // Add new exercise
+    // function addNewExercise() {
+    //     const name = $('#new-exercise-name').val().trim();
+    //     const category = $('#new-exercise-category').val();
+        
+    //     const muscleGroups = [];
+    //     $('#muscle-groups-checkboxes input:checked').each(function() {
+    //         muscleGroups.push($(this).val());
+    //     });
+
+    //     const newExercise = {
+    //         id: Date.now(),
+    //         name: name,
+    //         category: category,
+    //         muscleGroups: muscleGroups,
+    //         type: getExerciseType(category)
+    //     };
+
+    //     exercises.push(newExercise);
+        
+    //     // Clear form
+    //     $('#add-exercise-form')[0].reset();
+    //     $('#muscle-groups-checkboxes input').prop('checked', false);
+    //     $('.form-control').removeClass('success error');
+    //     $('.error-message').hide();
+        
+    //     showToast('Exercise added successfully!');
+    //     loadExercisesList();
+    //     loadAllExercises();
+    // }
     function addNewExercise() {
-        const name = $('#new-exercise-name').val().trim();
-        const category = $('#new-exercise-category').val();
-        
-        const muscleGroups = [];
-        $('#muscle-groups-checkboxes input:checked').each(function() {
-            muscleGroups.push($(this).val());
-        });
-
+      const name = $('#new-exercise-name').val().trim();
+      const category = $('#new-exercise-category').val();
+      const muscleGroups = [];
+      $('#muscle-groups-checkboxes input:checked').each(function () {
+        muscleGroups.push($(this).val());
+      });
+    
+      const urlInput = ($('#new-exercise-image-url').val() || '').trim();
+      const fileInput = $('#new-exercise-image-file')[0];
+      const file = fileInput && fileInput.files && fileInput.files[0];
+    
+      const finalize = (imageUrl) => {
         const newExercise = {
-            id: Date.now(),
-            name: name,
-            category: category,
-            muscleGroups: muscleGroups,
-            type: getExerciseType(category)
+          id: Date.now(),
+          name,
+          category,
+          muscleGroups,
+          type: getExerciseType(category),
+          imageUrl: imageUrl || ''
         };
-
         exercises.push(newExercise);
-        
-        // Clear form
+    
+        // Reset form and preview
         $('#add-exercise-form')[0].reset();
         $('#muscle-groups-checkboxes input').prop('checked', false);
+        $('#new-exercise-image-preview').hide();
+        $('#new-exercise-image-preview-img').attr('src', '');
         $('.form-control').removeClass('success error');
         $('.error-message').hide();
-        
-        showToast('Exercise added successfully!');
+    
+        // Refresh UI
         loadExercisesList();
         loadAllExercises();
+        showToast('Exercise added successfully!');
+      };
+    
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => finalize(e.target.result); // data URL
+        reader.readAsDataURL(file);
+      } else {
+        finalize(urlInput);
+      }
     }
 
     // Get exercise type based on category
