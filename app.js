@@ -676,120 +676,142 @@ $(document).ready(function() {
     }
 
     // Load all exercises for search section
-    function loadAllExercises() {
-        let exercisesHtml = '';
+    // function loadAllExercises() {
+    //     let exercisesHtml = '';
         
-        exercises.forEach(exercise => {
-            const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
-            const lastWorkout = workoutsForExercise.length > 0 ? 
-                workoutsForExercise[workoutsForExercise.length - 1] : null;
-            const pr = personalRecords[exercise.id] || {};
+    //     exercises.forEach(exercise => {
+    //         const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
+    //         const lastWorkout = workoutsForExercise.length > 0 ? 
+    //             workoutsForExercise[workoutsForExercise.length - 1] : null;
+    //         const pr = personalRecords[exercise.id] || {};
             
-            let prText = 'No records';
-            if (exercise.type === 'strength' && pr.maxWeight) {
-                prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
-            } else if (exercise.type === 'cardio' && pr.bestPace) {
-                prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
-            } else if (exercise.type === 'swimming' && pr.mostLaps) {
-                prText = `PR: ${pr.mostLaps.laps} laps`;
-            } else if (exercise.type === 'mobility' && pr.longestDuration) {
-                prText = `PR: ${pr.longestDuration.duration} min`;
-            }
+    //         let prText = 'No records';
+    //         if (exercise.type === 'strength' && pr.maxWeight) {
+    //             prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
+    //         } else if (exercise.type === 'cardio' && pr.bestPace) {
+    //             prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
+    //         } else if (exercise.type === 'swimming' && pr.mostLaps) {
+    //             prText = `PR: ${pr.mostLaps.laps} laps`;
+    //         } else if (exercise.type === 'mobility' && pr.longestDuration) {
+    //             prText = `PR: ${pr.longestDuration.duration} min`;
+    //         }
 
-            const lastWorkoutText = lastWorkout ? 
-                new Date(lastWorkout.date).toLocaleDateString() : 'Never';
+    //         const lastWorkoutText = lastWorkout ? 
+    //             new Date(lastWorkout.date).toLocaleDateString() : 'Never';
 
-            exercisesHtml += `
-                <div class="exercise-card" data-exercise-id="${exercise.id}">
-                    <div class="exercise-card-header">
-                        <div class="exercise-card-title">${exercise.name}</div>
-                        <div class="exercise-card-category">${exercise.category}</div>
-                    </div>
-                    <div class="exercise-card-info">
-                        <div class="exercise-info-item">
-                            <span class="exercise-info-value">${workoutsForExercise.length}</span>
-                            <span class="exercise-info-label">Sessions</span>
-                        </div>
-                        <div class="exercise-info-item">
-                            <span class="exercise-info-value">${lastWorkoutText}</span>
-                            <span class="exercise-info-label">Last</span>
-                        </div>
-                    </div>
-                    <div class="exercise-pr-info">${prText}</div>
-                </div>
-            `;
-        });
+    //         exercisesHtml += `
+    //             <div class="exercise-card" data-exercise-id="${exercise.id}">
+    //                 <div class="exercise-card-header">
+    //                     <div class="exercise-card-title">${exercise.name}</div>
+    //                     <div class="exercise-card-category">${exercise.category}</div>
+    //                 </div>
+    //                 <div class="exercise-card-info">
+    //                     <div class="exercise-info-item">
+    //                         <span class="exercise-info-value">${workoutsForExercise.length}</span>
+    //                         <span class="exercise-info-label">Sessions</span>
+    //                     </div>
+    //                     <div class="exercise-info-item">
+    //                         <span class="exercise-info-value">${lastWorkoutText}</span>
+    //                         <span class="exercise-info-label">Last</span>
+    //                     </div>
+    //                 </div>
+    //                 <div class="exercise-pr-info">${prText}</div>
+    //             </div>
+    //         `;
+    //     });
 
-        $('#all-exercises-list').html(exercisesHtml);
+    //     $('#all-exercises-list').html(exercisesHtml);
+    // }
+
+    function loadAllExercises() {
+      const html = exercises.map(renderExerciseCard).join('');
+      $('#all-exercises-list').html(html);
+      $('#default-exercises').removeClass('hidden');
+      $('#search-results').addClass('hidden');
     }
+
 
     // Search functionality - FIXED to include last workout date
-    function performSearch() {
-        const query = $('#search-input').val().toLowerCase().trim();
+    // function performSearch() {
+    //     const query = $('#search-input').val().toLowerCase().trim();
         
-        if (!query) {
-            $('#search-results').addClass('hidden');
-            $('#default-exercises').removeClass('hidden');
-            return;
-        }
+    //     if (!query) {
+    //         $('#search-results').addClass('hidden');
+    //         $('#default-exercises').removeClass('hidden');
+    //         return;
+    //     }
 
-        const matchingExercises = exercises.filter(ex => 
-            ex.name.toLowerCase().includes(query) || 
-            ex.category.toLowerCase().includes(query) ||
-            ex.muscleGroups.some(mg => mg.toLowerCase().includes(query))
-        );
+    //     const matchingExercises = exercises.filter(ex => 
+    //         ex.name.toLowerCase().includes(query) || 
+    //         ex.category.toLowerCase().includes(query) ||
+    //         ex.muscleGroups.some(mg => mg.toLowerCase().includes(query))
+    //     );
 
-        let resultsHtml = '';
-        matchingExercises.forEach(exercise => {
-            const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
-            const lastWorkout = workoutsForExercise.length > 0 ? 
-                workoutsForExercise[workoutsForExercise.length - 1] : null;
-            const pr = personalRecords[exercise.id] || {};
+    //     let resultsHtml = '';
+    //     matchingExercises.forEach(exercise => {
+    //         const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
+    //         const lastWorkout = workoutsForExercise.length > 0 ? 
+    //             workoutsForExercise[workoutsForExercise.length - 1] : null;
+    //         const pr = personalRecords[exercise.id] || {};
             
-            let prText = 'No records';
-            if (exercise.type === 'strength' && pr.maxWeight) {
-                prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
-            } else if (exercise.type === 'cardio' && pr.bestPace) {
-                prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
-            } else if (exercise.type === 'swimming' && pr.mostLaps) {
-                prText = `PR: ${pr.mostLaps.laps} laps`;
-            } else if (exercise.type === 'mobility' && pr.longestDuration) {
-                prText = `PR: ${pr.longestDuration.duration} min`;
-            }
+    //         let prText = 'No records';
+    //         if (exercise.type === 'strength' && pr.maxWeight) {
+    //             prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
+    //         } else if (exercise.type === 'cardio' && pr.bestPace) {
+    //             prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
+    //         } else if (exercise.type === 'swimming' && pr.mostLaps) {
+    //             prText = `PR: ${pr.mostLaps.laps} laps`;
+    //         } else if (exercise.type === 'mobility' && pr.longestDuration) {
+    //             prText = `PR: ${pr.longestDuration.duration} min`;
+    //         }
 
-            const lastWorkoutText = lastWorkout ? 
-                new Date(lastWorkout.date).toLocaleDateString() : 'Never';
+    //         const lastWorkoutText = lastWorkout ? 
+    //             new Date(lastWorkout.date).toLocaleDateString() : 'Never';
 
-            resultsHtml += `
-                <div class="exercise-card" data-exercise-id="${exercise.id}">
-                    <div class="exercise-card-header">
-                        <div class="exercise-card-title">${exercise.name}</div>
-                        <div class="exercise-card-category">${exercise.category}</div>
-                    </div>
-                    <div class="exercise-card-info">
-                        <div class="exercise-info-item">
-                            <span class="exercise-info-value">${workoutsForExercise.length}</span>
-                            <span class="exercise-info-label">Sessions</span>
-                        </div>
-                        <div class="exercise-info-item">
-                            <span class="exercise-info-value">${lastWorkoutText}</span>
-                            <span class="exercise-info-label">Last</span>
-                        </div>
-                    </div>
-                    <div class="exercise-pr-info">${prText}</div>
-                </div>
-            `;
-        });
+    //         resultsHtml += `
+    //             <div class="exercise-card" data-exercise-id="${exercise.id}">
+    //                 <div class="exercise-card-header">
+    //                     <div class="exercise-card-title">${exercise.name}</div>
+    //                     <div class="exercise-card-category">${exercise.category}</div>
+    //                 </div>
+    //                 <div class="exercise-card-info">
+    //                     <div class="exercise-info-item">
+    //                         <span class="exercise-info-value">${workoutsForExercise.length}</span>
+    //                         <span class="exercise-info-label">Sessions</span>
+    //                     </div>
+    //                     <div class="exercise-info-item">
+    //                         <span class="exercise-info-value">${lastWorkoutText}</span>
+    //                         <span class="exercise-info-label">Last</span>
+    //                     </div>
+    //                 </div>
+    //                 <div class="exercise-pr-info">${prText}</div>
+    //             </div>
+    //         `;
+    //     });
 
-        if (resultsHtml === '') {
-            resultsHtml = '<p class="text-center">No exercises found for "' + query + '"</p>';
-        }
+    //     if (resultsHtml === '') {
+    //         resultsHtml = '<p class="text-center">No exercises found for "' + query + '"</p>';
+    //     }
 
-        $('#search-results-list').html(resultsHtml);
-        $('#search-results').removeClass('hidden');
-        $('#default-exercises').addClass('hidden');
+    //     $('#search-results-list').html(resultsHtml);
+    //     $('#search-results').removeClass('hidden');
+    //     $('#default-exercises').addClass('hidden');
+    // }
+    function performSearch() {
+      const query = ($('#search-input').val() || '').trim().toLowerCase();
+      const results = exercises.filter(ex =>
+        ex.name.toLowerCase().includes(query) ||
+        ex.category.toLowerCase().includes(query) ||
+        (ex.muscleGroups || []).some(m => m.toLowerCase().includes(query))
+      );
+    
+      const html = results.map(renderExerciseCard).join('') || `<div class="empty-state">No exercises found for “${query}”.</div>`;
+      $('#search-results-list').html(html);
+      $('#search-results').removeClass('hidden');
+      $('#default-exercises').addClass('hidden');
     }
 
+    
     // Show exercise detail modal
     function showExerciseDetail(exerciseId) {
         const exercise = exercises.find(ex => ex.id == exerciseId);
@@ -948,6 +970,41 @@ $(document).ready(function() {
         };
         return typeMap[category] || 'strength';
     }
+
+    function getExerciseImage(exercise) {
+  // Accepts either an uploaded data URL or a normal URL
+  return exercise.imageUrl && exercise.imageUrl.trim() ? exercise.imageUrl.trim() : '';
+}
+
+function renderExerciseCard(exercise) {
+  const img = getExerciseImage(exercise);
+  const muscleList = (exercise.muscleGroups || []).join(', ');
+  return `
+    <div class="exercise-card" data-exercise-id="${exercise.id}">
+      ${img ? `<img class="exercise-thumb" src="${img}" alt="${exercise.name}">` : ``}
+      <div class="exercise-card-content">
+        <div class="exercise-card-header">
+          <div class="exercise-card-title">${exercise.name}</div>
+          <div class="exercise-card-category">${exercise.category}</div>
+        </div>
+        <div class="exercise-card-info">
+          <div class="exercise-info-item">
+            <span class="exercise-info-value">${exercise.type || 'strength'}</span>
+            <span class="exercise-info-label">Type</span>
+          </div>
+          <div class="exercise-info-item">
+            <span class="exercise-info-value">${(exercise.muscleGroups || []).length}</span>
+            <span class="exercise-info-label">Muscles</span>
+          </div>
+          <div class="exercise-info-item">
+            <span class="exercise-info-value">${muscleList || '—'}</span>
+            <span class="exercise-info-label">Targets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
     // Load exercises list for master management
     function loadExercisesList() {
