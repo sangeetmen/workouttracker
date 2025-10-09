@@ -745,7 +745,7 @@ select.form-control {
     min-height: 100vh;
     background: var(--color-background);
     position: relative;
-    padding-bottom: 90px; /* Increased space for bottom nav */
+    padding-bottom: 90px;
 }
 
 /* Header */
@@ -836,11 +836,16 @@ select.form-control {
     box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
 }
 
-/* Single Column Exercise Layout */
-.exercises-list-single-column {
-    display: flex;
-    flex-direction: column;
+/* Exercise Cards */
+.search-results, .default-exercises {
+    margin-bottom: var(--space-16);
+}
+
+.exercise-cards-container, #search-results-list, #all-exercises-list {
+    display: grid;
     gap: var(--space-16);
+    grid-template-columns: 1fr;
+    margin-bottom: var(--space-16);
 }
 
 .exercise-card {
@@ -851,10 +856,6 @@ select.form-control {
     cursor: pointer;
     transition: all var(--duration-normal);
     box-shadow: var(--shadow-sm);
-    display: flex;
-    align-items: center;
-    gap: var(--space-16);
-    width: 100%;
 }
 
 .exercise-card:hover {
@@ -863,49 +864,17 @@ select.form-control {
     box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
 }
 
-.exercise-card-image {
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-base);
-    overflow: hidden;
-    background: var(--color-bg-3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.exercise-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--radius-base);
-}
-
-.exercise-card-image .placeholder-icon {
-    font-size: 32px;
-    color: var(--color-text-secondary);
-}
-
-.exercise-card-content {
-    flex: 1;
-    min-width: 0;
-}
-
 .exercise-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--space-8);
-    flex-wrap: wrap;
-    gap: var(--space-8);
+    align-items: center;
+    margin-bottom: var(--space-12);
 }
 
 .exercise-card-title {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text);
-    margin: 0;
 }
 
 .exercise-card-category {
@@ -915,131 +884,33 @@ select.form-control {
     border-radius: var(--radius-full);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
 }
 
-.exercise-card-details {
-    display: flex;
-    flex-wrap: wrap;
+.exercise-card-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: var(--space-8);
-    margin-bottom: var(--space-8);
 }
 
-.exercise-card-muscles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
+.exercise-info-item {
+    text-align: center;
+    padding: var(--space-8);
+    background: var(--color-bg-3);
+    border-radius: var(--radius-sm);
 }
 
-.muscle-tag {
-    background: rgba(0, 255, 65, 0.2);
+.exercise-info-value {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
     color: var(--color-text);
-    padding: var(--space-2) var(--space-6);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-xs);
-    border: 1px solid rgba(0, 255, 65, 0.4);
+    display: block;
 }
 
-.exercise-card-stats {
-    display: flex;
-    gap: var(--space-16);
-    font-size: var(--font-size-sm);
+.exercise-info-label {
+    font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-}
-
-.exercise-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.exercise-stat-value {
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-}
-
-.exercise-stat-label {
-    font-size: var(--font-size-xs);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-/* Exercises Browse Section */
-.exercises-browse {
-    margin-bottom: var(--space-24);
-}
-
-.filter-controls {
-    margin-bottom: var(--space-20);
-}
-
-/* Image Upload Section */
-.image-upload-section {
-    border: 2px dashed var(--color-border);
-    border-radius: var(--radius-base);
-    padding: var(--space-16);
-    background: var(--color-bg-1);
-}
-
-.upload-options {
-    display: grid;
-    gap: var(--space-16);
-    margin-bottom: var(--space-16);
-}
-
-.upload-option {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-}
-
-.upload-divider {
-    text-align: center;
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-secondary);
-    position: relative;
-    margin: var(--space-8) 0;
-}
-
-.upload-divider::before,
-.upload-divider::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: var(--color-border);
-}
-
-.upload-divider::before {
-    left: 0;
-}
-
-.upload-divider::after {
-    right: 0;
-}
-
-.image-preview-container {
-    margin-top: var(--space-16);
-}
-
-.image-preview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-8);
-    padding: var(--space-16);
-    background: var(--color-surface);
-    border-radius: var(--radius-base);
-    border: 2px solid var(--color-border);
-}
-
-.image-preview img {
-    max-width: 200px;
-    max-height: 150px;
-    object-fit: cover;
-    border-radius: var(--radius-base);
-    box-shadow: var(--shadow-sm);
 }
 
 /* Entry Section */
@@ -1055,6 +926,123 @@ select.form-control {
     border: 2px solid rgba(0, 255, 65, 0.2);
     box-shadow: var(--shadow-md);
     margin-bottom: var(--space-24);
+}
+
+/* Form Validation */
+.error-message {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-4);
+    display: none;
+}
+
+.form-control.error {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(var(--color-error-rgb), 0.1);
+}
+
+.form-control.success {
+    border-color: var(--color-success);
+    box-shadow: 0 0 0 3px rgba(var(--color-success-rgb), 0.1);
+}
+
+.form-control.success::after {
+    content: '✓';
+    position: absolute;
+    right: var(--space-12);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+/* Sets Management */
+.sets-container {
+    background: var(--color-bg-4);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    margin-bottom: var(--space-16);
+    border: 1px solid rgba(255, 102, 0, 0.3);
+}
+
+.sets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-16);
+}
+
+.sets-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.add-set-btn {
+    background: linear-gradient(135deg, #00ff41, #00cc33);
+    color: var(--color-slate-900);
+    border: none;
+    padding: var(--space-6) var(--space-12);
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--duration-normal);
+    box-shadow: 0 2px 8px rgba(0, 255, 65, 0.3);
+}
+
+.add-set-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 255, 65, 0.4);
+}
+
+.set-row {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr auto;
+    gap: var(--space-12);
+    align-items: center;
+    padding: var(--space-12);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-8);
+    border: 1px solid var(--color-border);
+}
+
+.set-number {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    min-width: 40px;
+}
+
+.set-input {
+    padding: var(--space-6) var(--space-8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+}
+
+.set-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.remove-set-btn {
+    background: var(--color-error);
+    color: white;
+    border: none;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+}
+
+.remove-set-btn:hover {
+    background: var(--color-error);
+    opacity: 0.8;
 }
 
 /* Dynamic form fields */
@@ -1098,6 +1086,12 @@ select.form-control {
 .btn--primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 255, 65, 0.4);
+}
+
+.btn--primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn--secondary {
@@ -1198,53 +1192,27 @@ select.form-control {
     border: 2px solid rgba(255, 102, 0, 0.2);
 }
 
-.exercise-master-item {
-    background: var(--color-surface);
-    border: 2px solid rgba(255, 20, 147, 0.2);
-    border-radius: var(--radius-lg);
-    padding: var(--space-16);
-    cursor: pointer;
-    transition: all var(--duration-normal);
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    align-items: center;
+.filter-controls {
+    margin-bottom: var(--space-20);
+}
+
+.exercises-grid {
+    display: grid;
     gap: var(--space-16);
-    width: 100%;
+    grid-template-columns: 1fr;
+}
+
+.exercise-master-item {
+    background: var(--color-bg-7);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    transition: all var(--duration-normal);
 }
 
 .exercise-master-item:hover {
-    border-color: #ff1493;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
-}
-
-.exercise-master-image {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: var(--radius-base);
-    overflow: hidden;
-    background: var(--color-bg-3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.exercise-master-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--radius-base);
-}
-
-.exercise-master-image .placeholder-icon {
-    font-size: 24px;
-    color: var(--color-text-secondary);
-}
-
-.exercise-master-content {
-    flex: 1;
-    min-width: 0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.2);
 }
 
 .exercise-master-header {
@@ -1252,8 +1220,6 @@ select.form-control {
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--space-8);
-    flex-wrap: wrap;
-    gap: var(--space-8);
 }
 
 .exercise-master-name {
@@ -1269,19 +1235,21 @@ select.form-control {
     border-radius: var(--radius-full);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
-    white-space: nowrap;
-}
-
-.exercise-master-details {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-8);
 }
 
 .exercise-master-muscles {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
+}
+
+.muscle-tag {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--color-text);
+    padding: var(--space-2) var(--space-6);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    border: 1px solid rgba(0, 255, 65, 0.4);
 }
 
 /* Bottom Navigation */
@@ -1432,86 +1400,68 @@ select.form-control {
     padding: var(--space-20);
 }
 
-.exercise-detail-content {
-    display: flex;
-    gap: var(--space-20);
+.modal-section {
     margin-bottom: var(--space-24);
-    align-items: flex-start;
 }
 
-.exercise-detail-image {
-    flex-shrink: 0;
-    width: 150px;
-    height: 150px;
-    border-radius: var(--radius-base);
-    overflow: hidden;
-    background: var(--color-bg-3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal-section:last-child {
+    margin-bottom: 0;
 }
 
-.exercise-detail-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.exercise-detail-info {
-    flex: 1;
-}
-
-.exercise-category-badge {
-    background: linear-gradient(135deg, #ff6600, #ff9900);
-    color: white;
-    padding: var(--space-6) var(--space-12);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    display: inline-block;
-    margin-bottom: var(--space-12);
-}
-
-.exercise-muscle-groups {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    margin-bottom: var(--space-12);
-}
-
-.exercise-equipment {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+.modal-section h4 {
     margin-bottom: var(--space-16);
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: var(--space-8);
 }
 
-.workout-history-item {
-    background: var(--color-bg-8);
+.pr-item {
+    background: var(--color-bg-3);
     padding: var(--space-12);
     border-radius: var(--radius-base);
     margin-bottom: var(--space-12);
-    border-left: 4px solid #00bfff;
-}
-
-.personal-record-stat {
-    background: var(--color-bg-3);
-    padding: var(--space-16);
-    border-radius: var(--radius-base);
-    text-align: center;
     border-left: 4px solid #00ff41;
 }
 
-.pr-value {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text);
-    display: block;
+.pr-item:last-child {
+    margin-bottom: 0;
 }
 
 .pr-label {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    text-transform: uppercase;
+    margin-bottom: var(--space-4);
+}
+
+.pr-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+.workout-info {
+    background: var(--color-bg-8);
+    padding: var(--space-16);
+    border-radius: var(--radius-base);
+    border: 1px solid rgba(0, 191, 255, 0.3);
+}
+
+.workout-date {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-8);
+}
+
+.workout-sets {
+    margin-top: var(--space-12);
+}
+
+.set-info {
+    background: var(--color-surface);
+    padding: var(--space-8);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-sm);
 }
 
 /* Toast */
@@ -1532,6 +1482,11 @@ select.form-control {
 
 .toast.hidden {
     display: none;
+}
+
+.toast.error {
+    background: linear-gradient(135deg, #ff1493, #ff69b4);
+    color: white;
 }
 
 @keyframes slideUp {
@@ -1564,17 +1519,16 @@ select.form-control {
 
 /* Responsive Design */
 @media (min-width: 640px) {
-    .checkbox-group {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .field-row {
+    .exercise-cards-container, #search-results-list, #all-exercises-list {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .upload-options {
-        grid-template-columns: 1fr auto 1fr;
-        align-items: end;
+    
+    .exercises-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .checkbox-group {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1584,12 +1538,16 @@ select.form-control {
         min-height: calc(100vh - 250px);
     }
     
-    .field-row {
+    .exercise-cards-container, #search-results-list, #all-exercises-list {
         grid-template-columns: repeat(3, 1fr);
     }
-
-    .exercise-detail-content {
-        flex-direction: row;
+    
+    .exercises-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .field-row {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1606,46 +1564,6 @@ select.form-control {
     .main-content {
         min-height: calc(100vh - 260px);
         margin-bottom: 0;
-    }
-}
-
-@media (max-width: 640px) {
-    .exercise-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .exercise-card-image {
-        width: 100px;
-        height: 100px;
-        align-self: center;
-    }
-
-    .exercise-card-header {
-        justify-content: center;
-        flex-direction: column;
-        gap: var(--space-4);
-    }
-
-    .exercise-detail-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .exercise-master-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .exercise-master-image {
-        align-self: center;
-    }
-
-    .exercise-master-header {
-        justify-content: center;
-        flex-direction: column;
-        gap: var(--space-4);
     }
 }
 

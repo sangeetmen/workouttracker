@@ -22,31 +22,18 @@
             <!-- Search/Query/View Section -->
             <section id="search-section" class="content-section active">
                 <div class="search-container">
-                    <input type="text" id="search-input" class="form-control search-input" placeholder="Search exercises or workouts...">
+                    <input type="text" id="search-input" class="form-control search-input" placeholder="Search exercises...">
                     <button id="search-btn" class="btn btn--primary search-btn">Search</button>
-                </div>
-                
-                <div class="exercises-browse">
-                    <h3>All Exercises</h3>
-                    <div class="filter-controls">
-                        <select id="browse-filter-category" class="form-control">
-                            <option value="">All Categories</option>
-                            <option value="Upper Body">Upper Body</option>
-                            <option value="Lower Body">Lower Body</option>
-                            <option value="Core">Core</option>
-                            <option value="Mobility">Mobility</option>
-                            <option value="Cardio">Cardio</option>
-                            <option value="Swimming">Swimming</option>
-                        </select>
-                    </div>
-                    <div id="exercises-browse-list" class="exercises-list-single-column">
-                        <!-- Exercise cards will be populated here -->
-                    </div>
                 </div>
 
                 <div id="search-results" class="search-results hidden">
                     <h3>Search Results</h3>
-                    <div id="search-results-list" class="exercises-list-single-column"></div>
+                    <div id="search-results-list"></div>
+                </div>
+                
+                <div id="default-exercises" class="default-exercises">
+                    <h3>All Exercises</h3>
+                    <div id="all-exercises-list"></div>
                 </div>
             </section>
 
@@ -57,12 +44,13 @@
                     
                     <form id="workout-form" class="workout-form">
                         <div class="form-group">
-                            <label class="form-label">Date</label>
+                            <label class="form-label">Date *</label>
                             <input type="date" id="workout-date" class="form-control" required>
+                            <div class="error-message" id="date-error"></div>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Category</label>
+                            <label class="form-label">Category *</label>
                             <select id="exercise-category" class="form-control" required>
                                 <option value="">Select Category</option>
                                 <option value="Upper Body">Upper Body</option>
@@ -73,13 +61,15 @@
                                 <option value="Swimming">Swimming</option>
                                 <option value="Rest Day">Rest Day</option>
                             </select>
+                            <div class="error-message" id="category-error"></div>
                         </div>
 
                         <div class="form-group" id="exercise-selection-group">
-                            <label class="form-label">Exercise</label>
+                            <label class="form-label">Exercise *</label>
                             <select id="exercise-select" class="form-control" required>
                                 <option value="">Select Exercise</option>
                             </select>
+                            <div class="error-message" id="exercise-error"></div>
                         </div>
 
                         <!-- Dynamic form fields will be inserted here -->
@@ -109,12 +99,13 @@
                         <h4>Add New Exercise</h4>
                         <form id="add-exercise-form">
                             <div class="form-group">
-                                <label class="form-label">Exercise Name</label>
+                                <label class="form-label">Exercise Name *</label>
                                 <input type="text" id="new-exercise-name" class="form-control" required>
+                                <div class="error-message" id="new-name-error"></div>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Category</label>
+                                <label class="form-label">Category *</label>
                                 <select id="new-exercise-category" class="form-control" required>
                                     <option value="">Select Category</option>
                                     <option value="Upper Body">Upper Body</option>
@@ -124,35 +115,7 @@
                                     <option value="Cardio">Cardio</option>
                                     <option value="Swimming">Swimming</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Equipment</label>
-                                <input type="text" id="new-exercise-equipment" class="form-control" placeholder="e.g., Barbell, Dumbbell, Machine">
-                            </div>
-
-                            <!-- Image Upload Section -->
-                            <div class="form-group">
-                                <label class="form-label">Exercise Image</label>
-                                <div class="image-upload-section">
-                                    <div class="upload-options">
-                                        <div class="upload-option">
-                                            <label class="form-label">Upload Image File</label>
-                                            <input type="file" id="exercise-image-file" class="form-control" accept="image/*">
-                                        </div>
-                                        <div class="upload-divider">OR</div>
-                                        <div class="upload-option">
-                                            <label class="form-label">Image URL</label>
-                                            <input type="url" id="exercise-image-url" class="form-control" placeholder="https://example.com/image.jpg">
-                                        </div>
-                                    </div>
-                                    <div class="image-preview-container">
-                                        <div id="image-preview" class="image-preview hidden">
-                                            <img id="preview-image" src="" alt="Preview">
-                                            <button type="button" id="remove-image" class="btn btn--sm btn--outline">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="error-message" id="new-category-error"></div>
                             </div>
 
                             <div class="form-group">
@@ -191,7 +154,7 @@
                                 <option value="Swimming">Swimming</option>
                             </select>
                         </div>
-                        <div id="exercises-list-master" class="exercises-list-single-column"></div>
+                        <div id="exercises-list-master" class="exercises-grid"></div>
                     </div>
                 </div>
             </section>
@@ -223,24 +186,27 @@
                 <button class="modal-close">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="exercise-detail-content">
-                    <div class="exercise-detail-image">
-                        <img id="modal-exercise-image" src="" alt="" class="exercise-detail-img">
-                    </div>
-                    <div class="exercise-detail-info">
-                        <div class="exercise-category-badge" id="modal-exercise-category"></div>
-                        <div class="exercise-muscle-groups" id="modal-exercise-muscles"></div>
-                        <div class="exercise-equipment" id="modal-exercise-equipment"></div>
-                    </div>
+                <div id="modal-last-workout" class="modal-section">
+                    <h4>Last Workout</h4>
+                    <div id="last-workout-info"></div>
                 </div>
-                <div id="modal-workout-history">
-                    <h4>Workout History</h4>
-                    <div id="workout-history-list"></div>
+                <div id="modal-personal-records" class="modal-section">
+                    <h4>Personal Records</h4>
+                    <div id="personal-records-info"></div>
                 </div>
-                <div id="modal-personal-record">
-                    <h4>Personal Record</h4>
-                    <div id="personal-record-info"></div>
-                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workout Detail Modal -->
+    <div id="workout-detail-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-workout-title"></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-workout-details"></div>
             </div>
         </div>
     </div>
