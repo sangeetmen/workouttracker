@@ -906,8 +906,8 @@ textarea.form-control {
   outline-offset: 2px;
 }
 .exercise-image {
-  width: 80px;              /* Fixed width */
-  height: 80px;             /* Fixed height */
+  width: 200px;              /* Fixed width */
+  height: 200px;             /* Fixed height */
   object-fit: cover;        /* Crop to fit nicely */
   border-radius: 8px;       /* Rounded corners */
   background: #eee;         /* Light background in case image is blank */
