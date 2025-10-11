@@ -91,6 +91,10 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
+
+  --color-background: #fff;
+  --color-surface: #fff;
+  --color-text: #212529;
 }
 
 /* Base styles */
@@ -109,6 +113,9 @@ body {
   padding: 0;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   min-height: 100vh;
+  --color-background: #fff;
+  --color-surface: #fff;
+  --color-text: #212529;
 }
 
 *,
