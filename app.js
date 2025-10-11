@@ -795,16 +795,15 @@ $(document).ready(function() {
         // Clear all data
         function clearAllData() {
             if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-                exercises = [...sampleExercises];
-                workouts = [...sampleWorkouts];
-                exerciseIdCounter = 11;
-                workoutIdCounter = 3;
-                
-                saveData();
-                updateExerciseSelect();
-                renderExercises();
-                
-                showAlert('All data cleared and reset to defaults', 'success');
+                localStorage.removeItem('exercises');
+				localStorage.removeItem('workouts');
+				// Reset in-memory variables to sample data
+				exercises = [...sampleExercises];
+				workouts = [...sampleWorkouts];
+				saveData();         // update localStorage (if needed for session)
+				updateExerciseSelect();
+				renderExercises();
+				showAlert('All data cleared and reset to defaults', 'success');
             }
         }
         
