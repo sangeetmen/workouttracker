@@ -1,37 +1,11 @@
 $(document).ready(function() {
     console.log('FitTrack app initializing...');
-
-
-
-    $('#new-exercise-image-url').on('input', function () {
-          const url = ($(this).val() || '').trim();
-          if (url) {
-            $('#new-exercise-image-preview').show();
-            $('#new-exercise-image-preview-img').attr('src', url);
-            $('#new-exercise-image-file').val(''); // clear file if URL is used
-          } else {
-            $('#new-exercise-image-preview').hide();
-            $('#new-exercise-image-preview-img').attr('src', '');
-          }
-        });
-        
-        $('#new-exercise-image-file').on('change', function () {
-          const file = this.files && this.files[0];
-          if (!file) return;
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            $('#new-exercise-image-preview').show();
-            $('#new-exercise-image-preview-img').attr('src', e.target.result);
-            $('#new-exercise-image-url').val(''); // clear URL if file is used
-          };
-          reader.readAsDataURL(file);
-        });
-
-    // Application state - using in-memory storage
+    
+    // Application state - using in-memory storage instead of localStorage
     let currentSection = 'search-section';
     let exercises = [];
     let workouts = [];
-    let personalRecords = {};
+    let currentWorkout = null;
 
     // Sample data initialization
     const sampleExercises = [
@@ -39,6 +13,7 @@ $(document).ready(function() {
             id: 1,
             name: "Bench Press",
             category: "Upper Body",
+            equipment: "Barbell, Bench",
             muscleGroups: ["Chest", "Triceps", "Shoulders"],
             type: "strength"
         },
@@ -46,6 +21,7 @@ $(document).ready(function() {
             id: 2,
             name: "Squats",
             category: "Lower Body", 
+            equipment: "Barbell, Squat Rack",
             muscleGroups: ["Quadriceps", "Glutes", "Core"],
             type: "strength"
         },
@@ -53,6 +29,7 @@ $(document).ready(function() {
             id: 3,
             name: "Treadmill",
             category: "Cardio",
+            equipment: "Treadmill",
             muscleGroups: ["Legs", "Cardiovascular"],
             type: "cardio"
         },
@@ -60,6 +37,7 @@ $(document).ready(function() {
             id: 4,
             name: "Freestyle Swimming",
             category: "Swimming",
+            equipment: "Pool",
             muscleGroups: ["Full Body", "Cardiovascular"],
             type: "swimming"
         },
@@ -67,6 +45,7 @@ $(document).ready(function() {
             id: 5,
             name: "Plank",
             category: "Core",
+            equipment: "None",
             muscleGroups: ["Core", "Shoulders"],
             type: "strength"
         },
@@ -74,6 +53,7 @@ $(document).ready(function() {
             id: 6,
             name: "Dynamic Stretching",
             category: "Mobility",
+            equipment: "None", 
             muscleGroups: ["Full Body"],
             type: "mobility"
         },
@@ -81,6 +61,7 @@ $(document).ready(function() {
             id: 7,
             name: "Deadlift",
             category: "Lower Body",
+            equipment: "Barbell",
             muscleGroups: ["Hamstrings", "Glutes", "Back"],
             type: "strength"
         },
@@ -88,51 +69,17 @@ $(document).ready(function() {
             id: 8,
             name: "Pull-ups",
             category: "Upper Body",
+            equipment: "Pull-up Bar",
             muscleGroups: ["Back", "Biceps"],
             type: "strength"
         },
         {
             id: 9,
-            name: "Cycling",
+            name: "Stationary Bike",
             category: "Cardio",
+            equipment: "Exercise Bike",
             muscleGroups: ["Legs", "Cardiovascular"],
             type: "cardio"
-        },
-        {
-            id: 10,
-            name: "Backstroke Swimming",
-            category: "Swimming",
-            muscleGroups: ["Full Body", "Cardiovascular"],
-            type: "swimming"
-        }
-    ];
-
-    // Sample workout data with individual sets
-    const sampleWorkouts = [
-        {
-            id: 1,
-            date: "2024-10-08",
-            exerciseId: 1,
-            exerciseName: "Bench Press",
-            category: "Upper Body",
-            type: "strength",
-            sets: [
-                {setNumber: 1, reps: 12, weight: 60},
-                {setNumber: 2, reps: 10, weight: 70},
-                {setNumber: 3, reps: 8, weight: 80}
-            ]
-        },
-        {
-            id: 2,
-            date: "2024-10-07",
-            exerciseId: 3,
-            exerciseName: "Treadmill",
-            category: "Cardio",
-            type: "cardio",
-            duration: 30,
-            distance: 5.2,
-            pace: 5.77,
-            incline: 2
         }
     ];
 
@@ -144,76 +91,66 @@ $(document).ready(function() {
         initEventListeners();
         setTodaysDate();
         updateStreakCounter();
-        loadAllExercises();
-        calculatePersonalRecords();
+        loadRecentWorkouts();
+        loadExercisesList();
         showToast('Welcome to FitTrack!');
         console.log('App initialization complete');
-        console.log('Loaded exercises:', exercises.length);
     }
 
-    // Data management
+    // Data management - using in-memory storage
     function loadData() {
         console.log('Loading data...');
         exercises = [...sampleExercises];
-        workouts = [...sampleWorkouts];
+        workouts = [
+            // Sample workout data
+            {
+                id: "1",
+                date: "2024-10-08",
+                exercises: [{
+                    id: "1",
+                    exerciseId: 1,
+                    exerciseName: "Bench Press",
+                    category: "Upper Body",
+                    type: "strength",
+                    sets: 3,
+                    reps: "10,8,6",
+                    weight: 70,
+                    restTime: 2,
+                    notes: "Felt strong today"
+                }]
+            },
+            {
+                id: "2", 
+                date: "2024-10-07",
+                exercises: [{
+                    id: "2",
+                    exerciseId: 2,
+                    exerciseName: "Squats",
+                    category: "Lower Body",
+                    type: "strength",
+                    sets: 4,
+                    reps: "12,10,8,6",
+                    weight: 80,
+                    restTime: 3,
+                    notes: "Good depth"
+                }]
+            }
+        ];
         console.log('Data loaded:', { exercises: exercises.length, workouts: workouts.length });
     }
 
-    // Calculate personal records from workout history
-    function calculatePersonalRecords() {
-        personalRecords = {};
-        
-        workouts.forEach(workout => {
-            const exerciseId = workout.exerciseId;
-            if (!personalRecords[exerciseId]) {
-                personalRecords[exerciseId] = {};
-            }
-
-            const pr = personalRecords[exerciseId];
-
-            if (workout.type === 'strength' && workout.sets) {
-                workout.sets.forEach(set => {
-                    // Max weight
-                    if (!pr.maxWeight || set.weight > pr.maxWeight.weight) {
-                        pr.maxWeight = { weight: set.weight, reps: set.reps, date: workout.date };
-                    }
-                    // Max reps
-                    if (!pr.maxReps || set.reps > pr.maxReps.reps) {
-                        pr.maxReps = { reps: set.reps, weight: set.weight, date: workout.date };
-                    }
-                });
-            } else if (workout.type === 'cardio') {
-                // Best time (fastest pace)
-                if (workout.pace && (!pr.bestPace || workout.pace > pr.bestPace.pace)) {
-                    pr.bestPace = { pace: workout.pace, distance: workout.distance, date: workout.date };
-                }
-                // Longest distance
-                if (workout.distance && (!pr.longestDistance || workout.distance > pr.longestDistance.distance)) {
-                    pr.longestDistance = { distance: workout.distance, duration: workout.duration, date: workout.date };
-                }
-            } else if (workout.type === 'swimming') {
-                // Most laps
-                if (workout.laps && (!pr.mostLaps || workout.laps > pr.mostLaps.laps)) {
-                    pr.mostLaps = { laps: workout.laps, time: workout.totalTime, date: workout.date };
-                }
-                // Best time
-                if (workout.totalTime && (!pr.bestTime || workout.totalTime < pr.bestTime.time)) {
-                    pr.bestTime = { time: workout.totalTime, laps: workout.laps, date: workout.date };
-                }
-            } else if (workout.type === 'mobility') {
-                // Longest duration
-                if (workout.duration && (!pr.longestDuration || workout.duration > pr.longestDuration.duration)) {
-                    pr.longestDuration = { duration: workout.duration, intensity: workout.intensity, date: workout.date };
-                }
-            }
-        });
-    }
-
-    // Navigation
+    // Navigation - CRITICAL FIX
     function initNavigation() {
         console.log('Initializing navigation...');
-        $('.nav-item').off('click').on('click', function(e) {
+        
+        // Remove any existing event handlers to prevent duplicates
+        $('.nav-item').off('click');
+        
+        // Add click handler for navigation items
+        $('.nav-item').on('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            
             const targetSection = $(this).data('section');
             console.log('Navigation clicked:', targetSection);
             
@@ -221,26 +158,47 @@ $(document).ready(function() {
                 switchSection(targetSection);
             }
         });
+        
+        // Also handle touch events for mobile
+        $('.nav-item').on('touchend', function(e) {
+            e.preventDefault();
+            const targetSection = $(this).data('section');
+            console.log('Navigation touched:', targetSection);
+            
+            if (targetSection && targetSection !== currentSection) {
+                switchSection(targetSection);
+            }
+        });
+        
+        console.log('Navigation handlers bound to', $('.nav-item').length, 'items');
     }
 
     function switchSection(sectionId) {
         console.log('Switching from', currentSection, 'to', sectionId);
         
+        // Update navigation active state
         $('.nav-item').removeClass('active');
         $(`.nav-item[data-section="${sectionId}"]`).addClass('active');
+        
+        // Hide all content sections
         $('.content-section').removeClass('active');
+        
+        // Show target section
         $(`#${sectionId}`).addClass('active');
         
         currentSection = sectionId;
+        console.log('Section switched successfully to:', currentSection);
 
+        // Section-specific updates
         if (sectionId === 'search-section') {
-            loadAllExercises();
+            loadRecentWorkouts();
         } else if (sectionId === 'entry-section') {
             updateCurrentWorkoutDisplay();
         } else if (sectionId === 'master-section') {
             loadExercisesList();
         }
         
+        // Show toast to confirm navigation
         showToast(`Switched to ${sectionId.replace('-section', '').replace('-', ' ')} section`);
     }
 
@@ -248,182 +206,74 @@ $(document).ready(function() {
     function initEventListeners() {
         console.log('Initializing event listeners...');
         
-        // Exercise category change with validation
+        // Exercise category change
         $('#exercise-category').on('change', function() {
             const category = $(this).val();
             console.log('Category changed to:', category);
-            validateField(this, 'category-error', 'Please select a category');
             updateExerciseDropdown(category);
             updateDynamicFormFields();
         });
 
-        // Exercise selection change with validation
+        // Exercise selection change
         $('#exercise-select').on('change', function() {
             const exerciseId = $(this).val();
             console.log('Exercise selected:', exerciseId);
-            validateField(this, 'exercise-error', 'Please select an exercise');
             updateDynamicFormFields();
         });
 
-        // Date validation
-        $('#workout-date').on('change', function() {
-            validateField(this, 'date-error', 'Please select a date');
-        });
-
-        // Workout form submission with validation
+        // Workout form submission
         $('#workout-form').on('submit', function(e) {
             e.preventDefault();
-            if (validateWorkoutForm()) {
-                saveWorkout();
-            }
+            console.log('Workout form submitted');
+            saveWorkout();
         });
 
-        // Add exercise form submission with validation
+        // Add exercise form submission
         $('#add-exercise-form').on('submit', function(e) {
             e.preventDefault();
-            if (validateAddExerciseForm()) {
-                addNewExercise();
-            }
+            console.log('Add exercise form submitted');
+            addNewExercise();
         });
 
         // Search functionality
-        $('#search-btn').on('click', performSearch);
+        $('#search-btn').on('click', function() {
+            console.log('Search button clicked');
+            performSearch();
+        });
+        
         $('#search-input').on('keypress', function(e) {
             if (e.which === 13) {
+                console.log('Search input enter pressed');
                 performSearch();
             }
         });
 
         // Modal close
         $(document).on('click', '.modal-close', function() {
-            $(this).closest('.modal').addClass('hidden');
-        });
-
-        // Exercise card clicks
-        $(document).on('click', '.exercise-card', function() {
-            const exerciseId = $(this).data('exercise-id');
-            showExerciseDetail(exerciseId);
-        });
-
-        // Add set functionality
-        $(document).on('click', '.add-set-btn', function() {
-            addSet();
-        });
-
-        // Remove set functionality
-        $(document).on('click', '.remove-set-btn', function() {
-            $(this).closest('.set-row').remove();
-            updateSetNumbers();
+            console.log('Modal close clicked');
+            $(this).closest('.modal').removeClass('active').addClass('hidden');
         });
 
         // Category filter in master section
         $('#filter-category').on('change', function() {
+            console.log('Filter category changed');
             loadExercisesList();
         });
 
-        // Auto-focus on next input
-        $(document).on('input', '.set-input', function() {
-            const $currentRow = $(this).closest('.set-row');
-            const $nextInput = $currentRow.find('.set-input').eq($(this).parent().index());
-            if ($(this).val() && $nextInput.length && $nextInput.get(0) !== this) {
-                $nextInput.focus();
-            }
-        });
-    }
-
-    // Form Validation
-    function validateField(field, errorId, message) {
-        const $field = $(field);
-        const $error = $(`#${errorId}`);
-        const value = $field.val().trim();
-
-        if (!value) {
-            $field.removeClass('success').addClass('error');
-            $error.text(message).show();
-            return false;
-        } else {
-            $field.removeClass('error').addClass('success');
-            $error.hide();
-            return true;
-        }
-    }
-
-    function validateNumericField(field, errorId, message, min = null, max = null) {
-        const $field = $(field);
-        const $error = $(`#${errorId}`);
-        const value = parseFloat($field.val());
-
-        if (isNaN(value) || (min !== null && value < min) || (max !== null && value > max)) {
-            $field.removeClass('success').addClass('error');
-            $error.text(message).show();
-            return false;
-        } else {
-            $field.removeClass('error').addClass('success');
-            $error.hide();
-            return true;
-        }
-    }
-
-    function validateWorkoutForm() {
-        let isValid = true;
-
-        // Validate required fields
-        isValid &= validateField('#workout-date', 'date-error', 'Please select a date');
-        isValid &= validateField('#exercise-category', 'category-error', 'Please select a category');
-        
-        const category = $('#exercise-category').val();
-        if (category !== 'Rest Day') {
-            isValid &= validateField('#exercise-select', 'exercise-error', 'Please select an exercise');
-        }
-
-        // Validate dynamic fields based on exercise type
-        const exercise = exercises.find(ex => ex.id == $('#exercise-select').val());
-        if (exercise && exercise.type === 'strength') {
-            // Validate sets
-            $('.set-input').each(function() {
-                const $input = $(this);
-                const type = $input.hasClass('reps-input') ? 'reps' : 'weight';
-                const min = type === 'reps' ? 1 : 0;
-                const message = type === 'reps' ? 'Reps must be at least 1' : 'Weight must be 0 or greater';
-                
-                if (!validateNumericField(this, null, message, min)) {
-                    isValid = false;
-                }
-            });
-        }
-
-        return isValid;
-    }
-
-    function validateAddExerciseForm() {
-        let isValid = true;
-        isValid &= validateField('#new-exercise-name', 'new-name-error', 'Please enter an exercise name');
-        isValid &= validateField('#new-exercise-category', 'new-category-error', 'Please select a category');
-        
-        // Check for duplicate exercise names
-        const name = $('#new-exercise-name').val().trim();
-        if (exercises.some(ex => ex.name.toLowerCase() === name.toLowerCase())) {
-            $('#new-exercise-name').removeClass('success').addClass('error');
-            $('#new-name-error').text('Exercise already exists').show();
-            isValid = false;
-        }
-
-        return isValid;
+        console.log('Event listeners initialized');
     }
 
     // Set today's date
     function setTodaysDate() {
         const today = new Date().toISOString().split('T')[0];
         $('#workout-date').val(today);
+        console.log('Date set to:', today);
     }
 
-    // Update exercise dropdown based on category - FIXED
+    // Update exercise dropdown based on category
     function updateExerciseDropdown(category) {
         const $exerciseSelect = $('#exercise-select');
         $exerciseSelect.empty().append('<option value="">Select Exercise</option>');
-        
-        console.log('Updating exercise dropdown for category:', category);
-        console.log('Available exercises:', exercises.length);
 
         if (category === 'Rest Day') {
             $exerciseSelect.append('<option value="rest_day">Rest Day</option>');
@@ -434,17 +284,14 @@ $(document).ready(function() {
         }
 
         const filteredExercises = exercises.filter(ex => ex.category === category);
-        console.log('Filtered exercises for category', category, ':', filteredExercises.length);
-        
         filteredExercises.forEach(exercise => {
             $exerciseSelect.append(`<option value="${exercise.id}">${exercise.name}</option>`);
-            console.log('Added exercise to dropdown:', exercise.name);
         });
         
         console.log('Exercise dropdown updated with', filteredExercises.length, 'exercises');
     }
 
-    // Update dynamic form fields with set management
+    // Update dynamic form fields
     function updateDynamicFormFields() {
         const category = $('#exercise-category').val();
         const exerciseId = $('#exercise-select').val();
@@ -470,98 +317,105 @@ $(document).ready(function() {
         const exercise = exercises.find(ex => ex.id == exerciseId);
         if (!exercise) return;
 
-        let fieldsHtml = '';
+        let fieldsHtml = '<div class="dynamic-field-group">';
+        fieldsHtml += `<h5>${exercise.name}</h5>`;
 
-        if (exercise.type === 'strength') {
+        if (exercise.type === 'strength' || exercise.category === 'Core') {
             fieldsHtml += `
-                <div class="sets-container">
-                    <div class="sets-header">
-                        <h5 class="sets-title">Sets for ${exercise.name}</h5>
-                        <button type="button" class="add-set-btn">+ Add Set</button>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Sets</label>
+                        <input type="number" class="form-control" id="sets" min="1" placeholder="3">
                     </div>
-                    <div class="sets-list">
-                        <!-- Sets will be added here -->
+                    <div class="form-group">
+                        <label class="form-label">Reps (per set)</label>
+                        <input type="text" class="form-control" id="reps" placeholder="12,10,8">
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" step="0.5" placeholder="50">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Rest Between Sets (min)</label>
+                        <input type="number" class="form-control" id="rest-time" step="0.5" placeholder="2">
                     </div>
                 </div>
             `;
         } else if (exercise.type === 'cardio') {
             fieldsHtml += `
-                <div class="dynamic-field-group">
-                    <h5>${exercise.name}</h5>
-                    <div class="field-row">
-                        <div class="form-group">
-                            <label class="form-label">Duration (minutes) *</label>
-                            <input type="number" class="form-control" id="duration" min="1" placeholder="30" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Distance (km)</label>
-                            <input type="number" class="form-control" id="distance" step="0.1" placeholder="5.0" min="0">
-                        </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Duration (minutes)</label>
+                        <input type="number" class="form-control" id="duration" min="1" placeholder="30">
                     </div>
-                    <div class="field-row">
-                        <div class="form-group">
-                            <label class="form-label">Average Speed (km/h)</label>
-                            <input type="number" class="form-control" id="speed" step="0.1" placeholder="10.0" min="0">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Incline (%)</label>
-                            <input type="number" class="form-control" id="incline" step="0.5" placeholder="2.0" min="0">
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Distance (km)</label>
+                        <input type="number" class="form-control" id="distance" step="0.1" placeholder="5.0">
                     </div>
+                </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Average Speed (km/h)</label>
+                        <input type="number" class="form-control" id="speed" step="0.1" placeholder="10.0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Incline (%)</label>
+                        <input type="number" class="form-control" id="incline" step="0.5" placeholder="2.0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Calories Burned (optional)</label>
+                    <input type="number" class="form-control" id="calories" placeholder="300">
                 </div>
             `;
         } else if (exercise.type === 'swimming') {
             fieldsHtml += `
-                <div class="dynamic-field-group">
-                    <h5>${exercise.name}</h5>
-                    <div class="field-row">
-                        <div class="form-group">
-                            <label class="form-label">Laps *</label>
-                            <input type="number" class="form-control" id="laps" min="1" placeholder="20" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Pool Length</label>
-                            <select class="form-control" id="pool-length">
-                                <option value="25m">25m</option>
-                                <option value="50m">50m</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Laps</label>
+                        <input type="number" class="form-control" id="laps" min="1" placeholder="20">
                     </div>
-                    <div class="field-row">
-                        <div class="form-group">
-                            <label class="form-label">Total Time (minutes)</label>
-                            <input type="number" class="form-control" id="total-time" step="0.5" placeholder="45" min="0">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Stroke Type</label>
-                            <select class="form-control" id="stroke-type">
-                                <option value="Freestyle">Freestyle</option>
-                                <option value="Backstroke">Backstroke</option>
-                                <option value="Breaststroke">Breaststroke</option>
-                                <option value="Butterfly">Butterfly</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Pool Length</label>
+                        <select class="form-control" id="pool-length">
+                            <option value="25m">25m</option>
+                            <option value="50m">50m</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Total Time (minutes)</label>
+                        <input type="number" class="form-control" id="total-time" step="0.5" placeholder="45">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stroke Type</label>
+                        <select class="form-control" id="stroke-type">
+                            <option value="Freestyle">Freestyle</option>
+                            <option value="Backstroke">Backstroke</option>
+                            <option value="Breaststroke">Breaststroke</option>
+                            <option value="Butterfly">Butterfly</option>
+                        </select>
                     </div>
                 </div>
             `;
         } else if (exercise.type === 'mobility') {
             fieldsHtml += `
-                <div class="dynamic-field-group">
-                    <h5>${exercise.name}</h5>
-                    <div class="field-row">
-                        <div class="form-group">
-                            <label class="form-label">Duration (minutes) *</label>
-                            <input type="number" class="form-control" id="duration" min="1" placeholder="15" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Intensity</label>
-                            <select class="form-control" id="intensity">
-                                <option value="Light">Light</option>
-                                <option value="Moderate">Moderate</option>
-                                <option value="Intense">Intense</option>
-                            </select>
-                        </div>
+                <div class="field-row">
+                    <div class="form-group">
+                        <label class="form-label">Duration (minutes)</label>
+                        <input type="number" class="form-control" id="duration" min="1" placeholder="15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Intensity</label>
+                        <select class="form-control" id="intensity">
+                            <option value="Light">Light</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Intense">Intense</option>
+                        </select>
                     </div>
                 </div>
             `;
@@ -574,60 +428,37 @@ $(document).ready(function() {
             </div>
         `;
         
+        fieldsHtml += '</div>';
         $dynamicFields.html(fieldsHtml);
-
-        // Add initial set for strength exercises
-        if (exercise.type === 'strength') {
-            addSet();
-        }
     }
 
-    // Set Management
-    function addSet() {
-        const setCount = $('.set-row').length;
-        const setNumber = setCount + 1;
-        
-        const setHtml = `
-            <div class="set-row">
-                <div class="set-number">Set ${setNumber}:</div>
-                <div class="form-group">
-                    <input type="number" class="form-control set-input reps-input" placeholder="Reps" min="1" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control set-input weight-input" placeholder="Weight (kg)" step="0.5" min="0" required>
-                </div>
-                <div>
-                    <button type="button" class="remove-set-btn">Remove</button>
-                </div>
-            </div>
-        `;
-        
-        $('.sets-list').append(setHtml);
-        
-        // Focus on the reps input of the new set
-        $('.set-row').last().find('.reps-input').focus();
-    }
-
-    function updateSetNumbers() {
-        $('.set-row').each(function(index) {
-            $(this).find('.set-number').text(`Set ${index + 1}:`);
-        });
-    }
-
-    // Save workout with individual sets
+    // Save workout
     function saveWorkout() {
         const workoutData = collectWorkoutData();
         if (!workoutData) return;
 
-        workouts.push(workoutData);
-        calculatePersonalRecords();
+        // Add to workouts array
+        const workoutId = Date.now().toString();
+        const workout = {
+            id: workoutId,
+            date: workoutData.date,
+            exercises: [workoutData]
+        };
+
+        // Check if workout for this date already exists
+        const existingWorkoutIndex = workouts.findIndex(w => w.date === workoutData.date);
+        if (existingWorkoutIndex !== -1) {
+            workouts[existingWorkoutIndex].exercises.push(workoutData);
+        } else {
+            workouts.push(workout);
+        }
 
         console.log('Workout saved:', workoutData);
         showToast('Workout saved successfully!');
         updateCurrentWorkoutDisplay();
         clearForm();
         updateStreakCounter();
-        loadAllExercises(); // Refresh to show updated last workout dates
+        loadRecentWorkouts();
     }
 
     // Collect workout data from form
@@ -636,8 +467,13 @@ $(document).ready(function() {
         const category = $('#exercise-category').val();
         const exerciseId = $('#exercise-select').val();
 
+        if (!date || !category) {
+            showToast('Please fill in all required fields', 'error');
+            return null;
+        }
+
         const data = {
-            id: Date.now(),
+            id: Date.now().toString(),
             date: date,
             category: category,
             timestamp: new Date().toISOString()
@@ -651,33 +487,28 @@ $(document).ready(function() {
             return data;
         }
 
+        if (!exerciseId) {
+            showToast('Please select an exercise', 'error');
+            return null;
+        }
+
         const exercise = exercises.find(ex => ex.id == exerciseId);
-        data.exerciseId = parseInt(exerciseId);
+        data.exerciseId = exerciseId;
         data.exerciseName = exercise.name;
         data.type = exercise.type;
 
         // Collect type-specific data
-        if (exercise.type === 'strength') {
-            data.sets = [];
-            $('.set-row').each(function(index) {
-                const reps = parseInt($(this).find('.reps-input').val());
-                const weight = parseFloat($(this).find('.weight-input').val());
-                if (reps && !isNaN(weight)) {
-                    data.sets.push({
-                        setNumber: index + 1,
-                        reps: reps,
-                        weight: weight
-                    });
-                }
-            });
+        if (exercise.type === 'strength' || exercise.category === 'Core') {
+            data.sets = parseInt($('#sets').val()) || 0;
+            data.reps = $('#reps').val();
+            data.weight = parseFloat($('#weight').val()) || 0;
+            data.restTime = parseFloat($('#rest-time').val()) || 0;
         } else if (exercise.type === 'cardio') {
             data.duration = parseInt($('#duration').val()) || 0;
             data.distance = parseFloat($('#distance').val()) || 0;
             data.speed = parseFloat($('#speed').val()) || 0;
             data.incline = parseFloat($('#incline').val()) || 0;
-            if (data.duration && data.distance) {
-                data.pace = data.distance / (data.duration / 60); // km/h
-            }
+            data.calories = parseInt($('#calories').val()) || 0;
         } else if (exercise.type === 'swimming') {
             data.laps = parseInt($('#laps').val()) || 0;
             data.poolLength = $('#pool-length').val();
@@ -696,337 +527,282 @@ $(document).ready(function() {
     function clearForm() {
         $('#workout-form')[0].reset();
         $('#dynamic-form-fields').empty();
-        $('.form-control').removeClass('success error');
-        $('.error-message').hide();
         setTodaysDate();
     }
 
-    // Load all exercises for search section
-    // function loadAllExercises() {
-    //     let exercisesHtml = '';
+    // Update current workout display
+    function updateCurrentWorkoutDisplay() {
+        const today = new Date().toISOString().split('T')[0];
+        const todayWorkouts = workouts.filter(w => w.date === today);
         
-    //     exercises.forEach(exercise => {
-    //         const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
-    //         const lastWorkout = workoutsForExercise.length > 0 ? 
-    //             workoutsForExercise[workoutsForExercise.length - 1] : null;
-    //         const pr = personalRecords[exercise.id] || {};
-            
-    //         let prText = 'No records';
-    //         if (exercise.type === 'strength' && pr.maxWeight) {
-    //             prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
-    //         } else if (exercise.type === 'cardio' && pr.bestPace) {
-    //             prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
-    //         } else if (exercise.type === 'swimming' && pr.mostLaps) {
-    //             prText = `PR: ${pr.mostLaps.laps} laps`;
-    //         } else if (exercise.type === 'mobility' && pr.longestDuration) {
-    //             prText = `PR: ${pr.longestDuration.duration} min`;
-    //         }
+        if (todayWorkouts.length === 0) {
+            $('#current-workout-exercises').addClass('hidden');
+            return;
+        }
 
-    //         const lastWorkoutText = lastWorkout ? 
-    //             new Date(lastWorkout.date).toLocaleDateString() : 'Never';
+        const exercises = [];
+        todayWorkouts.forEach(workout => {
+            exercises.push(...workout.exercises);
+        });
 
-    //         exercisesHtml += `
-    //             <div class="exercise-card" data-exercise-id="${exercise.id}">
-    //                 <div class="exercise-card-header">
-    //                     <div class="exercise-card-title">${exercise.name}</div>
-    //                     <div class="exercise-card-category">${exercise.category}</div>
-    //                 </div>
-    //                 <div class="exercise-card-info">
-    //                     <div class="exercise-info-item">
-    //                         <span class="exercise-info-value">${workoutsForExercise.length}</span>
-    //                         <span class="exercise-info-label">Sessions</span>
-    //                     </div>
-    //                     <div class="exercise-info-item">
-    //                         <span class="exercise-info-value">${lastWorkoutText}</span>
-    //                         <span class="exercise-info-label">Last</span>
-    //                     </div>
-    //                 </div>
-    //                 <div class="exercise-pr-info">${prText}</div>
-    //             </div>
-    //         `;
-    //     });
-
-    //     $('#all-exercises-list').html(exercisesHtml);
-    // }
-
-    function loadAllExercises() {
-      const html = exercises.map(renderExerciseCard).join('');
-      $('#all-exercises-list').html(html);
-      $('#default-exercises').removeClass('hidden');
-      $('#search-results').addClass('hidden');
-    }
-
-
-    // Search functionality - FIXED to include last workout date
-    // function performSearch() {
-    //     const query = $('#search-input').val().toLowerCase().trim();
-        
-    //     if (!query) {
-    //         $('#search-results').addClass('hidden');
-    //         $('#default-exercises').removeClass('hidden');
-    //         return;
-    //     }
-
-    //     const matchingExercises = exercises.filter(ex => 
-    //         ex.name.toLowerCase().includes(query) || 
-    //         ex.category.toLowerCase().includes(query) ||
-    //         ex.muscleGroups.some(mg => mg.toLowerCase().includes(query))
-    //     );
-
-    //     let resultsHtml = '';
-    //     matchingExercises.forEach(exercise => {
-    //         const workoutsForExercise = workouts.filter(w => w.exerciseId == exercise.id);
-    //         const lastWorkout = workoutsForExercise.length > 0 ? 
-    //             workoutsForExercise[workoutsForExercise.length - 1] : null;
-    //         const pr = personalRecords[exercise.id] || {};
-            
-    //         let prText = 'No records';
-    //         if (exercise.type === 'strength' && pr.maxWeight) {
-    //             prText = `PR: ${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps`;
-    //         } else if (exercise.type === 'cardio' && pr.bestPace) {
-    //             prText = `PR: ${pr.bestPace.pace.toFixed(1)} km/h`;
-    //         } else if (exercise.type === 'swimming' && pr.mostLaps) {
-    //             prText = `PR: ${pr.mostLaps.laps} laps`;
-    //         } else if (exercise.type === 'mobility' && pr.longestDuration) {
-    //             prText = `PR: ${pr.longestDuration.duration} min`;
-    //         }
-
-    //         const lastWorkoutText = lastWorkout ? 
-    //             new Date(lastWorkout.date).toLocaleDateString() : 'Never';
-
-    //         resultsHtml += `
-    //             <div class="exercise-card" data-exercise-id="${exercise.id}">
-    //                 <div class="exercise-card-header">
-    //                     <div class="exercise-card-title">${exercise.name}</div>
-    //                     <div class="exercise-card-category">${exercise.category}</div>
-    //                 </div>
-    //                 <div class="exercise-card-info">
-    //                     <div class="exercise-info-item">
-    //                         <span class="exercise-info-value">${workoutsForExercise.length}</span>
-    //                         <span class="exercise-info-label">Sessions</span>
-    //                     </div>
-    //                     <div class="exercise-info-item">
-    //                         <span class="exercise-info-value">${lastWorkoutText}</span>
-    //                         <span class="exercise-info-label">Last</span>
-    //                     </div>
-    //                 </div>
-    //                 <div class="exercise-pr-info">${prText}</div>
-    //             </div>
-    //         `;
-    //     });
-
-    //     if (resultsHtml === '') {
-    //         resultsHtml = '<p class="text-center">No exercises found for "' + query + '"</p>';
-    //     }
-
-    //     $('#search-results-list').html(resultsHtml);
-    //     $('#search-results').removeClass('hidden');
-    //     $('#default-exercises').addClass('hidden');
-    // }
-    function performSearch() {
-      const query = ($('#search-input').val() || '').trim().toLowerCase();
-      const results = exercises.filter(ex =>
-        ex.name.toLowerCase().includes(query) ||
-        ex.category.toLowerCase().includes(query) ||
-        (ex.muscleGroups || []).some(m => m.toLowerCase().includes(query))
-      );
-    
-      const html = results.map(renderExerciseCard).join('') || `<div class="empty-state">No exercises found for “${query}”.</div>`;
-      $('#search-results-list').html(html);
-      $('#search-results').removeClass('hidden');
-      $('#default-exercises').addClass('hidden');
-    }
-
-    
-    // Show exercise detail modal
-    function showExerciseDetail(exerciseId) {
-        const exercise = exercises.find(ex => ex.id == exerciseId);
-        if (!exercise) return;
-
-        const workoutsForExercise = workouts.filter(w => w.exerciseId == exerciseId);
-        const lastWorkout = workoutsForExercise.length > 0 ? 
-            workoutsForExercise[workoutsForExercise.length - 1] : null;
-        const pr = personalRecords[exerciseId] || {};
-
-        $('#modal-exercise-name').text(exercise.name);
-
-        // Last workout info
-        let lastWorkoutHtml = '';
-        if (lastWorkout) {
-            lastWorkoutHtml = `
-                <div class="workout-info">
-                    <div class="workout-date">Date: ${new Date(lastWorkout.date).toLocaleDateString()}</div>
+        let exercisesHtml = '';
+        exercises.forEach(exercise => {
+            exercisesHtml += `
+                <div class="exercise-item">
+                    <div class="exercise-item-header">
+                        <span class="exercise-item-name">${exercise.exerciseName}</span>
+                        <span class="exercise-item-category">${exercise.category}</span>
+                    </div>
+                    <div class="exercise-item-details">
+                        ${formatExerciseDetails(exercise)}
+                    </div>
+                </div>
             `;
-            
-            if (lastWorkout.type === 'strength' && lastWorkout.sets) {
-                lastWorkoutHtml += '<div class="workout-sets">Sets:</div>';
-                lastWorkout.sets.forEach(set => {
-                    lastWorkoutHtml += `
-                        <div class="set-info">Set ${set.setNumber}: ${set.reps} reps @ ${set.weight}kg</div>
-                    `;
-                });
-            } else if (lastWorkout.type === 'cardio') {
-                lastWorkoutHtml += `
-                    <div>Duration: ${lastWorkout.duration} minutes</div>
-                    <div>Distance: ${lastWorkout.distance || 'N/A'} km</div>
-                    <div>Speed: ${lastWorkout.speed || 'N/A'} km/h</div>
-                `;
-            }
-            
-            if (lastWorkout.notes) {
-                lastWorkoutHtml += `<div class="workout-notes"><strong>Notes:</strong> ${lastWorkout.notes}</div>`;
-            }
-            
-            lastWorkoutHtml += '</div>';
-        } else {
-            lastWorkoutHtml = '<p>No previous workouts recorded</p>';
-        }
-        $('#last-workout-info').html(lastWorkoutHtml);
+        });
 
-        // Personal records info
-        let prHtml = '';
-        if (exercise.type === 'strength') {
-            if (pr.maxWeight) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Max Weight</div>
-                        <div class="pr-value">${pr.maxWeight.weight}kg × ${pr.maxWeight.reps} reps</div>
-                        <div class="pr-date">on ${new Date(pr.maxWeight.date).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
-            if (pr.maxReps) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Max Reps</div>
-                        <div class="pr-value">${pr.maxReps.reps} reps @ ${pr.maxReps.weight}kg</div>
-                        <div class="pr-date">on ${new Date(pr.maxReps.date).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
+        $('#exercises-list').html(exercisesHtml);
+        $('#current-workout-exercises').removeClass('hidden');
+    }
+
+    // Format exercise details for display
+    function formatExerciseDetails(exercise) {
+        if (exercise.type === 'rest') {
+            return exercise.notes || 'Rest day logged';
+        } else if (exercise.type === 'strength') {
+            return `${exercise.sets} sets × ${exercise.reps} reps @ ${exercise.weight}kg`;
         } else if (exercise.type === 'cardio') {
-            if (pr.bestPace) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Best Pace</div>
-                        <div class="pr-value">${pr.bestPace.pace.toFixed(1)} km/h</div>
-                        <div class="pr-date">on ${new Date(pr.bestPace.date).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
-            if (pr.longestDistance) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Longest Distance</div>
-                        <div class="pr-value">${pr.longestDistance.distance} km</div>
-                        <div class="pr-date">on ${new Date(pr.longestDistance.date).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
+            return `${exercise.duration} min, ${exercise.distance}km @ ${exercise.speed}km/h`;
         } else if (exercise.type === 'swimming') {
-            if (pr.mostLaps) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Most Laps</div>
-                        <div class="pr-value">${pr.mostLaps.laps} laps</div>
-                        <div class="pr-date">on ${new Date(pr.mostLaps.date).toLocaleDateString()}</div>
-                    </div>
-                `;
-            }
+            return `${exercise.laps} laps (${exercise.poolLength}), ${exercise.totalTime} min`;
         } else if (exercise.type === 'mobility') {
-            if (pr.longestDuration) {
-                prHtml += `
-                    <div class="pr-item">
-                        <div class="pr-label">Longest Duration</div>
-                        <div class="pr-value">${pr.longestDuration.duration} minutes</div>
-                        <div class="pr-date">on ${new Date(pr.longestDuration.date).toLocaleDateString()}</div>
+            return `${exercise.duration} min, ${exercise.intensity} intensity`;
+        }
+        return '';
+    }
+
+    // Load recent workouts
+    function loadRecentWorkouts() {
+        console.log('Loading recent workouts...');
+        const recentWorkouts = workouts
+            .slice(-10)
+            .reverse()
+            .map(workout => {
+                const exercises = workout.exercises || [];
+                return {
+                    date: workout.date,
+                    exerciseCount: exercises.length,
+                    categories: [...new Set(exercises.map(e => e.category))],
+                    totalVolume: calculateWorkoutVolume(exercises),
+                    exercises: exercises
+                };
+            });
+
+        let workoutsHtml = '';
+        if (recentWorkouts.length === 0) {
+            workoutsHtml = `
+                <div class="card text-center">
+                    <div class="card__body">
+                        <h4>No workouts yet</h4>
+                        <p>Start by logging your first workout in the Entry tab!</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            recentWorkouts.forEach(workout => {
+                const formattedDate = new Date(workout.date).toLocaleDateString();
+                workoutsHtml += `
+                    <div class="workout-card" data-date="${workout.date}">
+                        <div class="workout-card-header">
+                            <div class="workout-card-title">${formattedDate}</div>
+                            <div class="workout-card-category">${workout.exerciseCount} exercises</div>
+                        </div>
+                        <div class="workout-card-stats">
+                            <div class="workout-stat">
+                                <span class="workout-stat-value">${workout.categories.length}</span>
+                                <span class="workout-stat-label">Categories</span>
+                            </div>
+                            <div class="workout-stat">
+                                <span class="workout-stat-value">${workout.totalVolume}</span>
+                                <span class="workout-stat-label">Volume</span>
+                            </div>
+                        </div>
                     </div>
                 `;
+            });
+        }
+
+        $('#recent-workouts-list').html(workoutsHtml);
+
+        // Add click handlers for workout cards using event delegation
+        $(document).off('click', '.workout-card').on('click', '.workout-card', function() {
+            const date = $(this).data('date');
+            console.log('Workout card clicked:', date);
+            showWorkoutDetail(date);
+        });
+    }
+
+    // Calculate workout volume
+    function calculateWorkoutVolume(exercises) {
+        let volume = 0;
+        exercises.forEach(exercise => {
+            if (exercise.type === 'strength') {
+                const repsArray = exercise.reps ? exercise.reps.split(',').map(r => parseInt(r.trim())).filter(r => !isNaN(r)) : [];
+                const totalReps = repsArray.reduce((sum, reps) => sum + reps, 0);
+                volume += totalReps * (exercise.weight || 0);
+            } else if (exercise.type === 'cardio') {
+                volume += (exercise.distance || 0) * 10; // Arbitrary volume calculation
             }
+        });
+        return volume.toFixed(0);
+    }
+
+    // Show workout detail modal
+    function showWorkoutDetail(date) {
+        const workout = workouts.find(w => w.date === date);
+        if (!workout) return;
+
+        const exercises = workout.exercises || [];
+        let modalHtml = `
+            <div class="modal-header">
+                <h3>Workout - ${new Date(date).toLocaleDateString()}</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="workout-detail-exercises">
+        `;
+
+        exercises.forEach(exercise => {
+            modalHtml += `
+                <div class="sessions-summary-item">
+                    <div class="session-date">${exercise.exerciseName}</div>
+                    <div class="session-details">${formatExerciseDetails(exercise)}</div>
+                    ${exercise.notes ? `<div class="session-notes"><strong>Notes:</strong> ${exercise.notes}</div>` : ''}
+                </div>
+            `;
+        });
+
+        modalHtml += `
+                </div>
+            </div>
+        `;
+
+        $('#workout-detail-modal .modal-content').html(modalHtml);
+        $('#workout-detail-modal').removeClass('hidden').addClass('active');
+    }
+
+    // Search functionality
+    function performSearch() {
+        const query = $('#search-input').val().toLowerCase().trim();
+        if (!query) {
+            $('#search-results').addClass('hidden');
+            return;
         }
 
-        if (prHtml === '') {
-            prHtml = '<p>No personal records yet</p>';
-        }
-        $('#personal-records-info').html(prHtml);
+        console.log('Performing search for:', query);
 
-        $('#exercise-detail-modal').removeClass('hidden');
+        // Search in exercises and workouts
+        const matchingExercises = exercises.filter(ex => 
+            ex.name.toLowerCase().includes(query) || 
+            ex.category.toLowerCase().includes(query) ||
+            ex.muscleGroups.some(mg => mg.toLowerCase().includes(query))
+        );
+
+        const matchingWorkouts = workouts.filter(w => 
+            w.exercises && w.exercises.some(ex => 
+                ex.exerciseName.toLowerCase().includes(query) ||
+                ex.category.toLowerCase().includes(query)
+            )
+        );
+
+        let resultsHtml = '';
+        
+        if (matchingExercises.length > 0) {
+            resultsHtml += '<h4>Exercises</h4>';
+            matchingExercises.forEach(exercise => {
+                const workoutsWithExercise = workouts.filter(w => 
+                    w.exercises && w.exercises.some(ex => ex.exerciseId == exercise.id)
+                );
+                
+                resultsHtml += `
+                    <div class="workout-card search-result-exercise" data-exercise-id="${exercise.id}">
+                        <div class="workout-card-header">
+                            <div class="workout-card-title">${exercise.name}</div>
+                            <div class="workout-card-category">${exercise.category}</div>
+                        </div>
+                        <div class="workout-card-stats">
+                            <div class="workout-stat">
+                                <span class="workout-stat-value">${workoutsWithExercise.length}</span>
+                                <span class="workout-stat-label">Sessions</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        if (matchingWorkouts.length > 0) {
+            resultsHtml += '<h4>Workout Sessions</h4>';
+            matchingWorkouts.forEach(workout => {
+                const formattedDate = new Date(workout.date).toLocaleDateString();
+                resultsHtml += `
+                    <div class="workout-card" data-date="${workout.date}">
+                        <div class="workout-card-header">
+                            <div class="workout-card-title">${formattedDate}</div>
+                            <div class="workout-card-category">${workout.exercises.length} exercises</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        if (resultsHtml === '') {
+            resultsHtml = '<p>No results found for "' + query + '"</p>';
+        }
+
+        $('#search-results-list').html(resultsHtml);
+        $('#search-results').removeClass('hidden');
     }
 
     // Add new exercise
-    // function addNewExercise() {
-    //     const name = $('#new-exercise-name').val().trim();
-    //     const category = $('#new-exercise-category').val();
-        
-    //     const muscleGroups = [];
-    //     $('#muscle-groups-checkboxes input:checked').each(function() {
-    //         muscleGroups.push($(this).val());
-    //     });
-
-    //     const newExercise = {
-    //         id: Date.now(),
-    //         name: name,
-    //         category: category,
-    //         muscleGroups: muscleGroups,
-    //         type: getExerciseType(category)
-    //     };
-
-    //     exercises.push(newExercise);
-        
-    //     // Clear form
-    //     $('#add-exercise-form')[0].reset();
-    //     $('#muscle-groups-checkboxes input').prop('checked', false);
-    //     $('.form-control').removeClass('success error');
-    //     $('.error-message').hide();
-        
-    //     showToast('Exercise added successfully!');
-    //     loadExercisesList();
-    //     loadAllExercises();
-    // }
     function addNewExercise() {
-      const name = $('#new-exercise-name').val().trim();
-      const category = $('#new-exercise-category').val();
-      const muscleGroups = [];
-      $('#muscle-groups-checkboxes input:checked').each(function () {
-        muscleGroups.push($(this).val());
-      });
-    
-      const urlInput = ($('#new-exercise-image-url').val() || '').trim();
-      const fileInput = $('#new-exercise-image-file')[0];
-      const file = fileInput && fileInput.files && fileInput.files[0];
-    
-      const finalize = (imageUrl) => {
+        const name = $('#new-exercise-name').val().trim();
+        const category = $('#new-exercise-category').val();
+        const equipment = $('#new-exercise-equipment').val().trim();
+        
+        if (!name || !category) {
+            showToast('Please fill in exercise name and category', 'error');
+            return;
+        }
+
+        // Check if exercise already exists
+        if (exercises.some(ex => ex.name.toLowerCase() === name.toLowerCase())) {
+            showToast('Exercise already exists', 'error');
+            return;
+        }
+
+        const muscleGroups = [];
+        $('#muscle-groups-checkboxes input:checked').each(function() {
+            muscleGroups.push($(this).val());
+        });
+
         const newExercise = {
-          id: Date.now(),
-          name,
-          category,
-          muscleGroups,
-          type: getExerciseType(category),
-          imageUrl: imageUrl || ''
+            id: Date.now(),
+            name: name,
+            category: category,
+            equipment: equipment || 'None',
+            muscleGroups: muscleGroups,
+            type: getExerciseType(category)
         };
+
         exercises.push(newExercise);
-    
-        // Reset form and preview
+        
+        // Clear form
         $('#add-exercise-form')[0].reset();
         $('#muscle-groups-checkboxes input').prop('checked', false);
-        $('#new-exercise-image-preview').hide();
-        $('#new-exercise-image-preview-img').attr('src', '');
-        $('.form-control').removeClass('success error');
-        $('.error-message').hide();
-    
-        // Refresh UI
-        loadExercisesList();
-        loadAllExercises();
+        
+        console.log('New exercise added:', newExercise);
         showToast('Exercise added successfully!');
-      };
-    
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => finalize(e.target.result); // data URL
-        reader.readAsDataURL(file);
-      } else {
-        finalize(urlInput);
-      }
+        loadExercisesList();
     }
 
     // Get exercise type based on category
@@ -1041,41 +817,6 @@ $(document).ready(function() {
         };
         return typeMap[category] || 'strength';
     }
-
-    function getExerciseImage(exercise) {
-  // Accepts either an uploaded data URL or a normal URL
-  return exercise.imageUrl && exercise.imageUrl.trim() ? exercise.imageUrl.trim() : '';
-}
-
-function renderExerciseCard(exercise) {
-  const img = getExerciseImage(exercise);
-  const muscleList = (exercise.muscleGroups || []).join(', ');
-  return `
-    <div class="exercise-card" data-exercise-id="${exercise.id}">
-      ${img ? `<img class="exercise-thumb" src="${img}" alt="${exercise.name}">` : ``}
-      <div class="exercise-card-content">
-        <div class="exercise-card-header">
-          <div class="exercise-card-title">${exercise.name}</div>
-          <div class="exercise-card-category">${exercise.category}</div>
-        </div>
-        <div class="exercise-card-info">
-          <div class="exercise-info-item">
-            <span class="exercise-info-value">${exercise.type || 'strength'}</span>
-            <span class="exercise-info-label">Type</span>
-          </div>
-          <div class="exercise-info-item">
-            <span class="exercise-info-value">${(exercise.muscleGroups || []).length}</span>
-            <span class="exercise-info-label">Muscles</span>
-          </div>
-          <div class="exercise-info-item">
-            <span class="exercise-info-value">${muscleList || '—'}</span>
-            <span class="exercise-info-label">Targets</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
 
     // Load exercises list for master management
     function loadExercisesList() {
@@ -1094,6 +835,9 @@ function renderExerciseCard(exercise) {
                         <div class="exercise-master-name">${exercise.name}</div>
                         <div class="exercise-master-category">${exercise.category}</div>
                     </div>
+                    <div class="exercise-master-details">
+                        <strong>Equipment:</strong> ${exercise.equipment}
+                    </div>
                     <div class="exercise-master-muscles">
                         ${exercise.muscleGroups.map(mg => `<span class="muscle-tag">${mg}</span>`).join('')}
                     </div>
@@ -1108,51 +852,6 @@ function renderExerciseCard(exercise) {
         $('#exercises-list-master').html(exercisesHtml);
     }
 
-    // Update current workout display
-    function updateCurrentWorkoutDisplay() {
-        const today = new Date().toISOString().split('T')[0];
-        const todayWorkouts = workouts.filter(w => w.date === today);
-        
-        if (todayWorkouts.length === 0) {
-            $('#current-workout-exercises').addClass('hidden');
-            return;
-        }
-
-        let exercisesHtml = '';
-        todayWorkouts.forEach(workout => {
-            exercisesHtml += `
-                <div class="exercise-item">
-                    <div class="exercise-item-header">
-                        <span class="exercise-item-name">${workout.exerciseName}</span>
-                        <span class="exercise-item-category">${workout.category}</span>
-                    </div>
-                    <div class="exercise-item-details">
-                        ${formatExerciseDetails(workout)}
-                    </div>
-                </div>
-            `;
-        });
-
-        $('#exercises-list').html(exercisesHtml);
-        $('#current-workout-exercises').removeClass('hidden');
-    }
-
-    // Format exercise details for display
-    function formatExerciseDetails(exercise) {
-        if (exercise.type === 'rest') {
-            return exercise.notes || 'Rest day logged';
-        } else if (exercise.type === 'strength' && exercise.sets) {
-            return `${exercise.sets.length} sets: ${exercise.sets.map(s => `${s.reps}×${s.weight}kg`).join(', ')}`;
-        } else if (exercise.type === 'cardio') {
-            return `${exercise.duration} min, ${exercise.distance || 'N/A'}km`;
-        } else if (exercise.type === 'swimming') {
-            return `${exercise.laps} laps, ${exercise.totalTime || 'N/A'} min`;
-        } else if (exercise.type === 'mobility') {
-            return `${exercise.duration} min, ${exercise.intensity} intensity`;
-        }
-        return '';
-    }
-
     // Update streak counter
     function updateStreakCounter() {
         const streak = calculateWorkoutStreak();
@@ -1163,20 +862,22 @@ function renderExerciseCard(exercise) {
     function calculateWorkoutStreak() {
         if (workouts.length === 0) return 0;
 
-        const workoutDates = [...new Set(workouts.map(w => w.date))].sort().reverse();
-        const today = new Date().toISOString().split('T')[0];
+        const sortedWorkouts = [...workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         let streak = 0;
         let currentDate = new Date(today);
 
-        for (let i = 0; i < workoutDates.length; i++) {
-            const workoutDate = workoutDates[i];
-            const expectedDate = currentDate.toISOString().split('T')[0];
+        for (let i = 0; i < sortedWorkouts.length; i++) {
+            const workoutDate = new Date(sortedWorkouts[i].date);
+            workoutDate.setHours(0, 0, 0, 0);
 
-            if (workoutDate === expectedDate) {
+            if (workoutDate.getTime() === currentDate.getTime()) {
                 streak++;
                 currentDate.setDate(currentDate.getDate() - 1);
-            } else if (workoutDate < expectedDate) {
+            } else if (workoutDate.getTime() < currentDate.getTime()) {
+                // Gap in streak
                 break;
             }
         }
@@ -1186,14 +887,16 @@ function renderExerciseCard(exercise) {
 
     // Show toast notification
     function showToast(message, type = 'success') {
+        console.log('Toast:', message, type);
         const $toast = $('#toast');
         const $toastMessage = $('#toast-message');
         
         $toastMessage.text(message);
-        $toast.removeClass('error');
         
         if (type === 'error') {
-            $toast.addClass('error');
+            $toast.css('background', 'linear-gradient(135deg, #ff1493, #ff69b4)');
+        } else {
+            $toast.css('background', 'linear-gradient(135deg, #00ff41, #00cc33)');
         }
         
         $toast.removeClass('hidden');
@@ -1205,4 +908,17 @@ function renderExerciseCard(exercise) {
 
     // Initialize the application
     initApp();
+    
+    // Debugging: Log navigation elements after initialization
+    console.log('Navigation elements found:', $('.nav-item').length);
+    $('.nav-item').each(function(index) {
+        console.log(`Nav item ${index}:`, $(this).data('section'), $(this).hasClass('active'));
+    });
+    
+    // Additional debugging: Test navigation programmatically
+    setTimeout(() => {
+        console.log('Testing navigation after 1 second...');
+        console.log('Current section:', currentSection);
+        console.log('Available sections:', $('.content-section').map(function() { return this.id; }).get());
+    }, 1000);
 });
