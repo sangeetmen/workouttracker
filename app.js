@@ -8,80 +8,80 @@ $(document).ready(function() {
     let currentWorkout = null;
 
     // Sample data initialization
-    const sampleExercises = [
-        {
-            id: 1,
-            name: "Bench Press",
-            category: "Upper Body",
-            equipment: "Barbell, Bench",
-            muscleGroups: ["Chest", "Triceps", "Shoulders"],
-            type: "strength"
-        },
-        {
-            id: 2,
-            name: "Squats",
-            category: "Lower Body", 
-            equipment: "Barbell, Squat Rack",
-            muscleGroups: ["Quadriceps", "Glutes", "Core"],
-            type: "strength"
-        },
-        {
-            id: 3,
-            name: "Treadmill",
-            category: "Cardio",
-            equipment: "Treadmill",
-            muscleGroups: ["Legs", "Cardiovascular"],
-            type: "cardio"
-        },
-        {
-            id: 4,
-            name: "Freestyle Swimming",
-            category: "Swimming",
-            equipment: "Pool",
-            muscleGroups: ["Full Body", "Cardiovascular"],
-            type: "swimming"
-        },
-        {
-            id: 5,
-            name: "Plank",
-            category: "Core",
-            equipment: "None",
-            muscleGroups: ["Core", "Shoulders"],
-            type: "strength"
-        },
-        {
-            id: 6,
-            name: "Dynamic Stretching",
-            category: "Mobility",
-            equipment: "None", 
-            muscleGroups: ["Full Body"],
-            type: "mobility"
-        },
-        {
-            id: 7,
-            name: "Deadlift",
-            category: "Lower Body",
-            equipment: "Barbell",
-            muscleGroups: ["Hamstrings", "Glutes", "Back"],
-            type: "strength"
-        },
-        {
-            id: 8,
-            name: "Pull-ups",
-            category: "Upper Body",
-            equipment: "Pull-up Bar",
-            muscleGroups: ["Back", "Biceps"],
-            type: "strength"
-        },
-        {
-            id: 9,
-            name: "Stationary Bike",
-            category: "Cardio",
-            equipment: "Exercise Bike",
-            muscleGroups: ["Legs", "Cardiovascular"],
-            type: "cardio"
-        }
-    ];
+    // const sampleExercises = [
+    //     {
+    //         id: 1,
+    //         name: "Bench Press",
+    //         category: "Upper Body",
+    //         equipment: "Barbell, Bench",
+    //         muscleGroups: ["Chest", "Triceps", "Shoulders"],
+    //         type: "strength"
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Squats",
+    //         category: "Lower Body", 
+    //         equipment: "Barbell, Squat Rack",
+    //         muscleGroups: ["Quadriceps", "Glutes", "Core"],
+    //         type: "strength"
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Treadmill",
+    //         category: "Cardio",
+    //         equipment: "Treadmill",
+    //         muscleGroups: ["Legs", "Cardiovascular"],
+    //         type: "cardio"
+    //     },
+    //     {
+    //         id: 4,
+    //         name: "Freestyle Swimming",
+    //         category: "Swimming",
+    //         equipment: "Pool",
+    //         muscleGroups: ["Full Body", "Cardiovascular"],
+    //         type: "swimming"
+    //     },
+    //     {
+    //         id: 5,
+    //         name: "Plank",
+    //         category: "Core",
+    //         equipment: "None",
+    //         muscleGroups: ["Core", "Shoulders"],
+    //         type: "strength"
+    //     },
+    //     {
+    //         id: 6,
+    //         name: "Dynamic Stretching",
+    //         category: "Mobility",
+    //         equipment: "None", 
+    //         muscleGroups: ["Full Body"],
+    //         type: "mobility"
+    //     },
+    //     {
+    //         id: 7,
+    //         name: "Deadlift",
+    //         category: "Lower Body",
+    //         equipment: "Barbell",
+    //         muscleGroups: ["Hamstrings", "Glutes", "Back"],
+    //         type: "strength"
+    //     },
+    //     {
+    //         id: 8,
+    //         name: "Pull-ups",
+    //         category: "Upper Body",
+    //         equipment: "Pull-up Bar",
+    //         muscleGroups: ["Back", "Biceps"],
+    //         type: "strength"
+    //     },
+    //     {
+    //         id: 9,
+    //         name: "Stationary Bike",
+    //         category: "Cardio",
+    //         equipment: "Exercise Bike",
+    //         muscleGroups: ["Legs", "Cardiovascular"],
+    //         type: "cardio"
+    //     }
+    // ];
 
     // Initialize application
     function initApp() {
