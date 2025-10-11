@@ -9,7 +9,7 @@ const sampleExercises = [
         "Shoulders"
       ],
       "type": "strength",
-      "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif
+      "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif"
     },
     {
       "id": 2,
