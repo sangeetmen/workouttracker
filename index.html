@@ -363,6 +363,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="excercise.js"></script>
     <script>
         // Global variables
         let exercises = [];
@@ -371,18 +372,18 @@
         let workoutIdCounter = 1;
         
         // Sample data
-        const sampleExercises = [
-            {id: 1, name: "Bench Press", category: "Upper Body", muscleGroups: ["Chest", "Triceps", "Shoulders"], type: "strength", image: ""},
-            {id: 2, name: "Squats", category: "Lower Body", muscleGroups: ["Quadriceps", "Glutes", "Core"], type: "strength", image: ""},
-            {id: 3, name: "Treadmill", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
-            {id: 4, name: "Freestyle Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""},
-            {id: 5, name: "Plank", category: "Core", muscleGroups: ["Core", "Shoulders"], type: "strength", image: ""},
-            {id: 6, name: "Dynamic Stretching", category: "Mobility", muscleGroups: ["Full Body"], type: "mobility", image: ""},
-            {id: 7, name: "Deadlift", category: "Lower Body", muscleGroups: ["Hamstrings", "Glutes", "Back"], type: "strength", image: ""},
-            {id: 8, name: "Pull-ups", category: "Upper Body", muscleGroups: ["Back", "Biceps"], type: "strength", image: ""},
-            {id: 9, name: "Cycling", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
-            {id: 10, name: "Backstroke Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""}
-        ];
+        // const sampleExercises = [
+        //     {id: 1, name: "Bench Press", category: "Upper Body", muscleGroups: ["Chest", "Triceps", "Shoulders"], type: "strength", image: ""},
+        //     {id: 2, name: "Squats", category: "Lower Body", muscleGroups: ["Quadriceps", "Glutes", "Core"], type: "strength", image: ""},
+        //     {id: 3, name: "Treadmill", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
+        //     {id: 4, name: "Freestyle Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""},
+        //     {id: 5, name: "Plank", category: "Core", muscleGroups: ["Core", "Shoulders"], type: "strength", image: ""},
+        //     {id: 6, name: "Dynamic Stretching", category: "Mobility", muscleGroups: ["Full Body"], type: "mobility", image: ""},
+        //     {id: 7, name: "Deadlift", category: "Lower Body", muscleGroups: ["Hamstrings", "Glutes", "Back"], type: "strength", image: ""},
+        //     {id: 8, name: "Pull-ups", category: "Upper Body", muscleGroups: ["Back", "Biceps"], type: "strength", image: ""},
+        //     {id: 9, name: "Cycling", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
+        //     {id: 10, name: "Backstroke Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""}
+        // ];
         
         const sampleWorkouts = [
             {
