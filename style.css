@@ -620,7 +620,13 @@ textarea.form-control {
 }
 
 /* Modal - Neon themed */
+/* Replace this */
 .modal {
+  /* your custom styles */
+}
+
+/* With this */
+.custom-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -633,6 +639,7 @@ textarea.form-control {
   justify-content: center;
   padding: var(--space-4);
 }
+
 
 .modal.hidden {
   display: none;
