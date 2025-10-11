@@ -50,8 +50,8 @@ $(document).ready(function() {
 			exercises = exercisesData ? JSON.parse(exercisesData) : sampleExercises;
 			workouts = workoutsData ? JSON.parse(workoutsData) : sampleWorkouts;
 			
-            //exercises = [...sampleExercises];
-            //workouts = [...sampleWorkouts];
+            exercises = [...exercises];
+            workouts = [...workouts];
             exerciseIdCounter = 27;
             workoutIdCounter = 0;
         }
