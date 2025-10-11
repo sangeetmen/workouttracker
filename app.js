@@ -55,8 +55,19 @@ $(document).ready(function() {
             renderExercises();
             updateStorageStats();
             
+			$('#workoutDate').datepicker({
+			  format: 'dd/mm/yyyy',
+			  autoclose: true,
+			  todayHighlight: true
+			});
+			$('#dateFilter').datepicker({
+			  format: 'dd/mm/yyyy',
+			  autoclose: true,
+			  todayHighlight: true
+			});
             // Set default date to today
-            $('#workoutDate').val(new Date().toISOString().split('T')[0]);
+            //$('#workoutDate').val(new Date().toISOString().split('T')[0]);
+			//$('#dateFilter').val(new Date().toISOString().split('T')[0]);
         });
         
         // Load data from in-memory storage (localStorage not available in sandbox)
@@ -284,7 +295,7 @@ $(document).ready(function() {
                             <div class="row">
                                 ${personalRecords.map(pr => `
                                     <div class="col-md-6 col-lg-4 mb-2">
-                                        <span class="badge pr-badge">${pr.label}: ${pr.value}</span>
+                                        <span class="pr-badge">${pr.label}: ${pr.value}</span>
                                     </div>
                                 `).join('')}
                             </div>
