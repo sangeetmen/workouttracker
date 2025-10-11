@@ -905,8 +905,7 @@ textarea.form-control {
   outline: 2px solid var(--neon-cyan);
   outline-offset: 2px;
 }
-.exercise-image,
-.img-fluid.exercise-image {
+.exercise-image {
   width: 80px;              /* Fixed width */
   height: 80px;             /* Fixed height */
   object-fit: cover;        /* Crop to fit nicely */
