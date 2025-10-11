@@ -9,7 +9,7 @@ const sampleExercises = [
         "Shoulders"
       ],
       "type": "strength",
-      "image": "https://5.imimg.com/data5/SELLER/Default/2021/2/TG/UV/IY/19484956/lying-chest-press-1000x1000.jpg"
+      "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif
     },
     {
       "id": 2,
@@ -21,7 +21,7 @@ const sampleExercises = [
         "Core"
       ],
       "type": "strength",
-      "image": "https://hips.hearstapps.com/hmg-prod/images/whl-evergreen-2137-r-682ce60a0fc96.jpg?crop=1.00xw:1.00xh;0,0&resize=1400:*"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/05/Bodyweight-Squat.gif"
     },
     {
       "id": 3,
@@ -68,7 +68,7 @@ const sampleExercises = [
     },
     {
       "id": 7,
-      "name": "Deadlift",
+      "name": "Dumbbell Deadlift",
       "category": "Lower Body",
       "muscleGroups": [
         "Hamstrings",
@@ -76,7 +76,7 @@ const sampleExercises = [
         "Back"
       ],
       "type": "strength",
-      "image": ""
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/DB_RM_DL.gif"
     },
     {
       "id": 8,
@@ -87,7 +87,7 @@ const sampleExercises = [
         "Biceps"
       ],
       "type": "strength",
-      "image": "https://images.aasaan.shop/stores/b3412024/products/product_images/1/resized_1750163025859-1024w.webp?width=1024"
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/ASS_PULLUP_MC.gif"
     },
     {
       "id": 9,
@@ -98,7 +98,7 @@ const sampleExercises = [
         "Cardiovascular"
       ],
       "type": "cardio",
-      "image": "https://m.media-amazon.com/images/I/41T369MumKL.jpg"
+      "image": "https://i.pinimg.com/originals/02/b6/2b/02b62b7ee1484dcb9331297658803a9f.gif"
     },
     {
       "id": 10,
@@ -120,7 +120,7 @@ const sampleExercises = [
         "Shoulders"
       ],
       "type": "strength",
-      "image": "https://training.fit/wp-content/uploads/2020/02/butterflys.png"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Pec-Deck-Fly.gif"
     },
     {
       "id": 12,
@@ -132,7 +132,7 @@ const sampleExercises = [
 		"Triceps"
       ],
       "type": "strength",
-      "image": "https://apilyfta.com/static/GymvisualPNG/22911101-Cable-Wide-Grip-Lat-Pulldown-(female)_Back_small.png"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
     }, 
 	{
       "id": 13,
@@ -142,7 +142,7 @@ const sampleExercises = [
         "Biceps"
       ],
       "type": "strength",
-      "image": "https://www.bullrockfitness.com/wp-content/uploads/2024/10/9.png"
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/PREA_CURL_MAC.gif"
     }, 
 	{
       "id": 14,
@@ -152,7 +152,7 @@ const sampleExercises = [
         "Triceps"
       ],
       "type": "strength",
-      "image": "https://cdn3.vectorstock.com/i/1000x1000/22/52/man-doing-assisted-machine-seated-tricep-dips-vector-40872252.jpg"
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DIPS_MC.gif"
     }, 
 	{
       "id": 15,
@@ -164,7 +164,7 @@ const sampleExercises = [
 		"Biceps"
       ],
       "type": "strength",
-      "image": "https://images.squarespace-cdn.com/content/v1/5ffcea9416aee143500ea103/1637855489484-7MEHM17JI0FHU0ISILUZ/Standing%2BDumbbell%2BFront%2BRaises.png"
+      "image": "https://newlife.com.cy/wp-content/uploads/2019/11/22331301-Dumbbell-Front-Raise-female_Shoulders_360-4.gif"
     }, 
 	{
       "id": 16,
@@ -175,7 +175,7 @@ const sampleExercises = [
 		"Shoulder"		
       ],
       "type": "strength",
-      "image": "https://cdn.shopify.com/s/files/1/0269/5551/3900/files/Dumbbell-Lateral-Raise_31c81eee-81c4-4ffe-890d-ee13dd5bbf20_600x600.png?v=1612138523"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Lateral-Raise.gif"
     }, 
 	{
       "id": 17,
@@ -185,7 +185,7 @@ const sampleExercises = [
         "Biceps"		
       ],
       "type": "strength",
-      "image": "https://training.fit/wp-content/uploads/2018/12/bizepscurls.png"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif"
     }, 
 	{
       "id": 18,
@@ -195,7 +195,7 @@ const sampleExercises = [
         "Biceps"		
       ],
       "type": "strength",
-      "image": "https://anabolicaliens.com/cdn/shop/articles/5fa2d13e06ae0ac61604ad32_hammer-curl.png?v=1641753307"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Hammer-Curl.gif"
     },
     {
       "id": 19,
@@ -207,7 +207,7 @@ const sampleExercises = [
         "Hamstrings"
       ],
       "type": "strength",
-      "image": "https://www.fitness-world.in/wp-content/uploads/2019/04/GLPH1100-LEG-PRESS_HACK-SQUAT-MACHINE.jpg"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2015/11/Leg-Press.gif"
     },
     {
       "id": 20,
@@ -219,7 +219,7 @@ const sampleExercises = [
         "Hamstrings"
       ],
       "type": "strength",
-      "image": "https://trainingstation.co.uk/cdn/shop/articles/Lunges-movment_d958998d-2a9f-430e-bdea-06f1e2bcc835_600x.webp?v=1741687877"
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2023/09/power-lunge.gif"
     },
     {
       "id": 21,
@@ -231,7 +231,7 @@ const sampleExercises = [
         "Hamstrings"
       ],
       "type": "strength",
-      "image": "https://static.strengthlevel.com/images/exercises/standing-leg-curl/standing-leg-curl-800.jpg"
+      "image": "https://i.pinimg.com/originals/d9/ea/db/d9eadb96317b4a64eafb32ab0980d560.gif"
     },
     {
       "id": 22,
@@ -255,7 +255,7 @@ const sampleExercises = [
         "Soleus"
       ],
       "type": "strength",
-      "image": "https://training.fit/wp-content/uploads/2020/03/wadenheben-stehend-geraet.png"
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/STD_CALF_RAISE.gif"
     },
     {
       "id": 24,
@@ -266,7 +266,7 @@ const sampleExercises = [
         "Soleus"
       ],
       "type": "strength",
-      "image": "https://static.strengthlevel.com/images/exercises/seated-calf-raise/seated-calf-raise-800.jpg"
+      "image": "https://newlife.com.cy/wp-content/uploads/2019/11/26661301-Lever-Seated-Calf-Raise-plate-loaded-VERSION-2_Calves_360.gif"
     },
     {
       "id": 25,
@@ -277,7 +277,7 @@ const sampleExercises = [
         "Cardiovascular"
       ],
       "type": "cardio",
-      "image": "https://imfitindia.com/cdn/shop/articles/2cd0fa2e74978bba93323d35457e6737_1024x1024.png?v=1634367223"
+      "image": "https://media4.giphy.com/media/ZZ2ZNjDgeg0EgqmaNR/giphy-downsized.gif"
     },
     {
       "id": 26,
@@ -289,7 +289,7 @@ const sampleExercises = [
 		"Lower Back"
       ],
       "type": "cardio",
-      "image": "https://www.endomondo.com/wp-content/uploads/2024/07/Leg-Raises.png"
+      "image": "https://cdn.jefit.com/assets/img/exercises/gifs/44.gif"
     }
 	
   ]
