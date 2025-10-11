@@ -53,17 +53,17 @@ $(document).ready(function() {
             // Initialize with sample data
 			
 			
-			//const exercisesData = localStorage.getItem('exercises');
-			//const workoutsData = localStorage.getItem('workouts');
-			//exercises = exercisesData ? JSON.parse(exercisesData) : sampleExercises;
-			//workouts = workoutsData ? JSON.parse(workoutsData) : sampleWorkouts;
+			const exercisesData = localStorage.getItem('exercises');
+			const workoutsData = localStorage.getItem('workouts');
+			exercises = exercisesData ? JSON.parse(exercisesData) : sampleExercises;
+			workouts = workoutsData ? JSON.parse(workoutsData) : sampleWorkouts;
 			
-            //exercises = [...exercises];
-            //workouts = [...workouts];
+            exercises = [...exercises];
+            workouts = [...workouts];
 			
 			
-            exercises = [...sampleExercises];
-            workouts = [...sampleWorkouts];
+            //exercises = [...sampleExercises];
+            //workouts = [...sampleWorkouts];
             exerciseIdCounter = 11;
             workoutIdCounter = 3;
         }
@@ -71,6 +71,8 @@ $(document).ready(function() {
         // Save data to in-memory storage (localStorage not available in sandbox)
         function saveData() {
             // Data is already saved in memory
+			localStorage.setItem('exercises', JSON.stringify(exercises));
+    		localStorage.setItem('workouts', JSON.stringify(workouts));
             updateStorageStats();
         }
         
