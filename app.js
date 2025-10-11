@@ -4,6 +4,7 @@ $(document).ready(function() {
         let workouts = [];
         let exerciseIdCounter = 1;
         let workoutIdCounter = 1;
+		let selectedExerciseId =null;
         
         // Sample data
         // const sampleExercises = [
@@ -116,6 +117,7 @@ $(document).ready(function() {
             $('#clearFilters').on('click', function() {
                 $('#searchInput').val('');
                 $('#categoryFilter').val('');
+				$('#dateFilter').val('');
                 renderExercises();
             });
             
@@ -166,8 +168,13 @@ $(document).ready(function() {
         
         // Update exercise select dropdown
         function updateExerciseSelect() {
+			const sortedExercises = exercises.sort((a, b) =>
+			  a.name.localeCompare(b.name)
+			);
+
+			
             $('#exerciseSelect').empty().append('<option value="">Select an exercise</option>');
-            exercises.forEach(exercise => {
+            sortedExercises.forEach(exercise => {
                 $('#exerciseSelect').append(`<option value="${exercise.id}">${exercise.name} (${exercise.category})</option>`);
             });
         }
@@ -283,6 +290,7 @@ $(document).ready(function() {
                             ${exercise.muscleGroups.map(mg => `<span class="badge bg-info me-1">${mg}</span>`).join('')}
                         </p>
                         <p><strong>Total Workouts:</strong> ${exerciseWorkouts.length}</p>
+						<button type="button" class="btn btn-primary" data-ex-id=${exerciseId} id="addWorkoutBtn">Add Workout</button>
                     </div>
                 </div>
             `;
@@ -304,14 +312,14 @@ $(document).ready(function() {
                 `;
             }
             
-            if (lastWorkout) {
+            if (exerciseWorkouts.length>0) {
                 modalBody += `
                     <div class="row">
                         <div class="col-12">
-                            <h5><i class="bi bi-clock-history"></i> Last Workout (${lastWorkout.date})</h5>
+                            <h5><i class="bi bi-clock-history"></i> Previous Workouts</h5>
                             <div class="card">
                                 <div class="card-body">
-                                    ${formatWorkoutDetails(lastWorkout)}
+                                    ${formatWorkoutHistory(exerciseWorkouts)}
                                 </div>
                             </div>
                         </div>
@@ -335,6 +343,20 @@ $(document).ready(function() {
             
             const modal = new bootstrap.Modal(document.getElementById('exerciseDetailsModal'));
             modal.show();
+			
+			$('#addWorkoutBtn').on('click', function() {
+		  
+			modal.hide();
+			 var excerciseidselected=$(this).attr("data-ex-id");
+			  // Wait a moment before showing the add modal (avoids modal overlap)
+			  setTimeout(() => {
+				$('#entry-tab').click();
+				
+				if (excerciseidselected) {
+				  $('#exerciseSelect').val(excerciseidselected).trigger('change');
+				}
+			  }, 300);
+			});
         }
         
         // Calculate personal records for an exercise
@@ -361,7 +383,7 @@ $(document).ready(function() {
             } else if (exercise.type === 'cardio') {
                 // Best distance
                 const maxDistance = Math.max(...exerciseWorkouts.map(w => w.distance || 0));
-                if (maxDistance > 0) records.push({label: 'Longest Distance', value: `${maxDistance} miles`});
+                if (maxDistance > 0) records.push({label: 'Longest Distance', value: `${maxDistance} Kms`});
                 
                 // Longest duration
                 const maxDuration = Math.max(...exerciseWorkouts.map(w => w.duration || 0));
@@ -369,7 +391,7 @@ $(document).ready(function() {
                 
                 // Best pace (lowest)
                 const bestPace = Math.min(...exerciseWorkouts.map(w => w.pace || Infinity).filter(p => p !== Infinity));
-                if (bestPace !== Infinity) records.push({label: 'Best Pace', value: `${bestPace} min/mile`});
+                if (bestPace !== Infinity) records.push({label: 'Best Pace', value: `${bestPace} min/Km`});
                 
             } else if (exercise.type === 'swimming') {
                 // Most laps
@@ -388,45 +410,143 @@ $(document).ready(function() {
             return records;
         }
         
-        // Format workout details for display
-        function formatWorkoutDetails(workout) {
-            if (workout.type === 'strength' && workout.sets) {				
-                let html = '<div class="table-responsive"><table class="table table-sm table-dark"><thead><tr><th>Set</th><th>Reps</th><th>Weight </th></tr></thead><tbody>';
-                workout.sets.forEach(set => {
-                    html += `<tr><td>${set.setNumber}</td><td>${set.reps}</td><td>${set.weight} ${set.weightunit}</td></tr>`;
-                });
-                html += '</tbody></table></div>';
-                return html;
-            } else if (workout.type === 'cardio') {
-                return `
-                    <div class="row">
-                        <div class="col-6"><strong>Duration:</strong> ${workout.duration} min</div>
-                        <div class="col-6"><strong>Distance:</strong> ${workout.distance} miles</div>
-                        <div class="col-6"><strong>Pace:</strong> ${workout.pace} min/mile</div>
-                        <div class="col-6"><strong>Incline:</strong> ${workout.incline}%</div>
-                    </div>
-                `;
-            } else if (workout.type === 'swimming') {
-                return `
-                    <div class="row">
-                        <div class="col-6"><strong>Laps:</strong> ${workout.laps}</div>
-                        <div class="col-6"><strong>Duration:</strong> ${workout.duration} min</div>
-                        <div class="col-6"><strong>Pool Length:</strong> ${workout.poolLength}</div>
-                        <div class="col-6"><strong>Stroke:</strong> ${workout.stroke}</div>
-                        <div class="col-12"><strong>Lap Time:</strong> ${workout.lapTime} sec/lap</div>
-                    </div>
-                `;
-            } else if (workout.type === 'mobility') {
-                return `
-                    <div class="row">
-                        <div class="col-6"><strong>Duration:</strong> ${workout.duration} min</div>
-                        <div class="col-6"><strong>Intensity:</strong> ${workout.intensity}</div>
-                        <div class="col-12"><strong>Notes:</strong> ${workout.notes || 'No notes'}</div>
-                    </div>
-                `;
-            }
-            return '<p>No details available</p>';
-        }
+        
+		
+		function formatWorkoutHistory(workouts) {
+				if (!workouts || workouts.length === 0) {
+					return '<p>No workout history available</p>';
+				}
+
+				// assuming all workouts are of the same type
+				const type = workouts[0].type;
+
+				if (type === 'strength') {
+					let html = `
+						<div class="table-responsive">
+							<table class="table table-sm">
+								<thead>
+									<tr>
+										<th>Date</th>										
+										<th>Reps</th>
+										<th>Weight</th>
+									</tr>
+								</thead>
+								<tbody>
+					`;
+					workouts.forEach(workout => {
+						const weightUnit = workout.sets[0]?.weightunit || '';
+						const reps = workout.sets.map(s => s.reps).join('-');
+						const weights = workout.sets.map(s => s.weight).join('-');			
+						
+						html += `
+							<tr>
+								<td>${workout.date}</td>									
+								<td>${reps}</td>
+								<td>${weights} ${weightUnit}</td>
+							</tr>
+						`;
+					});	
+
+					html += '</tbody></table></div>';
+					return html;
+
+				} else if (type === 'cardio') {
+					let html = `
+						<div class="table-responsive">
+							<table class="table table-sm ">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Duration (min)</th>
+										<th>Distance (Kms)</th>
+										<th>Pace (min/Km)</th>
+										<th>Incline (%)</th>
+									</tr>
+								</thead>
+								<tbody>
+					`;
+
+					workouts.forEach(workout => {
+						html += `
+							<tr>
+								<td>${workout.date}</td>
+								<td>${workout.duration || '-'}</td>
+								<td>${workout.distance || '-'}</td>
+								<td>${workout.pace || '-'}</td>
+								<td>${workout.incline || '-'}</td>
+							</tr>
+						`;
+					});
+
+					html += '</tbody></table></div>';
+					return html;
+
+				} else if (type === 'swimming') {
+					let html = `
+						<div class="table-responsive">
+							<table class="table table-sm ">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Laps</th>
+										<th>Duration (min)</th>
+										<th>Pool Length</th>
+										<th>Stroke</th>
+										<th>Lap Time (sec/lap)</th>
+									</tr>
+								</thead>
+								<tbody>
+					`;
+
+					workouts.forEach(workout => {
+						html += `
+							<tr>
+								<td>${workout.date}</td>
+								<td>${workout.laps || '-'}</td>
+								<td>${workout.duration || '-'}</td>
+								<td>${workout.poolLength || '-'}</td>
+								<td>${workout.stroke || '-'}</td>
+								<td>${workout.lapTime || '-'}</td>
+							</tr>
+						`;
+					});
+
+					html += '</tbody></table></div>';
+					return html;
+
+				} else if (type === 'mobility') {
+					let html = `
+						<div class="table-responsive">
+							<table class="table table-sm ">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Duration (min)</th>
+										<th>Intensity</th>
+										<th>Notes</th>
+									</tr>
+								</thead>
+								<tbody>
+					`;
+
+					workouts.forEach(workout => {
+						html += `
+							<tr>
+								<td>${workout.date}</td>
+								<td>${workout.duration || '-'}</td>
+								<td>${workout.intensity || '-'}</td>
+								<td>${workout.notes || 'No notes'}</td>
+							</tr>
+						`;
+					});
+
+					html += '</tbody></table></div>';
+					return html;
+				}
+
+				return '<p>No details available</p>';
+			}
+
         
         // Generate dynamic form fields based on exercise type
         function generateDynamicFields(exercise) {
@@ -461,11 +581,11 @@ $(document).ready(function() {
                             <input type="number" class="form-control" id="duration" min="0" step="0.1" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="distance" class="form-label">Distance (miles)</label>
+                            <label for="distance" class="form-label">Distance (Kms)</label>
                             <input type="number" class="form-control" id="distance" min="0" step="0.1">
                         </div>
                         <div class="col-md-3">
-                            <label for="pace" class="form-label">Pace (min/mile)</label>
+                            <label for="pace" class="form-label">Pace (min/Kms)</label>
                             <input type="number" class="form-control" id="pace" min="0" step="0.1">
                         </div>
                         <div class="col-md-3">
@@ -867,6 +987,11 @@ $(document).ready(function() {
                 </div>
             `);
         }
+		
+		
+		$('select').select2({		  
+		  width: '100%'
+		});
 });
 
 
