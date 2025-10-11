@@ -6,6 +6,7 @@
     <title>Gym Tracker Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
     <!--link href="style.css" rel="stylesheet"-->
     <link rel="manifest" href="manifest.json">
     <style>
@@ -19,147 +20,7 @@
           margin: 0 auto;
         }
     </style>
-    <!-- <style>
-        :root {
-            --primary-color: #00ff88;
-            --secondary-color: #ff0088;
-            --accent-color: #0088ff;
-            --dark-bg: #1a1a1a;
-            --darker-bg: #0d0d0d;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
-            color: white;
-            min-height: 100vh;
-        }
-        
-        .nav-pills .nav-link {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid var(--primary-color);
-            margin: 0 5px;
-        }
-        
-        .nav-pills .nav-link.active {
-            background-color: var(--primary-color);
-            color: black;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        .card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
-            transform: translateY(-2px);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            color: black;
-        }
-        
-        .btn-primary:hover {
-            background-color: #00cc6a;
-            border-color: #00cc6a;
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-        
-        .btn-info {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-        
-        .form-control, .form-select {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            color: white;
-        }
-        
-        .form-control:focus, .form-select:focus {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            color: white;
-        }
-        
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .badge {
-            font-size: 0.8em;
-        }
-        
-        .exercise-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        
-        .set-row {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            padding: 15px;
-        }
-        
-        .pr-badge {
-            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-            color: black;
-        }
-        
-        .modal-content {
-            background: var(--dark-bg);
-            border: 1px solid var(--primary-color);
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
-        }
-        
-        .modal-footer {
-            border-top: 1px solid rgba(0, 255, 136, 0.3);
-        }
-        
-        .alert {
-            border: none;
-            backdrop-filter: blur(10px);
-        }
-        
-        .alert-success {
-            background-color: rgba(0, 255, 136, 0.2);
-            color: var(--primary-color);
-        }
-        
-        .alert-danger {
-            background-color: rgba(255, 0, 136, 0.2);
-            color: var(--secondary-color);
-        }
-        
-        .text-primary {
-            color: var(--primary-color) !important;
-        }
-        
-        .image-preview {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-    </style> -->
+    
 </head>
 <body>
     <div class="container-fluid py-4">
@@ -210,7 +71,7 @@
                                 </select>
                             </div>
 							<div class="col-md-2">
-								<input type="date" class="form-control" id="dateFilter" placeholder="Filter by date">
+								<input type="text" class="form-control" id="dateFilter" placeholder="Filter by date">
 							</div>
                             <div class="col-md-2  mt-1">
                                 <button class="btn btn-outline-primary w-100" id="clearFilters">
@@ -235,7 +96,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <label for="workoutDate" class="form-label">Date *</label>
-                                                    <input type="date" class="form-control" id="workoutDate" required>
+                                                    <input type="text" class="form-control" id="workoutDate" required>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="exerciseSelect" class="form-label">Exercise *</label>
@@ -377,8 +238,10 @@
         </div>
     </div>
     
+	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="exercises.js"></script>
     <script src="app.js"></script>       
     </body>
