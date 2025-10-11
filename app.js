@@ -302,7 +302,7 @@ $(document).ready(function() {
             $('#exerciseModalBody').html(modalBody);
             
             const modal = new bootstrap.Modal(document.getElementById('exerciseDetailsModal'));
-            modal.hide();
+            modal.show();
         }
         
         // Calculate personal records for an exercise
