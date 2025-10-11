@@ -76,7 +76,11 @@ $(document).ready(function() {
                 renderExercises();
             });
             
-            $('#categoryFilter').on('change', function() {
+            $('#dateFilter').on('change', function() {
+                renderExercises();
+            });
+			
+			$('#categoryFilter').on('change', function() {
                 renderExercises();
             });
             
@@ -143,13 +147,17 @@ $(document).ready(function() {
         function renderExercises() {
             const searchTerm = $('#searchInput').val().toLowerCase();
             const categoryFilter = $('#categoryFilter').val();
+			const dateValue = $("#dateFilter").val();
             
             let filteredExercises = exercises.filter(exercise => {
                 const matchesSearch = exercise.name.toLowerCase().includes(searchTerm) || 
                                     exercise.category.toLowerCase().includes(searchTerm) ||
                                     exercise.muscleGroups.some(mg => mg.toLowerCase().includes(searchTerm));
                 const matchesCategory = !categoryFilter || exercise.category === categoryFilter;
-                return matchesSearch && matchesCategory;
+				const matchesDate = !dateValue || workouts.some(
+									  w => w.date === dateValue && w.id === exercise.id
+									);
+                return matchesSearch && matchesCategory && matchesDate;
             });
             
             const resultsContainer = $('#exerciseResults');
