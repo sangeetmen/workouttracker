@@ -155,7 +155,7 @@ $(document).ready(function() {
                                     exercise.muscleGroups.some(mg => mg.toLowerCase().includes(searchTerm));
                 const matchesCategory = !categoryFilter || exercise.category === categoryFilter;
 				const matchesDate = !dateValue || workouts.some(
-									  w => w.date === dateValue && w.id === exercise.id
+									  w => w.date === dateValue && w.exerciseId === exercise.id
 									);
                 return matchesSearch && matchesCategory && matchesDate;
             });
