@@ -20,14 +20,7 @@ $(document).ready(function() {
         // ];
         
         const sampleWorkouts = [
-            {
-                id: 1, date: "2024-10-10", exerciseId: 1, exerciseName: "Bench Press", category: "Upper Body", type: "strength",
-                sets: [{setNumber: 1, reps: 12, weight: 60}, {setNumber: 2, reps: 10, weight: 70}, {setNumber: 3, reps: 8, weight: 80}]
-            },
-            {
-                id: 2, date: "2024-10-09", exerciseId: 3, exerciseName: "Treadmill", category: "Cardio", type: "cardio",
-                duration: 30, distance: 5.2, pace: 5.77, incline: 2
-            }
+            
         ];
         
         const exerciseCategories = ["Upper Body", "Lower Body", "Core", "Mobility", "Cardio", "Swimming", "Rest Day"];
@@ -64,8 +57,8 @@ $(document).ready(function() {
 			
             //exercises = [...sampleExercises];
             //workouts = [...sampleWorkouts];
-            exerciseIdCounter = 11;
-            workoutIdCounter = 3;
+            exerciseIdCounter = 27;
+            workoutIdCounter = 0;
         }
         
         // Save data to in-memory storage (localStorage not available in sandbox)
