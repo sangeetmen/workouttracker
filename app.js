@@ -24,9 +24,27 @@ $(document).ready(function() {
         ];
         
         const exerciseCategories = ["Upper Body", "Lower Body", "Core", "Mobility", "Cardio", "Swimming", "Rest Day"];
-        const muscleGroups = ["Chest", "Back", "Shoulders", "Biceps", "Triceps", "Quadriceps", "Hamstrings", "Glutes", "Calves", "Core", "Full Body", "Cardiovascular"];
-        const poolLengths = ["25m", "50m", "Other"];
-        const strokeTypes = ["Freestyle", "Backstroke", "Breaststroke", "Butterfly"];
+        const muscleGroups = [
+		  "Back",
+		  "Biceps",
+		  "Calves",
+		  "Cardiovascular",
+		  "Chest",
+		  "Core",
+		  "Full Body",
+		  "Gastrocnemius",
+		  "Glutes",
+		  "Hamstrings",
+		  "Lats",
+		  "Legs",
+		  "Quadriceps",
+		  "Shoulder",
+		  "Shoulders",
+		  "Soleus",
+		  "Triceps"
+		]
+        const poolLengths = ["25m", "50m", "100m", "Open"];
+        const strokeTypes = ["Freestyle", "Backstroke", "Breaststroke", "Butterfly", "Dog paddle"];
         const intensityLevels = ["Light", "Moderate", "Intense"];
         
         // Initialize app
@@ -361,10 +379,10 @@ $(document).ready(function() {
         
         // Format workout details for display
         function formatWorkoutDetails(workout) {
-            if (workout.type === 'strength' && workout.sets) {
-                let html = '<div class="table-responsive"><table class="table table-sm table-dark"><thead><tr><th>Set</th><th>Reps</th><th>Weight (lbs)</th></tr></thead><tbody>';
+            if (workout.type === 'strength' && workout.sets) {				
+                let html = '<div class="table-responsive"><table class="table table-sm table-dark"><thead><tr><th>Set</th><th>Reps</th><th>Weight </th></tr></thead><tbody>';
                 workout.sets.forEach(set => {
-                    html += `<tr><td>${set.setNumber}</td><td>${set.reps}</td><td>${set.weight}</td></tr>`;
+                    html += `<tr><td>${set.setNumber}</td><td>${set.reps}</td><td>${set.weight} ${set.weightunit}</td></tr>`;
                 });
                 html += '</tbody></table></div>';
                 return html;
@@ -408,11 +426,15 @@ $(document).ready(function() {
                 container.append(`
                     <div class="row mb-3">
                         <div class="col-12">
-                            <h5><i class="bi bi-plus-circle"></i> Sets</h5>
-                            <div id="setsContainer"></div>
-                            <button type="button" class="btn btn-outline-primary btn-sm" id="addSetBtn">
+                            <h5><i class="bi bi-plus-circle"></i> Sets</h5> 
+								<div class='col-md-3'>
+									<label for="weightUnit"> Weight (Kg/Lbs)</label>
+									<select class="form-select" id="weightUnit"><option value="kg" selected>Kg</option><option value="lbs">Lbs</option></select>
+								</div>							                            
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-1" id="addSetBtn">
                                 <i class="bi bi-plus"></i> Add Set
                             </button>
+							<div id="setsContainer"></div>
                         </div>
                     </div>
                 `);
@@ -498,6 +520,7 @@ $(document).ready(function() {
         
         // Add set function for strength exercises
         function addSet() {
+			
             const setNumber = $('#setsContainer .set-row').length + 1;
             const setHtml = `
                 <div class="set-row">
@@ -511,7 +534,8 @@ $(document).ready(function() {
                             <input type="number" class="form-control reps-input" min="0" required>
                         </div>
                         <div class="col-4">
-                            <label class="form-label">Weight (lbs) *</label>
+                            <label class="form-label">Weight
+						</label>
                             <input type="number" class="form-control weight-input" min="0" step="0.5" required>
                         </div>
                         <div class="col-2">
@@ -627,7 +651,8 @@ $(document).ready(function() {
                     sets.push({
                         setNumber: index + 1,
                         reps: reps,
-                        weight: weight
+                        weight: weight,
+						weightunit: $("#weightUnit").val()
                     });
                 });
                 
