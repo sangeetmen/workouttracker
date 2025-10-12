@@ -72,7 +72,7 @@
                                     <option value="">All Categories</option>
                                 </select>
                             </div>
-							<div class="col-md-2">
+							<div class="col-md-2 mt-1">
 								<input type="text" class="form-control" id="dateFilter" placeholder="Filter by date">
 							</div>
                             <div class="col-md-2  mt-1">
@@ -95,18 +95,18 @@
                                     </div>
                                     <div class="card-body">
                                         <form id="workoutForm">
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 mt-1">
                                                     <label for="workoutDate" class="form-label">Date *</label>
                                                     <input type="text" class="form-control" id="workoutDate" required>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 mt-1">
                                                     <label for="exerciseSelect" class="form-label">Exercise *</label>
                                                     <select class="form-select" id="exerciseSelect" required>
                                                         <option value="">Select an exercise</option>
                                                     </select>
                                                 </div>
-												<div class="col-md-2">
+												<div class="col-md-2 mt-1">
 													<button type="button" id="duplicateWorkoutBtn" class="btn btn-primary me-2" disabled>
 														<i class="bi bi-files"></i> Copy Previous
 													</button>
@@ -210,6 +210,9 @@
                                             </button>
                                             <button class="btn btn-warning" id="clearAllData">
                                                 <i class="bi bi-trash"></i> Clear All Data
+                                            </button>
+											<button class="btn btn-warning" id="reloadExercisesBtn">
+                                                Reload Exercises
                                             </button>
                                         </div>
                                         
