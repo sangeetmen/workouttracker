@@ -66,9 +66,9 @@ $(document).ready(function() {
 			  autoclose: true,
 			  todayHighlight: true
 			});
-            // Set default date to today
-            //$('#workoutDate').val(new Date().toISOString().split('T')[0]);
-			//$('#dateFilter').val(new Date().toISOString().split('T')[0]);
+			
+			setTodayDate('#workoutDate');
+  
         });
         
         // Load data from in-memory storage (localStorage not available in sandbox)
@@ -129,12 +129,64 @@ $(document).ready(function() {
             // Workout form
             $('#workoutForm').on('submit', handleWorkoutSubmit);
             $('#exerciseSelect').on('change', function() {
+				
                 const exerciseId = parseInt($(this).val());
                 const exercise = exercises.find(e => e.id === exerciseId);
+				const hasHistory = workouts.some(w => w.exerciseId === exerciseId);
+				  
+				$('#duplicateWorkoutBtn').prop('disabled', !hasHistory);
+				
                 if (exercise) {
                     generateDynamicFields(exercise);
                 }
             });
+			$('#duplicateWorkoutBtn').on('click', function() {
+			  const exerciseId = parseInt($('#exerciseSelect').val());
+			  const matchingWorkouts = workouts
+				.filter(w => w.exerciseId === exerciseId)
+				.sort((a, b) => new Date(b.date) - new Date(a.date)); // latest first
+			  
+			  if (matchingWorkouts.length === 0) return;
+
+			  const lastWorkout = matchingWorkouts[0];
+			  const exercise = sampleExercises.find(e => e.id === exerciseId);
+
+			  // Regenerate correct fields for this type
+			  generateDynamicFields(exercise);
+
+			  // Prefill strength/cardio/swimming/mobility fields
+			  if (exercise.type === 'strength' && lastWorkout.sets) {
+				$('#weightUnit').val(lastWorkout.sets[0]?.weightunit || 'kg');
+
+				$('#setsContainer').empty();
+				lastWorkout.sets.forEach((set, index) => {					
+				  addSet(set.reps, set.weight, set.weightunit);
+				});
+			  }
+
+			  if (exercise.type === 'cardio') {
+				$('#duration').val(lastWorkout.duration);
+				$('#distance').val(lastWorkout.distance);
+				$('#pace').val(lastWorkout.pace);
+				$('#incline').val(lastWorkout.incline);
+			  }
+
+			  if (exercise.type === 'swimming') {
+				$('#laps').val(lastWorkout.laps);
+				$('#duration').val(lastWorkout.duration);
+				$('#poolLength').val(lastWorkout.poolLength);
+				$('#stroke').val(lastWorkout.stroke);
+				$('#lapTime').val(lastWorkout.lapTime);
+			  }
+
+			  if (exercise.type === 'mobility') {
+				$('#duration').val(lastWorkout.duration);
+				$('#intensity').val(lastWorkout.intensity);
+				$('#notes').val(lastWorkout.notes);
+			  }
+			});
+
+			
             
             $('#resetForm').on('click', function() {
                 $('#workoutForm')[0].reset();
@@ -178,6 +230,8 @@ $(document).ready(function() {
                 $('#exerciseSelect').append(`<option value="${exercise.id}">${exercise.name} (${exercise.category})</option>`);
             });
         }
+		
+		
         
         // Render exercises in search results
         function renderExercises() {
@@ -570,7 +624,22 @@ $(document).ready(function() {
                     </div>
                 `);
                 
-                $('#addSetBtn').on('click', addSet);
+                //$('#addSetBtn').on('click', addSet);
+				$('#addSetBtn').on('click', function() {
+				  const lastSetEl = $('#setsContainer .set-row:last');				  
+				  let reps = '';
+				  let weight = '';
+				  let weightunit = $('#weightUnit').val();
+
+				  if (lastSetEl.length) {
+					reps = lastSetEl.find('.reps-input').val();
+					weight = lastSetEl.find('.weight-input').val();					
+				  }
+				  addSet(reps, weight, weightunit);
+				  
+				});
+				
+				
                 addSet(); // Add first set by default
                 
             } else if (exercise.type === 'cardio') {
@@ -650,8 +719,8 @@ $(document).ready(function() {
         }
         
         // Add set function for strength exercises
-        function addSet() {
-			
+        function addSet(reps = '', weight = '', weightunit) {
+			$("#weightUnit").val(weightunit).trigger('change');
             const setNumber = $('#setsContainer .set-row').length + 1;
             const setHtml = `
                 <div class="set-row">
@@ -662,12 +731,12 @@ $(document).ready(function() {
                         </div>
                         <div class="col-4">
                             <label class="form-label">Reps *</label>
-                            <input type="number" class="form-control reps-input" min="0" required>
+                            <input type="number" class="form-control reps-input" min="0" required value="${reps}" >
                         </div>
                         <div class="col-4">
                             <label class="form-label">Weight
 						</label>
-                            <input type="number" class="form-control weight-input" min="0" step="0.5" required>
+                            <input type="number" class="form-control weight-input" min="0" step="0.5" required value="${weight}">
                         </div>
                         <div class="col-2">
                             <button type="button" class="btn btn-outline-danger btn-sm w-100 remove-set-btn" 
@@ -740,6 +809,7 @@ $(document).ready(function() {
             // Reset form
             $('#exerciseForm')[0].reset();
             $('#imagePreview').empty();
+			
             
             showAlert('Exercise added successfully!', 'success');
         }
@@ -839,7 +909,7 @@ $(document).ready(function() {
             // Reset form
             $('#workoutForm')[0].reset();
             $('#dynamicFields').empty();
-            $('#workoutDate').val(new Date().toISOString().split('T')[0]);
+            setTodayDate('#workoutDate');
             
             showAlert('Workout saved successfully!', 'success');
         }
@@ -997,4 +1067,20 @@ $(document).ready(function() {
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js");
+}
+
+function setTodayDate(selector) {
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+
+  // Show in dd/mm/yyyy
+  const formatted = `${dd}/${mm}/${yyyy}`;
+
+  // Native input requires yyyy-mm-dd for the value
+  const value = `${yyyy}-${mm}-${dd}`;
+
+  $(selector).val(value);          // actual input value
+  $(selector).attr('data-display', formatted); // optional: store formatted version if you need it
 }
