@@ -8,7 +8,7 @@ const sampleExercises = [
         "Triceps",
         "Shoulders"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif"
     },
     {
@@ -20,7 +20,7 @@ const sampleExercises = [
         "Glutes",
         "Core"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/05/Bodyweight-Squat.gif"
     },
     {
@@ -31,18 +31,18 @@ const sampleExercises = [
         "Legs",
         "Cardiovascular"
       ],
-      "type": "cardio",
+      "type": "Cardio",
       "image": "https://hips.hearstapps.com/hmg-prod/images/lifestyle-gym-and-fitness-barcelona-athlete-running-royalty-free-image-1577740444.jpg?crop=0.668xw:1.00xh;0,0&resize=1400:*"
     },
     {
       "id": 4,
-      "name": "Freestyle Swimming",
+      "name": "Swimming",
       "category": "Swimming",
       "muscleGroups": [
         "Full Body",
         "Cardiovascular"
       ],
-      "type": "swimming",
+      "type": "Swimming",
       "image": "https://blog.arenaswim.com/wp-content/uploads/2021/02/arena_crawl_blog_nologo.gif"
     },
     {
@@ -53,7 +53,7 @@ const sampleExercises = [
         "Core",
         "Shoulders"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://www.endomondo.com/wp-content/uploads/2024/07/Plank.png"
     },
     {
@@ -63,7 +63,7 @@ const sampleExercises = [
       "muscleGroups": [
         "Full Body"
       ],
-      "type": "mobility",
+      "type": "Mobility",
       "image": ""
     },
     {
@@ -75,7 +75,7 @@ const sampleExercises = [
         "Glutes",
         "Back"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://burnfit.io/wp-content/uploads/2023/11/DB_RM_DL.gif"
     },
     {
@@ -86,7 +86,7 @@ const sampleExercises = [
         "Back",
         "Biceps"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://burnfit.io/wp-content/uploads/2023/11/ASS_PULLUP_MC.gif"
     },
     {
@@ -97,19 +97,18 @@ const sampleExercises = [
         "Legs",
         "Cardiovascular"
       ],
-      "type": "cardio",
+      "type": "Cardio",
       "image": "https://i.pinimg.com/originals/02/b6/2b/02b62b7ee1484dcb9331297658803a9f.gif"
     },
     {
       "id": 10,
-      "name": "Dog Paddle Swimming",
-      "category": "Swimming",
+      "name": "Rest Day",
+      "category": "Rest",
       "muscleGroups": [
-        "Full Body",
-        "Cardiovascular"
+        "Full Body"
       ],
-      "type": "swimming",
-      "image": "https://www.howcast.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU5NzA0NDU5NjExODc0MzI0/z-how-to-dog-paddle-promo-image.jpg"
+      "type": "Rest",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzg95-gmqTQdfiFmIFuLFlnNJtwdkM58H6Jw&s"
     },
     {
       "id": 11,
@@ -119,7 +118,7 @@ const sampleExercises = [
         "Chest",
         "Shoulders"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Pec-Deck-Fly.gif"
     },
     {
@@ -131,7 +130,7 @@ const sampleExercises = [
         "Back",
 		"Triceps"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
     }, 
 	{
@@ -141,7 +140,7 @@ const sampleExercises = [
       "muscleGroups": [
         "Biceps"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://burnfit.io/wp-content/uploads/2023/11/PREA_CURL_MAC.gif"
     }, 
 	{
@@ -151,7 +150,7 @@ const sampleExercises = [
       "muscleGroups": [
         "Triceps"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DIPS_MC.gif"
     }, 
 	{
@@ -163,7 +162,7 @@ const sampleExercises = [
 		"Chest",
 		"Biceps"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://newlife.com.cy/wp-content/uploads/2019/11/22331301-Dumbbell-Front-Raise-female_Shoulders_360-4.gif"
     }, 
 	{
@@ -174,7 +173,7 @@ const sampleExercises = [
         "Lats",
 		"Shoulder"		
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Lateral-Raise.gif"
     }, 
 	{
@@ -184,7 +183,7 @@ const sampleExercises = [
       "muscleGroups": [
         "Biceps"		
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif"
     }, 
 	{
@@ -194,7 +193,7 @@ const sampleExercises = [
       "muscleGroups": [
         "Biceps"		
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Hammer-Curl.gif"
     },
     {
@@ -206,7 +205,7 @@ const sampleExercises = [
         "Glutes",
         "Hamstrings"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2015/11/Leg-Press.gif"
     },
     {
@@ -218,7 +217,7 @@ const sampleExercises = [
         "Glutes",
         "Hamstrings"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2023/09/power-lunge.gif"
     },
     {
@@ -230,7 +229,7 @@ const sampleExercises = [
         "Glutes",
         "Hamstrings"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://i.pinimg.com/originals/d9/ea/db/d9eadb96317b4a64eafb32ab0980d560.gif"
     },
     {
@@ -242,7 +241,7 @@ const sampleExercises = [
         "Glutes",
         "Hamstrings"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/LEG-EXTENSION.gif"
     },
     {
@@ -254,7 +253,7 @@ const sampleExercises = [
         "Gastrocnemius",
         "Soleus"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://burnfit.io/wp-content/uploads/2023/11/STD_CALF_RAISE.gif"
     },
     {
@@ -265,7 +264,7 @@ const sampleExercises = [
         "Calves",
         "Soleus"
       ],
-      "type": "strength",
+      "type": "Strength",
       "image": "https://newlife.com.cy/wp-content/uploads/2019/11/26661301-Lever-Seated-Calf-Raise-plate-loaded-VERSION-2_Calves_360.gif"
     },
     {
@@ -276,7 +275,7 @@ const sampleExercises = [
         "Legs",
         "Cardiovascular"
       ],
-      "type": "cardio",
+      "type": "Cardio",
       "image": "https://media4.giphy.com/media/ZZ2ZNjDgeg0EgqmaNR/giphy-downsized.gif"
     },
     {
@@ -288,7 +287,7 @@ const sampleExercises = [
         "Abs",
 		"Lower Back"
       ],
-      "type": "cardio",
+      "type": "Cardio",
       "image": "https://cdn.jefit.com/assets/img/exercises/gifs/44.gif"
     }
 	
