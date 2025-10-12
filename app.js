@@ -719,7 +719,7 @@ $(document).ready(function() {
         }
         
         // Add set function for strength exercises
-        function addSet(reps = '', weight = '', weightunit) {
+        function addSet(reps = '', weight = '', weightunit ='kg') {
 			$("#weightUnit").val(weightunit).trigger('change');
             const setNumber = $('#setsContainer .set-row').length + 1;
             const setHtml = `
@@ -1081,6 +1081,6 @@ function setTodayDate(selector) {
   // Native input requires yyyy-mm-dd for the value
   const value = `${yyyy}-${mm}-${dd}`;
 
-  $(selector).val(value);          // actual input value
+  $(selector).val(formatted);          // actual input value
   $(selector).attr('data-display', formatted); // optional: store formatted version if you need it
 }
