@@ -4,21 +4,8 @@ $(document).ready(function() {
         let workouts = [];
         let exerciseIdCounter = 1;
         let workoutIdCounter = 1;
-		let selectedExerciseId =null;
-        
-        // Sample data
-        // const sampleExercises = [
-        //     {id: 1, name: "Bench Press", category: "Upper Body", muscleGroups: ["Chest", "Triceps", "Shoulders"], type: "strength", image: ""},
-        //     {id: 2, name: "Squats", category: "Lower Body", muscleGroups: ["Quadriceps", "Glutes", "Core"], type: "strength", image: ""},
-        //     {id: 3, name: "Treadmill", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
-        //     {id: 4, name: "Freestyle Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""},
-        //     {id: 5, name: "Plank", category: "Core", muscleGroups: ["Core", "Shoulders"], type: "strength", image: ""},
-        //     {id: 6, name: "Dynamic Stretching", category: "Mobility", muscleGroups: ["Full Body"], type: "mobility", image: ""},
-        //     {id: 7, name: "Deadlift", category: "Lower Body", muscleGroups: ["Hamstrings", "Glutes", "Back"], type: "strength", image: ""},
-        //     {id: 8, name: "Pull-ups", category: "Upper Body", muscleGroups: ["Back", "Biceps"], type: "strength", image: ""},
-        //     {id: 9, name: "Cycling", category: "Cardio", muscleGroups: ["Legs", "Cardiovascular"], type: "cardio", image: ""},
-        //     {id: 10, name: "Backstroke Swimming", category: "Swimming", muscleGroups: ["Full Body", "Cardiovascular"], type: "swimming", image: ""}
-        // ];
+		let selectedExerciseId =null;       
+       
         
         const sampleWorkouts = [
             
@@ -154,8 +141,8 @@ $(document).ready(function() {
 			  // Regenerate correct fields for this type
 			  generateDynamicFields(exercise);
 
-			  // Prefill strength/cardio/swimming/mobility fields
-			  if (exercise.type === 'strength' && lastWorkout.sets) {
+			  // Prefill Strength/Cardio/Swimming/Mobility fields
+			  if (exercise.type === 'Strength' && lastWorkout.sets) {
 				$('#weightUnit').val(lastWorkout.sets[0]?.weightunit || 'kg');
 
 				$('#setsContainer').empty();
@@ -164,14 +151,14 @@ $(document).ready(function() {
 				});
 			  }
 
-			  if (exercise.type === 'cardio') {
+			  if (exercise.type === 'Cardio') {
 				$('#duration').val(lastWorkout.duration);
 				$('#distance').val(lastWorkout.distance);
 				$('#pace').val(lastWorkout.pace);
 				$('#incline').val(lastWorkout.incline);
 			  }
 
-			  if (exercise.type === 'swimming') {
+			  if (exercise.type === 'Swimming') {
 				$('#laps').val(lastWorkout.laps);
 				$('#duration').val(lastWorkout.duration);
 				$('#poolLength').val(lastWorkout.poolLength);
@@ -179,7 +166,7 @@ $(document).ready(function() {
 				$('#lapTime').val(lastWorkout.lapTime);
 			  }
 
-			  if (exercise.type === 'mobility') {
+			  if (exercise.type === 'Mobility') {
 				$('#duration').val(lastWorkout.duration);
 				$('#intensity').val(lastWorkout.intensity);
 				$('#notes').val(lastWorkout.notes);
@@ -421,7 +408,7 @@ $(document).ready(function() {
             const exercise = exercises.find(e => e.id === exerciseId);
             const records = [];
             
-            if (exercise.type === 'strength') {
+            if (exercise.type === 'Strength') {
                 // Max weight
                 const maxWeight = Math.max(...exerciseWorkouts.flatMap(w => w.sets ? w.sets.map(s => s.weight || 0) : [0]));
                 if (maxWeight > 0) records.push({label: 'Max Weight', value: `${maxWeight} lbs`});
@@ -434,7 +421,7 @@ $(document).ready(function() {
                 const maxVolume = Math.max(...exerciseWorkouts.flatMap(w => w.sets ? w.sets.map(s => (s.weight || 0) * (s.reps || 0)) : [0]));
                 if (maxVolume > 0) records.push({label: 'Best Set Volume', value: `${maxVolume} lbs×reps`});
                 
-            } else if (exercise.type === 'cardio') {
+            } else if (exercise.type === 'Cardio') {
                 // Best distance
                 const maxDistance = Math.max(...exerciseWorkouts.map(w => w.distance || 0));
                 if (maxDistance > 0) records.push({label: 'Longest Distance', value: `${maxDistance} Kms`});
@@ -447,7 +434,7 @@ $(document).ready(function() {
                 const bestPace = Math.min(...exerciseWorkouts.map(w => w.pace || Infinity).filter(p => p !== Infinity));
                 if (bestPace !== Infinity) records.push({label: 'Best Pace', value: `${bestPace} min/Km`});
                 
-            } else if (exercise.type === 'swimming') {
+            } else if (exercise.type === 'Swimming') {
                 // Most laps
                 const maxLaps = Math.max(...exerciseWorkouts.map(w => w.laps || 0));
                 if (maxLaps > 0) records.push({label: 'Most Laps', value: maxLaps});
@@ -473,8 +460,12 @@ $(document).ready(function() {
 
 				// assuming all workouts are of the same type
 				const type = workouts[0].type;
+				const deleteBtn = (workoutId) => `
+						<button type="button" class="btn btn-sm btn-outline-danger delete-workout-btn" data-id="${workoutId}" title="Delete this workout">
+						  <i class="bi bi-trash"></i>
+						</button>`;	
 
-				if (type === 'strength') {
+				if (type === 'Strength') {
 					let html = `
 						<div class="table-responsive">
 							<table class="table table-sm">
@@ -483,6 +474,7 @@ $(document).ready(function() {
 										<th>Date</th>										
 										<th>Reps</th>
 										<th>Weight</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -490,13 +482,15 @@ $(document).ready(function() {
 					workouts.forEach(workout => {
 						const weightUnit = workout.sets[0]?.weightunit || '';
 						const reps = workout.sets.map(s => s.reps).join('-');
-						const weights = workout.sets.map(s => s.weight).join('-');			
+						const weights = workout.sets.map(s => s.weight).join('-');
+					 					
 						
 						html += `
 							<tr>
 								<td>${workout.date}</td>									
 								<td>${reps}</td>
 								<td>${weights} ${weightUnit}</td>
+								<td>${deleteBtn(workout.id)}</td>
 							</tr>
 						`;
 					});	
@@ -504,7 +498,7 @@ $(document).ready(function() {
 					html += '</tbody></table></div>';
 					return html;
 
-				} else if (type === 'cardio') {
+				} else if (type === 'Cardio') {
 					let html = `
 						<div class="table-responsive">
 							<table class="table table-sm ">
@@ -515,6 +509,7 @@ $(document).ready(function() {
 										<th>Distance (Kms)</th>
 										<th>Pace (min/Km)</th>
 										<th>Incline (%)</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -528,6 +523,7 @@ $(document).ready(function() {
 								<td>${workout.distance || '-'}</td>
 								<td>${workout.pace || '-'}</td>
 								<td>${workout.incline || '-'}</td>
+								<td>${deleteBtn(workout.id)}</td>
 							</tr>
 						`;
 					});
@@ -535,7 +531,7 @@ $(document).ready(function() {
 					html += '</tbody></table></div>';
 					return html;
 
-				} else if (type === 'swimming') {
+				} else if (type === 'Swimming') {
 					let html = `
 						<div class="table-responsive">
 							<table class="table table-sm ">
@@ -547,6 +543,7 @@ $(document).ready(function() {
 										<th>Pool Length</th>
 										<th>Stroke</th>
 										<th>Lap Time (sec/lap)</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -561,6 +558,7 @@ $(document).ready(function() {
 								<td>${workout.poolLength || '-'}</td>
 								<td>${workout.stroke || '-'}</td>
 								<td>${workout.lapTime || '-'}</td>
+								<td>${deleteBtn(workout.id)}</td>
 							</tr>
 						`;
 					});
@@ -568,7 +566,7 @@ $(document).ready(function() {
 					html += '</tbody></table></div>';
 					return html;
 
-				} else if (type === 'mobility') {
+				} else if (type === 'Mobility') {
 					let html = `
 						<div class="table-responsive">
 							<table class="table table-sm ">
@@ -578,6 +576,7 @@ $(document).ready(function() {
 										<th>Duration (min)</th>
 										<th>Intensity</th>
 										<th>Notes</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -590,6 +589,7 @@ $(document).ready(function() {
 								<td>${workout.duration || '-'}</td>
 								<td>${workout.intensity || '-'}</td>
 								<td>${workout.notes || 'No notes'}</td>
+								<td>${deleteBtn(workout.id)}</td>
 							</tr>
 						`;
 					});
@@ -607,7 +607,7 @@ $(document).ready(function() {
             const container = $('#dynamicFields');
             container.empty();
             
-            if (exercise.type === 'strength') {
+            if (exercise.type === 'Strength') {
                 container.append(`
                     <div class="row mb-3">
                         <div class="col-12">
@@ -642,7 +642,7 @@ $(document).ready(function() {
 				
                 addSet(); // Add first set by default
                 
-            } else if (exercise.type === 'cardio') {
+            } else if (exercise.type === 'Cardio') {
                 container.append(`
                     <div class="row mb-3">
                         <div class="col-md-3">
@@ -664,7 +664,7 @@ $(document).ready(function() {
                     </div>
                 `);
                 
-            } else if (exercise.type === 'swimming') {
+            } else if (exercise.type === 'Swimming') {
                 container.append(`
                     <div class="row mb-3">
                         <div class="col-md-3">
@@ -696,7 +696,7 @@ $(document).ready(function() {
                     </div>
                 `);
                 
-            } else if (exercise.type === 'mobility') {
+            } else if (exercise.type === 'Mobility') {
                 container.append(`
                     <div class="row mb-3">
                         <div class="col-md-4">
@@ -718,7 +718,7 @@ $(document).ready(function() {
             }
         }
         
-        // Add set function for strength exercises
+        // Add set function for Strength exercises
         function addSet(reps = '', weight = '', weightunit ='kg') {
 			$("#weightUnit").val(weightunit).trigger('change');
             const setNumber = $('#setsContainer .set-row').length + 1;
@@ -836,7 +836,7 @@ $(document).ready(function() {
             };
             
             // Validation and data collection based on exercise type
-            if (exercise.type === 'strength') {
+            if (exercise.type === 'Strength') {
                 const sets = [];
                 let isValid = true;
                 
@@ -844,7 +844,7 @@ $(document).ready(function() {
                     const reps = parseInt($(this).find('.reps-input').val());
                     const weight = parseFloat($(this).find('.weight-input').val());
                     
-                    if (!reps || !weight || reps <= 0 || weight <= 0) {
+                    if (!reps || reps <= 0 || weight < 0) {
                         isValid = false;
                         return false;
                     }
@@ -864,7 +864,7 @@ $(document).ready(function() {
                 
                 workoutData.sets = sets;
                 
-            } else if (exercise.type === 'cardio') {
+            } else if (exercise.type === 'Cardio') {
                 const duration = parseFloat($('#duration').val());
                 if (!duration || duration <= 0) {
                     showAlert('Please enter a valid duration', 'danger');
@@ -876,7 +876,7 @@ $(document).ready(function() {
                 workoutData.pace = parseFloat($('#pace').val()) || 0;
                 workoutData.incline = parseFloat($('#incline').val()) || 0;
                 
-            } else if (exercise.type === 'swimming') {
+            } else if (exercise.type === 'Swimming') {
                 const laps = parseInt($('#laps').val());
                 const duration = parseFloat($('#duration').val());
                 
@@ -891,7 +891,7 @@ $(document).ready(function() {
                 workoutData.stroke = $('#stroke').val();
                 workoutData.lapTime = parseFloat($('#lapTime').val()) || 0;
                 
-            } else if (exercise.type === 'mobility') {
+            } else if (exercise.type === 'Mobility') {
                 const duration = parseFloat($('#duration').val());
                 if (!duration || duration <= 0) {
                     showAlert('Please enter a valid duration', 'danger');
@@ -1062,7 +1062,52 @@ $(document).ready(function() {
 		$('select').select2({		  
 		  width: '100%'
 		});
+		
+		
+		 $('#reloadExercisesBtn').on('click',function(){
+			 
+			 localStorage.removeItem('exercises');
+
+			// Fetch the latest exercise list from the exercises.js file
+			localStorage.setItem('exercises', JSON.stringify(exercises));
+		 });
+		
+		$(document).on('click', '.delete-workout-btn', function (e) {
+		  e.stopPropagation();
+		  const id = $(this).data('id');
+		  if (typeof id === 'undefined') return;
+
+		  // Confirm
+		  const ok = confirm('Delete this workout entry? This action cannot be undone.');
+		  if (!ok) return;
+
+		  // Remove from workouts array (assumes global `workouts` array)
+		  const beforeCount = workouts.length;
+		  workouts = workouts.filter(w => w.id !== id);
+		  	
+		  // optional: re-index or update local ids if you need sequential ids
+		  // workouts = workouts.map((w, idx) => ({ ...w, id: idx }));
+
+		  // persist change - replace with your save implementation
+		  if (typeof saveWorkouts === 'function') {
+			saveWorkouts(workouts);
+		  } else if (window.localStorage) {
+			try {
+			  localStorage.setItem('workouts', JSON.stringify(workouts));
+			} catch (err) {
+			  console.warn('Could not save workouts to localStorage', err);
+			}
+		  }
+		  $(this).closest('tr').remove();
+		  
+		  showToast && typeof showToast === 'function' ? showToast('Workout deleted') : console.log('Workout deleted');
+		});
+		
+		
 });
+
+
+
 
 
 if ("serviceWorker" in navigator) {
