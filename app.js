@@ -432,7 +432,7 @@ $(document).ready(function() {
                 
                 // Best pace (lowest)
                 const bestPace = Math.min(...exerciseWorkouts.map(w => w.pace || Infinity).filter(p => p !== Infinity));
-                if (bestPace !== Infinity) records.push({label: 'Best Pace', value: `${bestPace} min/Km`});
+                if (bestPace !== Infinity) records.push({label: 'Best Speed', value: `${bestPace} Km/h`});
                 
             } else if (exercise.type === 'Swimming') {
                 // Most laps
@@ -507,7 +507,7 @@ $(document).ready(function() {
 										<th>Date</th>
 										<th>Duration (min)</th>
 										<th>Distance (Kms)</th>
-										<th>Pace (min/Km)</th>
+										<th>Speed (Km/h)</th>
 										<th>Incline (%)</th>
 										<th>Actions</th>
 									</tr>
@@ -654,7 +654,7 @@ $(document).ready(function() {
                             <input type="number" class="form-control" id="distance" min="0" step="0.1">
                         </div>
                         <div class="col-md-3">
-                            <label for="pace" class="form-label">Pace (min/Kms)</label>
+                            <label for="pace" class="form-label">Speed (Km/h)</label>
                             <input type="number" class="form-control" id="pace" min="0" step="0.1">
                         </div>
                         <div class="col-md-3">
@@ -820,6 +820,7 @@ $(document).ready(function() {
             
             const exerciseId = parseInt($('#exerciseSelect').val());
             const exercise = exercises.find(e => e.id === exerciseId);
+			var wdate=$("#workoutDate").val();
             
             if (!exercise) {
                 showAlert('Please select an exercise', 'danger');
@@ -907,7 +908,7 @@ $(document).ready(function() {
             saveData();
             
             // Reset form
-			var wdate=$("#workoutDate").val();
+			
             $('#workoutForm')[0].reset();
             $('#dynamicFields').empty();
             $("#workoutDate").val(wdate);
