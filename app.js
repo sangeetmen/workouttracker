@@ -907,9 +907,10 @@ $(document).ready(function() {
             saveData();
             
             // Reset form
+			var wdate=$("#workoutDate").val();
             $('#workoutForm')[0].reset();
             $('#dynamicFields').empty();
-            setTodayDate('#workoutDate');
+            $("#workoutDate").val(wdate);
             
             showAlert('Workout saved successfully!', 'success');
         }
