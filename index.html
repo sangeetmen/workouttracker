@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Tracker Pro</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/css/bootstrap-datepicker3.min.css">
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="select2.min.css" rel="stylesheet" />
 
     <!--link href="style.css" rel="stylesheet"-->
     <link rel="manifest" href="manifest.json">
@@ -51,6 +51,11 @@
                             <i class="bi bi-gear"></i> Master Management
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="daily-log-tab" data-bs-toggle="pill" data-bs-target="#daily-log" type="button" role="tab">
+                            <i class="bi bi-clock-history"></i> Daily Log
+                        </button>
+                    </li>
                 </ul>
                 
                 <!-- Alert Container -->
@@ -72,9 +77,9 @@
                                     <option value="">All Categories</option>
                                 </select>
                             </div>
-							<div class="col-md-2 mt-1">
-								<input type="text" class="form-control" id="dateFilter" placeholder="Filter by date">
-							</div>
+                            <div class="col-md-2 mt-1">
+                                    <input type="text" class="form-control" id="dateFilter" placeholder="Filter by date">
+                            </div>
                             <div class="col-md-2  mt-1">
                                 <button class="btn btn-outline-primary w-100" id="clearFilters">
                                     <i class="bi bi-arrow-clockwise"></i> Clear
@@ -106,13 +111,12 @@
                                                         <option value="">Select an exercise</option>
                                                     </select>
                                                 </div>
-												<div class="col-md-2 mt-1">
-													<button type="button" id="duplicateWorkoutBtn" class="btn btn-primary me-2" disabled>
-														<i class="bi bi-files"></i> Copy Previous
-													</button>
-												</div>
-                                            </div>
-                                            
+                                                <div class="col-md-2 mt-1">
+                                                        <button type="button" id="duplicateWorkoutBtn" class="btn btn-primary me-2" disabled>
+                                                                <i class="bi bi-files"></i> Copy Previous
+                                                        </button>
+                                                </div>
+                                            </div>                                            
                                             <!-- Dynamic form fields will be inserted here -->
                                             <div id="dynamicFields"></div>
                                             
@@ -132,7 +136,17 @@
                             </div>
                         </div>
                     </div>
-                    
+                   <div class="tab-pane fade" id="daily-log" role="tabpanel">                   
+                        <div class="row mb-4">                           
+                            <div class="col-md-2 mt-1">
+                              <label for="logdateFilter" class="form-label">Log Date*</label>
+                              <input type="text" class="form-control" id="logdateFilter" placeholder="Log date">
+                            </div>                            
+                        </div>
+                        <div class="row mb-4"> 
+                            <div id="logContainer"></div>
+                        </div>
+                   </div>
                     <!-- Master Tab -->
                     <div class="tab-pane fade" id="master-content" role="tabpanel">
                         <div class="row">
@@ -249,10 +263,10 @@
     </div>
     
 	
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.10.0/dist/js/bootstrap-datepicker.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="bootstrap-datepicker.min.js"></script>
+    <script src="select2.min.js"></script>
     <script src="exercises.js"></script>
     <script src="app.js"></script>       
     </body>

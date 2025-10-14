@@ -37,24 +37,40 @@ $(document).ready(function() {
         
         // Initialize app
         $(document).ready(function() {
+            
             loadData();
             initializeApp();
             populateDropdowns();
             renderExercises();
             updateStorageStats();
             
-			$('#workoutDate').datepicker({
-			  format: 'dd/mm/yyyy',
-			  autoclose: true,
-			  todayHighlight: true
-			});
-			$('#dateFilter').datepicker({
-			  format: 'dd/mm/yyyy',
-			  autoclose: true,
-			  todayHighlight: true
-			});
-			
-			setTodayDate('#workoutDate');
+            $('#workoutDate').datepicker({
+              format: 'dd/mm/yyyy',
+              autoclose: true,
+              todayHighlight: true
+            });
+            $('#dateFilter').datepicker({
+              format: 'dd/mm/yyyy',
+              autoclose: true,
+              todayHighlight: true
+            });
+            $('#dateFilter2').datepicker({
+              format: 'dd/mm/yyyy',
+              autoclose: true,
+              todayHighlight: true
+            });
+            
+            
+            
+            $('#logdateFilter').datepicker({
+              format: 'dd/mm/yyyy',
+              autoclose: true,
+              todayHighlight: true
+            });
+
+            $('#logdateFilter').on('change', renderdailylog);
+
+            setTodayDate('#workoutDate');
   
         });
         
@@ -81,8 +97,8 @@ $(document).ready(function() {
         // Save data to in-memory storage (localStorage not available in sandbox)
         function saveData() {
             // Data is already saved in memory
-			localStorage.setItem('exercises', JSON.stringify(exercises));
-    		localStorage.setItem('workouts', JSON.stringify(workouts));
+            localStorage.setItem('exercises', JSON.stringify(exercises));
+            localStorage.setItem('workouts', JSON.stringify(workouts));
             updateStorageStats();
         }
         
@@ -97,7 +113,7 @@ $(document).ready(function() {
                 renderExercises();
             });
 			
-			$('#categoryFilter').on('change', function() {
+            $('#categoryFilter').on('change', function() {
                 renderExercises();
             });
             
@@ -127,51 +143,51 @@ $(document).ready(function() {
                     generateDynamicFields(exercise);
                 }
             });
-			$('#duplicateWorkoutBtn').on('click', function() {
-			  const exerciseId = parseInt($('#exerciseSelect').val());
-			  const matchingWorkouts = workouts
-				.filter(w => w.exerciseId === exerciseId)
-				.sort((a, b) => new Date(b.date) - new Date(a.date)); // latest first
-			  
-			  if (matchingWorkouts.length === 0) return;
+            $('#duplicateWorkoutBtn').on('click', function() {
+                const exerciseId = parseInt($('#exerciseSelect').val());
+                const matchingWorkouts = workouts
+                      .filter(w => w.exerciseId === exerciseId)
+                      .sort((a, b) => new Date(b.date) - new Date(a.date)); // latest first
 
-			  const lastWorkout = matchingWorkouts[0];
-			  const exercise = sampleExercises.find(e => e.id === exerciseId);
+                if (matchingWorkouts.length === 0) return;
 
-			  // Regenerate correct fields for this type
-			  generateDynamicFields(exercise);
+                const lastWorkout = matchingWorkouts[0];
+                const exercise = sampleExercises.find(e => e.id === exerciseId);
 
-			  // Prefill Strength/Cardio/Swimming/Mobility fields
-			  if (exercise.type === 'Strength' && lastWorkout.sets) {
-				$('#weightUnit').val(lastWorkout.sets[0]?.weightunit || 'kg');
+                // Regenerate correct fields for this type
+                generateDynamicFields(exercise);
 
-				$('#setsContainer').empty();
-				lastWorkout.sets.forEach((set, index) => {					
-				  addSet(set.reps, set.weight, set.weightunit);
-				});
-			  }
+                // Prefill Strength/Cardio/Swimming/Mobility fields
+                if (exercise.type === 'Strength' && lastWorkout.sets) {
+                      $('#weightUnit').val(lastWorkout.sets[0]?.weightunit || 'kg');
 
-			  if (exercise.type === 'Cardio') {
-				$('#duration').val(lastWorkout.duration);
-				$('#distance').val(lastWorkout.distance);
-				$('#pace').val(lastWorkout.pace);
-				$('#incline').val(lastWorkout.incline);
-			  }
+                      $('#setsContainer').empty();
+                      lastWorkout.sets.forEach((set, index) => {					
+                        addSet(set.reps, set.weight, set.weightunit);
+                      });
+                }
 
-			  if (exercise.type === 'Swimming') {
-				$('#laps').val(lastWorkout.laps);
-				$('#duration').val(lastWorkout.duration);
-				$('#poolLength').val(lastWorkout.poolLength);
-				$('#stroke').val(lastWorkout.stroke);
-				$('#lapTime').val(lastWorkout.lapTime);
-			  }
+                if (exercise.type === 'Cardio') {
+                      $('#duration').val(lastWorkout.duration);
+                      $('#distance').val(lastWorkout.distance);
+                      $('#pace').val(lastWorkout.pace);
+                      $('#incline').val(lastWorkout.incline);
+                }
 
-			  if (exercise.type === 'Mobility') {
-				$('#duration').val(lastWorkout.duration);
-				$('#intensity').val(lastWorkout.intensity);
-				$('#notes').val(lastWorkout.notes);
-			  }
-			});
+                if (exercise.type === 'Swimming') {
+                      $('#laps').val(lastWorkout.laps);
+                      $('#duration').val(lastWorkout.duration);
+                      $('#poolLength').val(lastWorkout.poolLength);
+                      $('#stroke').val(lastWorkout.stroke);
+                      $('#lapTime').val(lastWorkout.lapTime);
+                }
+
+                if (exercise.type === 'Mobility') {
+                      $('#duration').val(lastWorkout.duration);
+                      $('#intensity').val(lastWorkout.intensity);
+                      $('#notes').val(lastWorkout.notes);
+                }
+            });
 
 			
             
@@ -300,6 +316,50 @@ $(document).ready(function() {
                 const exerciseId = parseInt($(this).data('exercise-id'));
                 showExerciseDetails(exerciseId);
             });
+        }
+        
+        
+        function renderdailylog(){            
+	    const logdateValue = $("#logdateFilter").val();  
+            
+            let filteredExercises = exercises.filter(exercise => {
+                const matchesDate = !logdateValue || workouts.some(w => w.date === logdateValue && w.exerciseId === exercise.id);
+                return matchesDate;
+            });
+            
+          const container = $('#logContainer');
+          container.empty();
+
+          if (filteredExercises.length === 0) {
+            container.html('<p class="text-muted">No workouts found for this date.</p>');
+            return;
+          }
+          
+          filtered.forEach(exercise => {
+            let html = `<div class="log-entry"><div class="log-header">${exercise.exerciseName} <span class="text-secondary">(${w.category})</span></div>`;
+            
+            const exerciseWorkouts = workouts.filter(w => w.exerciseId === exercise.id && w.date===logdateValue);
+            
+            html += `
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    ${formatWorkoutHistory(exerciseWorkouts)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            
+
+            html += '</div>';
+            container.append(html);
+          });
+      
+            
+            
         }
         
         // Show exercise details modal
