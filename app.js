@@ -554,13 +554,13 @@ $(document).ready(function() {
                     `;
                     workouts.forEach(workout => {
                             const weightUnit = workout.sets[0]?.weightunit || '';
-                            const reps = workout.sets.map(s => s.reps).join('-');
-                            const weights = workout.sets.map(s => s.weight).join('-');
+                            const reps = workout.sets.map(s => s.reps).join(' - ');
+                            const weights = workout.sets.map(s => s.weight).join(' - ');
 
 
                             html += `
                                     <tr>
-                                            <td>${exercise.name}(${exercise.category})</td>									
+                                            <td style="width:50%">${exercise.name}(${exercise.category})</td>									
                                             <td>${reps}</td>
                                             <td>${weights} ${weightUnit}</td>                                            
                                     </tr>
@@ -580,7 +580,7 @@ $(document).ready(function() {
                     workouts.forEach(workout => {
                             html += `
                                     <tr>
-                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td >${exercise.name}(${exercise.category})</td>
                                             <td>${workout.duration || '-'} min(s)</td>
                                             <td>${workout.distance || '-'} Kms</td>
                                             <td>${workout.pace || '-'} Km/h</td>
@@ -625,7 +625,7 @@ $(document).ready(function() {
                     workouts.forEach(workout => {
                             html += `
                                     <tr>
-                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td style="width:50%">${exercise.name}(${exercise.category})</td>
                                             <td>${workout.duration || '-'} mins</td>
                                             <td>${workout.intensity || '-'}</td>
                                             <td>${workout.notes || 'No notes'}</td>                                            
@@ -668,8 +668,8 @@ $(document).ready(function() {
                                 `;
                                 workouts.forEach(workout => {
                                         const weightUnit = workout.sets[0]?.weightunit || '';
-                                        const reps = workout.sets.map(s => s.reps).join('-');
-                                        const weights = workout.sets.map(s => s.weight).join('-');
+                                        const reps = workout.sets.map(s => s.reps).join(' - ');
+                                        const weights = workout.sets.map(s => s.weight).join(' - ');
 
 
                                         html += `
