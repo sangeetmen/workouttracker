@@ -4,7 +4,9 @@ $(document).ready(function() {
         let workouts = [];
         let exerciseIdCounter = 1;
         let workoutIdCounter = 1;
-		let selectedExerciseId =null;       
+	let selectedExerciseId =null;       
+        let currentExerciseIndex = null;
+        let currentExerciseList = []; // array of exercises being viewed
        
         
         const sampleWorkouts = [
@@ -120,7 +122,7 @@ $(document).ready(function() {
             $('#clearFilters').on('click', function() {
                 $('#searchInput').val('');
                 $('#categoryFilter').val('');
-				$('#dateFilter').val('');
+		$('#dateFilter').val('');
                 renderExercises();
             });
             
@@ -143,6 +145,22 @@ $(document).ready(function() {
                     generateDynamicFields(exercise);
                 }
             });
+            
+            $('#prevExerciseBtn').on('click', function() {
+                if (currentExerciseList && currentExerciseList.length > 0) {
+                  currentExerciseIndex = (currentExerciseIndex - 1 + currentExerciseList.length) % currentExerciseList.length;
+                  populateModel(currentExerciseList[currentExerciseIndex].id);
+                }
+            });
+
+              $('#nextExerciseBtn').on('click', function() {
+                if (currentExerciseList && currentExerciseList.length > 0) {
+                  currentExerciseIndex = (currentExerciseIndex + 1) % currentExerciseList.length;
+                  console.log(currentExerciseList[currentExerciseIndex].id);
+                  populateModel(currentExerciseList[currentExerciseIndex].id);
+                }
+              });
+
             $('#duplicateWorkoutBtn').on('click', function() {
                 const exerciseId = parseInt($('#exerciseSelect').val());
                 const matchingWorkouts = workouts
@@ -314,7 +332,10 @@ $(document).ready(function() {
             // Add click handlers for exercise cards
             $('.exercise-card').on('click', function() {
                 const exerciseId = parseInt($(this).data('exercise-id'));
+                currentExerciseList = filteredExercises; // or your current array of exercises
+                currentExerciseIndex = currentExerciseList.findIndex(e => e.id === exerciseId);
                 showExerciseDetails(exerciseId);
+                
             });
         }
         
@@ -363,6 +384,30 @@ $(document).ready(function() {
         
         // Show exercise details modal
         function showExerciseDetails(exerciseId) {
+           
+            populateModel(exerciseId);
+            const modal = new bootstrap.Modal(document.getElementById('exerciseDetailsModal'));
+            modal.show();
+			
+            $('#addWorkoutBtn').on('click', function() {
+
+            modal.hide();
+             var exerciseidselected=$(this).attr("data-ex-id");
+              // Wait a moment before showing the add modal (avoids modal overlap)
+              setTimeout(() => {
+                    $('#entry-tab').click();
+
+                    if (exerciseidselected) {
+                      $('#exerciseSelect').val(exerciseidselected).trigger('change');
+                    }
+              }, 300);
+            });
+                        
+          
+        }
+        
+        function populateModel(exerciseId){
+            
             const exercise = exercises.find(e => e.id === exerciseId);
             if (!exercise) return;
             
@@ -440,23 +485,6 @@ $(document).ready(function() {
             }
             
             $('#exerciseModalBody').html(modalBody);
-            
-            const modal = new bootstrap.Modal(document.getElementById('exerciseDetailsModal'));
-            modal.show();
-			
-			$('#addWorkoutBtn').on('click', function() {
-		  
-			modal.hide();
-			 var exerciseidselected=$(this).attr("data-ex-id");
-			  // Wait a moment before showing the add modal (avoids modal overlap)
-			  setTimeout(() => {
-				$('#entry-tab').click();
-				
-				if (exerciseidselected) {
-				  $('#exerciseSelect').val(exerciseidselected).trigger('change');
-				}
-			  }, 300);
-			});
         }
         
         // Calculate personal records for an exercise

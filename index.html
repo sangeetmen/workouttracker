@@ -248,11 +248,23 @@
     <div class="modal fade" id="exerciseDetailsModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+              
+                
                 <div class="modal-header">
                     <h5 class="modal-title" id="exerciseModalTitle"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" id="exerciseModalBody">
+                 <div class="modal-body" >
+                    <div class="row">
+                        <div class="col-md-1" id="prevExerciseBtn"> 
+                           <button type="button" class="btn btn-light position-absolute top-50 start-0 translate-middle-y"  style="z-index: 1051; height:100%">‹</button>
+                        </div>
+                        <div class="col-md-10" id="exerciseModalBody"></div>
+                        <div class="col-md-1" id="nextExerciseBtn">
+                           <button type="button" class="btn btn-light position-absolute top-50 end-0 translate-middle-y"  style="z-index: 1051; height:100%">›</button>
+                        </div>
+                        
+                    </div>
                     <!-- Dynamic content -->
                 </div>
                 <div class="modal-footer">
