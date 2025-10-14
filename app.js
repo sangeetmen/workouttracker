@@ -335,21 +335,20 @@ $(document).ready(function() {
             return;
           }
           
-          filtered.forEach(exercise => {
-            let html = `<div class="log-entry"><div class="log-header">${exercise.exerciseName} <span class="text-secondary">(${w.category})</span></div>`;
+          const sortedfilteredExercises = filteredExercises.sort((a, b) =>
+                                            a.type.localeCompare(b.type)
+                                          );
+                
+          filteredExercises.forEach(exercise => {
+            let html = ``;
             
             const exerciseWorkouts = workouts.filter(w => w.exerciseId === exercise.id && w.date===logdateValue);
             
-            html += `
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    ${formatWorkoutHistory(exerciseWorkouts)}
-                                </div>
-                            </div>
-                        </div>
+            html += `                    
+                    <div class="card-body">
+                        ${formatdailylog(exerciseWorkouts,exercise)}
                     </div>
+                          
                 `;
 
             
@@ -448,13 +447,13 @@ $(document).ready(function() {
 			$('#addWorkoutBtn').on('click', function() {
 		  
 			modal.hide();
-			 var excerciseidselected=$(this).attr("data-ex-id");
+			 var exerciseidselected=$(this).attr("data-ex-id");
 			  // Wait a moment before showing the add modal (avoids modal overlap)
 			  setTimeout(() => {
 				$('#entry-tab').click();
 				
-				if (excerciseidselected) {
-				  $('#exerciseSelect').val(excerciseidselected).trigger('change');
+				if (exerciseidselected) {
+				  $('#exerciseSelect').val(exerciseidselected).trigger('change');
 				}
 			  }, 300);
 			});
@@ -512,154 +511,254 @@ $(document).ready(function() {
         }
         
         
+        function formatdailylog(workouts, exercise) {
+            if (!workouts || workouts.length === 0) {
+                    return '<p>No workout history available</p>';
+            }
+
+            
+            const type = workouts[0].type;          
+            if (type === 'Strength') {
+                    let html = `
+                            <div class="table-responsive">
+                                    <table class="table table-sm">                                            
+                                        <tbody>
+                    `;
+                    workouts.forEach(workout => {
+                            const weightUnit = workout.sets[0]?.weightunit || '';
+                            const reps = workout.sets.map(s => s.reps).join('-');
+                            const weights = workout.sets.map(s => s.weight).join('-');
+
+
+                            html += `
+                                    <tr>
+                                            <td>${exercise.name}(${exercise.category})</td>									
+                                            <td>${reps}</td>
+                                            <td>${weights} ${weightUnit}</td>                                            
+                                    </tr>
+                            `;
+                    });	
+
+                    html += '</tbody></table></div>';
+                    return html;
+
+            } else if (type === 'Cardio') {
+                    let html = `
+                            <div class="table-responsive">
+                                    <table class="table table-sm ">                                            
+                                            <tbody>
+                    `;
+
+                    workouts.forEach(workout => {
+                            html += `
+                                    <tr>
+                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td>${workout.duration || '-'} min(s)</td>
+                                            <td>${workout.distance || '-'} Kms</td>
+                                            <td>${workout.pace || '-'} Km/h</td>
+                                            <td>${workout.incline || '-'} (%)</td>                                            
+                                    </tr>
+                            `;
+                    });
+
+                    html += '</tbody></table></div>';
+                    return html;
+
+            } else if (type === 'Swimming') {
+                    let html = `
+                            <div class="table-responsive">
+                                    <table class="table table-sm ">                                           
+                                            <tbody>
+                    `;
+
+                    workouts.forEach(workout => {
+                            html += `
+                                    <tr>
+                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td>${workout.laps || '-'} Laps</td>
+                                            <td>${workout.duration || '-'} mins</td>
+                                            <td>${workout.poolLength || '-'} Length</td>
+                                            <td>${workout.stroke || '-'}</td>
+                                            <td>${workout.lapTime || '-'} sec/lap</td>                                            
+                                    </tr>
+                            `;
+                    });
+
+                    html += '</tbody></table></div>';
+                    return html;
+
+            } else if (type === 'Mobility') {
+                    let html = `
+                            <div class="table-responsive">
+                                    <table class="table table-sm ">                                            
+                                            <tbody>
+                    `;
+
+                    workouts.forEach(workout => {
+                            html += `
+                                    <tr>
+                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td>${workout.duration || '-'} mins</td>
+                                            <td>${workout.intensity || '-'}</td>
+                                            <td>${workout.notes || 'No notes'}</td>                                            
+                                    </tr>
+                            `;
+                    });
+
+                    html += '</tbody></table></div>';
+                    return html;
+            }
+
+            return '<p>No details available</p>';
+    }
 		
-		function formatWorkoutHistory(workouts) {
-				if (!workouts || workouts.length === 0) {
-					return '<p>No workout history available</p>';
-				}
+        function formatWorkoutHistory(workouts) {
+                        if (!workouts || workouts.length === 0) {
+                                return '<p>No workout history available</p>';
+                        }
 
-				// assuming all workouts are of the same type
-				const type = workouts[0].type;
-				const deleteBtn = (workoutId) => `
-						<button type="button" class="btn btn-sm btn-outline-danger delete-workout-btn" data-id="${workoutId}" title="Delete this workout">
-						  <i class="bi bi-trash"></i>
-						</button>`;	
+                        // assuming all workouts are of the same type
+                        const type = workouts[0].type;
+                        const deleteBtn = (workoutId) => `
+                                        <button type="button" class="btn btn-sm btn-outline-danger delete-workout-btn" data-id="${workoutId}" title="Delete this workout">
+                                          <i class="bi bi-trash"></i>
+                                        </button>`;	
 
-				if (type === 'Strength') {
-					let html = `
-						<div class="table-responsive">
-							<table class="table table-sm">
-								<thead>
-									<tr>
-										<th>Date</th>										
-										<th>Reps</th>
-										<th>Weight</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-					`;
-					workouts.forEach(workout => {
-						const weightUnit = workout.sets[0]?.weightunit || '';
-						const reps = workout.sets.map(s => s.reps).join('-');
-						const weights = workout.sets.map(s => s.weight).join('-');
-					 					
-						
-						html += `
-							<tr>
-								<td>${workout.date}</td>									
-								<td>${reps}</td>
-								<td>${weights} ${weightUnit}</td>
-								<td>${deleteBtn(workout.id)}</td>
-							</tr>
-						`;
-					});	
+                        if (type === 'Strength') {
+                                let html = `
+                                        <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>Date</th>										
+                                                                        <th>Reps</th>
+                                                                        <th>Weight</th>
+                                                                        <th>Actions</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                `;
+                                workouts.forEach(workout => {
+                                        const weightUnit = workout.sets[0]?.weightunit || '';
+                                        const reps = workout.sets.map(s => s.reps).join('-');
+                                        const weights = workout.sets.map(s => s.weight).join('-');
 
-					html += '</tbody></table></div>';
-					return html;
 
-				} else if (type === 'Cardio') {
-					let html = `
-						<div class="table-responsive">
-							<table class="table table-sm ">
-								<thead>
-									<tr>
-										<th>Date</th>
-										<th>Duration (min)</th>
-										<th>Distance (Kms)</th>
-										<th>Speed (Km/h)</th>
-										<th>Incline (%)</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-					`;
+                                        html += `
+                                                <tr>
+                                                        <td>${workout.date}</td>									
+                                                        <td>${reps}</td>
+                                                        <td>${weights} ${weightUnit}</td>
+                                                        <td>${deleteBtn(workout.id)}</td>
+                                                </tr>
+                                        `;
+                                });	
 
-					workouts.forEach(workout => {
-						html += `
-							<tr>
-								<td>${workout.date}</td>
-								<td>${workout.duration || '-'}</td>
-								<td>${workout.distance || '-'}</td>
-								<td>${workout.pace || '-'}</td>
-								<td>${workout.incline || '-'}</td>
-								<td>${deleteBtn(workout.id)}</td>
-							</tr>
-						`;
-					});
+                                html += '</tbody></table></div>';
+                                return html;
 
-					html += '</tbody></table></div>';
-					return html;
+                        } else if (type === 'Cardio') {
+                                let html = `
+                                        <div class="table-responsive">
+                                                <table class="table table-sm ">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Duration (min)</th>
+                                                                        <th>Distance (Kms)</th>
+                                                                        <th>Speed (Km/h)</th>
+                                                                        <th>Incline (%)</th>
+                                                                        <th>Actions</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                `;
 
-				} else if (type === 'Swimming') {
-					let html = `
-						<div class="table-responsive">
-							<table class="table table-sm ">
-								<thead>
-									<tr>
-										<th>Date</th>
-										<th>Laps</th>
-										<th>Duration (min)</th>
-										<th>Pool Length</th>
-										<th>Stroke</th>
-										<th>Lap Time (sec/lap)</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-					`;
+                                workouts.forEach(workout => {
+                                        html += `
+                                                <tr>
+                                                        <td>${workout.date}</td>
+                                                        <td>${workout.duration || '-'}</td>
+                                                        <td>${workout.distance || '-'}</td>
+                                                        <td>${workout.pace || '-'}</td>
+                                                        <td>${workout.incline || '-'}</td>
+                                                        <td>${deleteBtn(workout.id)}</td>
+                                                </tr>
+                                        `;
+                                });
 
-					workouts.forEach(workout => {
-						html += `
-							<tr>
-								<td>${workout.date}</td>
-								<td>${workout.laps || '-'}</td>
-								<td>${workout.duration || '-'}</td>
-								<td>${workout.poolLength || '-'}</td>
-								<td>${workout.stroke || '-'}</td>
-								<td>${workout.lapTime || '-'}</td>
-								<td>${deleteBtn(workout.id)}</td>
-							</tr>
-						`;
-					});
+                                html += '</tbody></table></div>';
+                                return html;
 
-					html += '</tbody></table></div>';
-					return html;
+                        } else if (type === 'Swimming') {
+                                let html = `
+                                        <div class="table-responsive">
+                                                <table class="table table-sm ">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Laps</th>
+                                                                        <th>Duration (min)</th>
+                                                                        <th>Pool Length</th>
+                                                                        <th>Stroke</th>
+                                                                        <th>Lap Time (sec/lap)</th>
+                                                                        <th>Actions</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                `;
 
-				} else if (type === 'Mobility') {
-					let html = `
-						<div class="table-responsive">
-							<table class="table table-sm ">
-								<thead>
-									<tr>
-										<th>Date</th>
-										<th>Duration (min)</th>
-										<th>Intensity</th>
-										<th>Notes</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-					`;
+                                workouts.forEach(workout => {
+                                        html += `
+                                                <tr>
+                                                        <td>${workout.date}</td>
+                                                        <td>${workout.laps || '-'}</td>
+                                                        <td>${workout.duration || '-'}</td>
+                                                        <td>${workout.poolLength || '-'}</td>
+                                                        <td>${workout.stroke || '-'}</td>
+                                                        <td>${workout.lapTime || '-'}</td>
+                                                        <td>${deleteBtn(workout.id)}</td>
+                                                </tr>
+                                        `;
+                                });
 
-					workouts.forEach(workout => {
-						html += `
-							<tr>
-								<td>${workout.date}</td>
-								<td>${workout.duration || '-'}</td>
-								<td>${workout.intensity || '-'}</td>
-								<td>${workout.notes || 'No notes'}</td>
-								<td>${deleteBtn(workout.id)}</td>
-							</tr>
-						`;
-					});
+                                html += '</tbody></table></div>';
+                                return html;
 
-					html += '</tbody></table></div>';
-					return html;
-				}
+                        } else if (type === 'Mobility') {
+                                let html = `
+                                        <div class="table-responsive">
+                                                <table class="table table-sm ">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>Date</th>
+                                                                        <th>Duration (min)</th>
+                                                                        <th>Intensity</th>
+                                                                        <th>Notes</th>
+                                                                        <th>Actions</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                `;
 
-				return '<p>No details available</p>';
-			}
+                                workouts.forEach(workout => {
+                                        html += `
+                                                <tr>
+                                                        <td>${workout.date}</td>
+                                                        <td>${workout.duration || '-'}</td>
+                                                        <td>${workout.intensity || '-'}</td>
+                                                        <td>${workout.notes || 'No notes'}</td>
+                                                        <td>${deleteBtn(workout.id)}</td>
+                                                </tr>
+                                        `;
+                                });
+
+                                html += '</tbody></table></div>';
+                                return html;
+                        }
+
+                        return '<p>No details available</p>';
+                }
 
         
         // Generate dynamic form fields based on exercise type
