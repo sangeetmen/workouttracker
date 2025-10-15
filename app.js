@@ -7,7 +7,7 @@ $(document).ready(function() {
 	let selectedExerciseId =null;       
         let currentExerciseIndex = null;
         let currentExerciseList = []; // array of exercises being viewed
-       
+        const today = new Date();
         
         const sampleWorkouts = [
             
@@ -73,8 +73,52 @@ $(document).ready(function() {
             $('#logdateFilter').on('change', renderdailylog);
 
             setTodayDate('#workoutDate');
+            setTodayDate('#logdateFilter');
+            renderdailylog();
+            
+            
+            
   
         });
+        
+        $('#prevDateBtn').on('click', function () {
+            changeDate(-1);
+        });
+
+        $('#nextDateBtn').on('click', function () {
+            changeDate(1);
+        });
+        
+        
+        function changeDate(offsetDays) {
+            let currentDate = parseDate($('#logdateFilter').val());
+            if (!currentDate) return;
+
+            currentDate.setDate(currentDate.getDate() + offsetDays);
+
+            // Prevent going beyond today
+            if (currentDate > today) {
+                currentDate = today;
+            }
+
+            const newFormatted = formatDate(currentDate);
+            $('#logdateFilter').datepicker('setDate', newFormatted);
+            renderdailylog();
+        }
+        
+        function formatDate(date) {
+            const dd = String(date.getDate()).padStart(2, '0');
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const yyyy = date.getFullYear();
+            return `${dd}/${mm}/${yyyy}`;
+        }
+
+        function parseDate(str) {
+            const [dd, mm, yyyy] = str.split('/');
+            if (!dd || !mm || !yyyy) return null;
+            return new Date(`${yyyy}-${mm}-${dd}`);
+        }
+
         
         // Load data from in-memory storage (localStorage not available in sandbox)
         function loadData() {
@@ -498,7 +542,8 @@ $(document).ready(function() {
             if (exercise.type === 'Strength') {
                 // Max weight
                 const maxWeight = Math.max(...exerciseWorkouts.flatMap(w => w.sets ? w.sets.map(s => s.weight || 0) : [0]));
-                if (maxWeight > 0) records.push({label: 'Max Weight', value: `${maxWeight} lbs`});
+                const maxWeightUnit = exerciseWorkouts.flatMap(w => w.sets || []).reduce((max, s) => s.weight > (max?.weight || 0) ? s : max, null)?.weightunit || '';
+                if (maxWeight > 0) records.push({label: 'Max Weight', value: `${maxWeight} ${maxWeightUnit}`});
                 
                 // Max reps at any weight
                 const maxReps = Math.max(...exerciseWorkouts.flatMap(w => w.sets ? w.sets.map(s => s.reps || 0) : [0]));
@@ -506,7 +551,7 @@ $(document).ready(function() {
                 
                 // Best volume (weight × reps)
                 const maxVolume = Math.max(...exerciseWorkouts.flatMap(w => w.sets ? w.sets.map(s => (s.weight || 0) * (s.reps || 0)) : [0]));
-                if (maxVolume > 0) records.push({label: 'Best Set Volume', value: `${maxVolume} lbs×reps`});
+                if (maxVolume > 0) records.push({label: 'Best Set Volume', value: `${maxVolume} ${maxWeightUnit}×reps`});
                 
             } else if (exercise.type === 'Cardio') {
                 // Best distance
@@ -554,8 +599,8 @@ $(document).ready(function() {
                     `;
                     workouts.forEach(workout => {
                             const weightUnit = workout.sets[0]?.weightunit || '';
-                            const reps = workout.sets.map(s => s.reps).join(' - ');
-                            const weights = workout.sets.map(s => s.weight).join(' - ');
+                            const reps = workout.sets.map(s => s.reps).join('-');
+                            const weights = workout.sets.map(s => s.weight).join('-');
 
 
                             html += `
@@ -668,8 +713,8 @@ $(document).ready(function() {
                                 `;
                                 workouts.forEach(workout => {
                                         const weightUnit = workout.sets[0]?.weightunit || '';
-                                        const reps = workout.sets.map(s => s.reps).join(' - ');
-                                        const weights = workout.sets.map(s => s.weight).join(' - ');
+                                        const reps = workout.sets.map(s => s.reps).join('-');
+                                        const weights = workout.sets.map(s => s.weight).join('-');
 
 
                                         html += `
@@ -812,19 +857,19 @@ $(document).ready(function() {
                 `);
                 
                 //$('#addSetBtn').on('click', addSet);
-				$('#addSetBtn').on('click', function() {
-				  const lastSetEl = $('#setsContainer .set-row:last');				  
-				  let reps = '';
-				  let weight = '';
-				  let weightunit = $('#weightUnit').val();
+                $('#addSetBtn').on('click', function() {
+                  const lastSetEl = $('#setsContainer .set-row:last');				  
+                  let reps = '';
+                  let weight = '';
+                  let weightunit = $('#weightUnit').val();
 
-				  if (lastSetEl.length) {
-					reps = lastSetEl.find('.reps-input').val();
-					weight = lastSetEl.find('.weight-input').val();					
-				  }
-				  addSet(reps, weight, weightunit);
-				  
-				});
+                  if (lastSetEl.length) {
+                        reps = lastSetEl.find('.reps-input').val();
+                        weight = lastSetEl.find('.weight-input').val();					
+                  }
+                  addSet(reps, weight, weightunit);
+
+                });
 				
 				
                 addSet(); // Add first set by default
@@ -907,7 +952,7 @@ $(document).ready(function() {
         
         // Add set function for Strength exercises
         function addSet(reps = '', weight = '', weightunit ='kg') {
-			$("#weightUnit").val(weightunit).trigger('change');
+            $("#weightUnit").val(weightunit).trigger('change');
             const setNumber = $('#setsContainer .set-row').length + 1;
             const setHtml = `
                 <div class="set-row">
@@ -921,9 +966,13 @@ $(document).ready(function() {
                             <input type="number" class="form-control reps-input" min="0" required value="${reps}" >
                         </div>
                         <div class="col-4">
-                            <label class="form-label">Weight
-						</label>
-                            <input type="number" class="form-control weight-input" min="0" step="0.5" required value="${weight}">
+                            <label class="form-label">Weight</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control weight-input" min="0" step="0.5" required value="${weight}">
+                                <button type="button" class="btn btn-outline-primary btn-sm weight-inc" data-inc="2.5">2.5</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm weight-inc" data-inc="5">5</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm weight-inc" data-inc="10">10</button>
+                            </div>
                         </div>
                         <div class="col-2">
                             <button type="button" class="btn btn-outline-danger btn-sm w-100 remove-set-btn" 
@@ -937,12 +986,19 @@ $(document).ready(function() {
             
             $('#setsContainer').append(setHtml);
             
-            // Update set numbers and remove button handlers
+             // Update set numbers and remove button handlers
             updateSetNumbers();
             
             $('.remove-set-btn').off('click').on('click', function() {
                 $(this).closest('.set-row').remove();
                 updateSetNumbers();
+            });
+            
+            $('.weight-inc').off('click').on('click', function() {
+		const inc = parseFloat($(this).data('inc'));
+		const input = $(this).closest('.input-group').find('.weight-input');
+		const current = parseFloat(input.val()) || 0;
+		input.val((current + inc).toFixed(1));
             });
         }
         
@@ -1248,9 +1304,10 @@ $(document).ready(function() {
         }
 		
 		
-		$('select').select2({		  
-		  width: '100%'
-		});
+		$('.select2').select2({
+                    selectOnClose: true
+		
+                });
 		
 		
 		 $('#reloadExercisesBtn').on('click',function(){

@@ -73,12 +73,12 @@
                                 </div>
                             </div>
                             <div class="col-md-3  mt-1">
-                                <select class="form-select" id="categoryFilter">
+                                <select class="form-control" id="categoryFilter">
                                     <option value="">All Categories</option>
                                 </select>
                             </div>
                             <div class="col-md-2 mt-1">
-                                    <input type="text" class="form-control" id="dateFilter" placeholder="Filter by date">
+                                <input type="text" class="form-control select2" id="dateFilter" placeholder="Filter by date">
                             </div>
                             <div class="col-md-2  mt-1">
                                 <button class="btn btn-outline-primary w-100" id="clearFilters">
@@ -137,13 +137,20 @@
                         </div>
                     </div>
                    <div class="tab-pane fade" id="daily-log" role="tabpanel">                   
-                        <div class="row mb-4">                           
-                            <div class="col-md-2 mt-1">
-                              <label for="logdateFilter" class="form-label">Log Date*</label>
-                              <input type="text" class="form-control" id="logdateFilter" placeholder="Log date">
-                            </div>                            
-                        </div>
-                        <div class="row mb-4"> 
+                         <div class="d-flex justify-content-center align-items-center my-4">
+                            <button class="btn btn-outline-secondary mx-2" id="prevDateBtn">
+                              <i class="bi bi-chevron-left"></i>
+                            </button>
+
+                            <div class="col-md-2 text-center">
+                              <label for="logdateFilter" class="form-label fw-bold">Log Date</label>
+                              <input type="text" class="form-control text-center" id="logdateFilter" placeholder="dd/mm/yyyy">
+                            </div>
+
+                            <button class="btn btn-outline-secondary mx-2" id="nextDateBtn">
+                              <i class="bi bi-chevron-right"></i>
+                            </button>
+                          </div>                        <div class="row mb-4"> 
                             <div id="logContainer"></div>
                         </div>
                    </div>
@@ -257,11 +264,11 @@
                  <div class="modal-body" >
                     <div class="row">
                         <div class="col-md-1" id="prevExerciseBtn"> 
-                           <button type="button" class="btn btn-light position-absolute top-50 start-0 translate-middle-y"  style="z-index: 1051; height:100%">‹</button>
+                           <button type="button" class="btn btn-transparent  position-absolute top-50 start-0 translate-middle-y"  style="z-index: 1051; height:100%">‹</button>
                         </div>
                         <div class="col-md-10" id="exerciseModalBody"></div>
                         <div class="col-md-1" id="nextExerciseBtn">
-                           <button type="button" class="btn btn-light position-absolute top-50 end-0 translate-middle-y"  style="z-index: 1051; height:100%">›</button>
+                           <button type="button" class="btn btn-transparent  position-absolute top-50 end-0 translate-middle-y"  style="z-index: 1051; height:100%">›</button>
                         </div>
                         
                     </div>
