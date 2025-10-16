@@ -10,8 +10,1682 @@ $(document).ready(function() {
         const today = new Date();
         
         const sampleWorkouts = [
-            
-        ];
+    {
+      "id": 3,
+      "date": "01/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 40,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 50,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "01/10/2025",
+      "exerciseId": 25,
+      "exerciseName": "Crosfit (Eliptical)",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 1,
+      "date": "04/10/2025",
+      "exerciseId": 21,
+      "exerciseName": "Leg Curl Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "04/10/2025",
+      "exerciseId": 22,
+      "exerciseName": "Leg Extension Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 40,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "04/10/2025",
+      "exerciseId": 24,
+      "exerciseName": "Sitting Calf Raises",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "04/10/2025",
+      "exerciseId": 3,
+      "exerciseName": "Treadmill",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 3,
+      "incline": 15
+    },
+    {
+      "id": 6,
+      "date": "04/10/2025",
+      "exerciseId": 2,
+      "exerciseName": "Body Weighted Squats",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 10,
+          "weight": 0,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "date": "03/10/2025",
+      "exerciseId": 8,
+      "exerciseName": "Assisted Pull-up Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "date": "03/10/2025",
+      "exerciseId": 12,
+      "exerciseName": "Lat Pull Down (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 40,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "03/10/2025",
+      "exerciseId": 1,
+      "exerciseName": "Lying Chest Press Machine (Flat)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 25,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 30,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "03/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 40,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 50,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "03/10/2025",
+      "exerciseId": 14,
+      "exerciseName": "Triceps Dip Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 60,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "date": "03/10/2025",
+      "exerciseId": 15,
+      "exerciseName": "Dumbbell Front Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "date": "03/10/2025",
+      "exerciseId": 16,
+      "exerciseName": "Dumbbell Side (Lat) Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "04/10/2025",
+      "exerciseId": 19,
+      "exerciseName": "Leg Press Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 30,
+          "weight": 0,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 40,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "date": "06/10/2025",
+      "exerciseId": 1,
+      "exerciseName": "Lying Chest Press Machine (Flat)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 25,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 30,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "06/10/2025",
+      "exerciseId": 14,
+      "exerciseName": "Triceps Dip Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "date": "06/10/2025",
+      "exerciseId": 13,
+      "exerciseName": "Preacher Curl Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "date": "06/10/2025",
+      "exerciseId": 12,
+      "exerciseName": "Lat Pull Down (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "date": "06/10/2025",
+      "exerciseId": 8,
+      "exerciseName": "Assisted Pull-up Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "date": "06/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "date": "06/10/2025",
+      "exerciseId": 17,
+      "exerciseName": "Dumbbell Bicep Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 4,
+          "reps": 10,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "date": "06/10/2025",
+      "exerciseId": 15,
+      "exerciseName": "Dumbbell Front Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "date": "06/10/2025",
+      "exerciseId": 16,
+      "exerciseName": "Dumbbell Side (Lat) Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "date": "06/10/2025",
+      "exerciseId": 18,
+      "exerciseName": "Dumbbell Hammer Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 4,
+          "reps": 10,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "date": "03/10/2025",
+      "exerciseId": 13,
+      "exerciseName": "Preacher Curl Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "date": "08/10/2025",
+      "exerciseId": 2,
+      "exerciseName": "Body Weighted Squats",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 10,
+          "weight": 0,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "date": "08/10/2025",
+      "exerciseId": 20,
+      "exerciseName": "Lunges",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 10,
+          "weight": 0,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "date": "04/10/2025",
+      "exerciseId": 20,
+      "exerciseName": "Lunges",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 10,
+          "weight": 0,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "date": "08/10/2025",
+      "exerciseId": 19,
+      "exerciseName": "Leg Press Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "date": "08/10/2025",
+      "exerciseId": 21,
+      "exerciseName": "Leg Curl Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "date": "08/10/2025",
+      "exerciseId": 22,
+      "exerciseName": "Leg Extension Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "date": "08/10/2025",
+      "exerciseId": 24,
+      "exerciseName": "Sitting Calf Raises",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "date": "08/10/2025",
+      "exerciseId": 3,
+      "exerciseName": "Treadmill",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 4,
+      "incline": 15
+    },
+    {
+      "id": 27,
+      "date": "09/10/2025",
+      "exerciseId": 3,
+      "exerciseName": "Treadmill",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 15,
+      "distance": 0,
+      "pace": 3.5,
+      "incline": 15
+    },
+    {
+      "id": 28,
+      "date": "09/10/2025",
+      "exerciseId": 9,
+      "exerciseName": "Cycling",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 29,
+      "date": "09/10/2025",
+      "exerciseId": 25,
+      "exerciseName": "Crosfit (Eliptical)",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 15,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 30,
+      "date": "01/10/2025",
+      "exerciseId": 9,
+      "exerciseName": "Cycling",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 5,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 31,
+      "date": "08/10/2025",
+      "exerciseId": 9,
+      "exerciseName": "Cycling",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 32,
+      "date": "10/10/2025",
+      "exerciseId": 1,
+      "exerciseName": "Lying Chest Press Machine (Flat)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "date": "10/10/2025",
+      "exerciseId": 14,
+      "exerciseName": "Triceps Dip Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 80,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "date": "10/10/2025",
+      "exerciseId": 13,
+      "exerciseName": "Preacher Curl Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "date": "10/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "date": "10/10/2025",
+      "exerciseId": 12,
+      "exerciseName": "Lat Pull Down (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "date": "10/10/2025",
+      "exerciseId": 17,
+      "exerciseName": "Dumbbell Bicep Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "date": "10/10/2025",
+      "exerciseId": 18,
+      "exerciseName": "Dumbbell Hammer Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "date": "10/10/2025",
+      "exerciseId": 15,
+      "exerciseName": "Dumbbell Front Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "date": "10/10/2025",
+      "exerciseId": 16,
+      "exerciseName": "Dumbbell Side (Lat) Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 4,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "date": "11/10/2025",
+      "exerciseId": 2,
+      "exerciseName": "Body Weighted Squats",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 12,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "date": "11/10/2025",
+      "exerciseId": 20,
+      "exerciseName": "Lunges",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 24,
+          "weight": 0,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 24,
+          "weight": 0,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "date": "11/10/2025",
+      "exerciseId": 9,
+      "exerciseName": "Cycling",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 5,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 44,
+      "date": "11/10/2025",
+      "exerciseId": 19,
+      "exerciseName": "Leg Press Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 90,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "date": "11/10/2025",
+      "exerciseId": 21,
+      "exerciseName": "Leg Curl Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "date": "11/10/2025",
+      "exerciseId": 22,
+      "exerciseName": "Leg Extension Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "date": "11/10/2025",
+      "exerciseId": 24,
+      "exerciseName": "Sitting Calf Raises",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "date": "04/10/2025",
+      "exerciseId": 4,
+      "exerciseName": "Swimming",
+      "category": "Swimming",
+      "type": "Swimming",
+      "laps": 10,
+      "duration": 40,
+      "poolLength": "50m",
+      "stroke": "Freestyle",
+      "lapTime": 85
+    },
+    {
+      "id": 49,
+      "date": "05/10/2025",
+      "exerciseId": 4,
+      "exerciseName": "Swimming",
+      "category": "Swimming",
+      "type": "Swimming",
+      "laps": 8,
+      "duration": 40,
+      "poolLength": "50m",
+      "stroke": "Freestyle",
+      "lapTime": 75
+    },
+    {
+      "id": 50,
+      "date": "06/10/2025",
+      "exerciseId": 4,
+      "exerciseName": "Swimming",
+      "category": "Swimming",
+      "type": "Swimming",
+      "laps": 8,
+      "duration": 40,
+      "poolLength": "50m",
+      "stroke": "Freestyle",
+      "lapTime": 72
+    },
+    {
+      "id": 51,
+      "date": "08/10/2025",
+      "exerciseId": 4,
+      "exerciseName": "Swimming",
+      "category": "Swimming",
+      "type": "Swimming",
+      "laps": 8,
+      "duration": 40,
+      "poolLength": "50m",
+      "stroke": "Freestyle",
+      "lapTime": 72
+    },
+    {
+      "id": 52,
+      "date": "12/10/2025",
+      "exerciseId": 4,
+      "exerciseName": "Swimming",
+      "category": "Swimming",
+      "type": "Swimming",
+      "laps": 8,
+      "duration": 40,
+      "poolLength": "50m",
+      "stroke": "Freestyle",
+      "lapTime": 72
+    },
+    {
+      "id": 53,
+      "date": "13/10/2025",
+      "exerciseId": 1,
+      "exerciseName": "Lying Chest Press Machine (Flat)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "date": "13/10/2025",
+      "exerciseId": 13,
+      "exerciseName": "Preacher Curl Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "date": "13/10/2025",
+      "exerciseId": 8,
+      "exerciseName": "Assisted Pull-up Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "date": "13/10/2025",
+      "exerciseId": 17,
+      "exerciseName": "Dumbbell Bicep Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "date": "13/10/2025",
+      "exerciseId": 15,
+      "exerciseName": "Dumbbell Front Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "13/10/2025",
+      "exerciseId": 18,
+      "exerciseName": "Dumbbell Hammer Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "13/10/2025",
+      "exerciseId": 16,
+      "exerciseName": "Dumbbell Side (Lat) Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "13/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "date": "13/10/2025",
+      "exerciseId": 14,
+      "exerciseName": "Triceps Dip Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 90,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "date": "13/10/2025",
+      "exerciseId": 12,
+      "exerciseName": "Lat Pull Down (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    }
+  ];
         
         const exerciseCategories = ["Upper Body", "Lower Body", "Core", "Mobility", "Cardio", "Swimming", "Rest Day"];
         const muscleGroups = [
@@ -605,7 +2279,7 @@ $(document).ready(function() {
 
                             html += `
                                     <tr>
-                                            <td style="width:50%">${exercise.name}(${exercise.category})</td>									
+                                            <td style="width:50%">${exercise.name}</td>									
                                             <td>${reps}</td>
                                             <td>${weights} ${weightUnit}</td>                                            
                                     </tr>
@@ -647,7 +2321,7 @@ $(document).ready(function() {
                     workouts.forEach(workout => {
                             html += `
                                     <tr>
-                                            <td>${exercise.name}(${exercise.category})</td>
+                                            <td>${exercise.name}</td>
                                             <td>${workout.laps || '-'} Laps</td>
                                             <td>${workout.duration || '-'} mins</td>
                                             <td>${workout.poolLength || '-'} Length</td>
@@ -670,7 +2344,7 @@ $(document).ready(function() {
                     workouts.forEach(workout => {
                             html += `
                                     <tr>
-                                            <td style="width:50%">${exercise.name}(${exercise.category})</td>
+                                            <td style="width:50%">${exercise.name}</td>
                                             <td>${workout.duration || '-'} mins</td>
                                             <td>${workout.intensity || '-'}</td>
                                             <td>${workout.notes || 'No notes'}</td>                                            
@@ -680,6 +2354,8 @@ $(document).ready(function() {
 
                     html += '</tbody></table></div>';
                     return html;
+            }else if (type === 'Rest') {
+                    return '<p>Rest Day</p>';
             }
 
             return '<p>No details available</p>';
