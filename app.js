@@ -308,19 +308,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 12,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 10,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -336,19 +336,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 12,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 10,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -542,25 +542,25 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 4,
           "reps": 10,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -576,19 +576,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -604,19 +604,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -632,25 +632,25 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 4,
           "reps": 10,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1066,19 +1066,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1094,19 +1094,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1122,19 +1122,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1150,25 +1150,25 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 4,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1501,19 +1501,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1529,19 +1529,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1557,19 +1557,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 12.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1585,19 +1585,19 @@ $(document).ready(function() {
           "setNumber": 1,
           "reps": 15,
           "weight": 5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 2,
           "reps": 15,
           "weight": 7.5,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         },
         {
           "setNumber": 3,
           "reps": 15,
           "weight": 10,
-          "weightunit": "kg"
+          "weightunit": "lbs"
         }
       ]
     },
@@ -1684,8 +1684,616 @@ $(document).ready(function() {
           "weightunit": "lbs"
         }
       ]
+    },
+    {
+      "id": 0,
+      "date": "15/10/2025",
+      "exerciseId": 2,
+      "exerciseName": "Body Weighted Squats",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 10,
+          "weight": 10,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "date": "15/10/2025",
+      "exerciseId": 20,
+      "exerciseName": "Lunges",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 0,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "15/10/2025",
+      "exerciseId": 19,
+      "exerciseName": "Leg Press Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 90,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "15/10/2025",
+      "exerciseId": 21,
+      "exerciseName": "Leg Curl Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "15/10/2025",
+      "exerciseId": 22,
+      "exerciseName": "Leg Extension Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 50,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "date": "15/10/2025",
+      "exerciseId": 24,
+      "exerciseName": "Sitting Calf Raises",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "date": "18/10/2025",
+      "exerciseId": 21,
+      "exerciseName": "Leg Curl Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "date": "18/10/2025",
+      "exerciseId": 19,
+      "exerciseName": "Leg Press Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 90,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 110,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "18/10/2025",
+      "exerciseId": 22,
+      "exerciseName": "Leg Extension Machine",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 4,
+          "reps": 12,
+          "weight": 80,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "date": "18/10/2025",
+      "exerciseId": 24,
+      "exerciseName": "Sitting Calf Raises",
+      "category": "Lower Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "date": "15/10/2025",
+      "exerciseId": 3,
+      "exerciseName": "Treadmill",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 10,
+      "distance": 0,
+      "pace": 3.5,
+      "incline": 15
+    },
+    {
+      "id": 1,
+      "date": "16/10/2025",
+      "exerciseId": 8,
+      "exerciseName": "Assisted Pull-up Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 150,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "16/10/2025",
+      "exerciseId": 17,
+      "exerciseName": "Dumbbell Bicep Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "16/10/2025",
+      "exerciseId": 15,
+      "exerciseName": "Dumbbell Front Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "date": "16/10/2025",
+      "exerciseId": 18,
+      "exerciseName": "Dumbbell Hammer Curls",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "date": "16/10/2025",
+      "exerciseId": 16,
+      "exerciseName": "Dumbbell Side (Lat) Raises",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 7.5,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 10,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 12.5,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "date": "16/10/2025",
+      "exerciseId": 12,
+      "exerciseName": "Lat Pull Down (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 80,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "date": "16/10/2025",
+      "exerciseId": 1,
+      "exerciseName": "Lying Chest Press Machine (Flat)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 30,
+          "weightunit": "kg"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 35,
+          "weightunit": "kg"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "date": "16/10/2025",
+      "exerciseId": 11,
+      "exerciseName": "Machine Fly (Front)",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 60,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 80,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "date": "16/10/2025",
+      "exerciseId": 13,
+      "exerciseName": "Preacher Curl Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 15,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 20,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 25,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "date": "16/10/2025",
+      "exerciseId": 14,
+      "exerciseName": "Triceps Dip Machine",
+      "category": "Upper Body",
+      "type": "Strength",
+      "sets": [
+        {
+          "setNumber": 1,
+          "reps": 15,
+          "weight": 70,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 2,
+          "reps": 15,
+          "weight": 80,
+          "weightunit": "lbs"
+        },
+        {
+          "setNumber": 3,
+          "reps": 15,
+          "weight": 90,
+          "weightunit": "lbs"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "date": "17/10/2025",
+      "exerciseId": 3,
+      "exerciseName": "Treadmill",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 15,
+      "distance": 0,
+      "pace": 3.5,
+      "incline": 15
+    },
+    {
+      "id": 12,
+      "date": "17/10/2025",
+      "exerciseId": 9,
+      "exerciseName": "Cycling",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 15,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
+    },
+    {
+      "id": 13,
+      "date": "17/10/2025",
+      "exerciseId": 25,
+      "exerciseName": "Crosfit (Eliptical)",
+      "category": "Cardio",
+      "type": "Cardio",
+      "duration": 15,
+      "distance": 0,
+      "pace": 0,
+      "incline": 0
     }
-  ];
+ ];
         
         const exerciseCategories = ["Upper Body", "Lower Body", "Core", "Mobility", "Cardio", "Swimming", "Rest Day"];
         const muscleGroups = [
