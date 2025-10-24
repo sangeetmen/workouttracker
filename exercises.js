@@ -289,6 +289,16 @@ const sampleExercises = [
       ],
       "type": "Cardio",
       "image": "https://cdn.jefit.com/assets/img/exercises/gifs/44.gif"
-    }
+    },
+    {
+      "id": 27,
+      "name": "Abductor Machine",
+      "category": "Lower Body",
+      "muscleGroups": [
+        "Glutes"      
+      ],
+      "type": "Strength",
+      "image": "https://newlife.com.cy/wp-content/uploads/2019/11/05971301-Lever-Seated-Hip-Abduction_Hips-FIX_360-1.gif"
+    }	
 	
   ]
