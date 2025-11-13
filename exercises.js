@@ -281,13 +281,13 @@ const sampleExercises = [
     {
       "id": 26,
       "name": "Leg Raises",
-      "category": "Cardio",
+      "category": "Lower Body",
       "muscleGroups": [
         "Quadriceps",
         "Abs",
 		"Lower Back"
       ],
-      "type": "Cardio",
+      "type": "Strength",
       "image": "https://cdn.jefit.com/assets/img/exercises/gifs/44.gif"
     },
     {
@@ -299,6 +299,26 @@ const sampleExercises = [
       ],
       "type": "Strength",
       "image": "https://newlife.com.cy/wp-content/uploads/2019/11/05971301-Lever-Seated-Hip-Abduction_Hips-FIX_360-1.gif"
+    },
+    {
+      "id": 27,
+      "name": "Abductor Machine",
+      "category": "Lower Body",
+      "muscleGroups": [
+        "Glutes"      
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/HIP-ADDUCTION-MACHINE.gif"
+    },
+    {
+      "id": 28,
+      "name": "Abductor Machine",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Erector Spinae"      
+      ],
+      "type": "Strength",
+      "image": "https://www.inspireusafoundation.org/file/2022/05/back-extension.gif"
     }	
 	
   ]
