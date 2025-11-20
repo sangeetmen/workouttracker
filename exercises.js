@@ -301,7 +301,7 @@ const sampleExercises = [
       "image": "https://newlife.com.cy/wp-content/uploads/2019/11/05971301-Lever-Seated-Hip-Abduction_Hips-FIX_360-1.gif"
     },
     {
-      "id": 27,
+      "id": 28,
       "name": "Abductor Machine",
       "category": "Lower Body",
       "muscleGroups": [
@@ -311,14 +311,80 @@ const sampleExercises = [
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/HIP-ADDUCTION-MACHINE.gif"
     },
     {
-      "id": 28,
-      "name": "Abductor Machine",
+      "id": 29,
+      "name": "Back Extension",
       "category": "Upper Body",
       "muscleGroups": [
+		"Back",
+		"Hamstrings",
         "Erector Spinae"      
       ],
       "type": "Strength",
       "image": "https://www.inspireusafoundation.org/file/2022/05/back-extension.gif"
-    }	
+    },
+    {
+      "id": 30,
+      "name": "Shoulder Shrugs",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Shoulder",   
+		"trapezius"
+      ],
+      "type": "Strength",
+      "image": "https://cdn.shopify.com/s/files/1/0547/0486/5477/files/dumbbell-shrug_480x480.gif?v=1701426774"
+    },
+    {
+      "id": 31,
+      "name": "Standing Side Bending",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Back",   
+		"Lower Back"
+      ],
+      "type": "Strength",
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/DB_SIDE_BEND.gif"
+    },
+    {
+      "id": 32,
+      "name": "One-Arm Overhead Dumbbell Tricep Extension",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://fitliferegime.com/wp-content/uploads/2023/07/One-Arm-Overhead-Dumbbell-Tricep-Extension.gif"
+    },
+    {
+      "id": 33,
+      "name": "Standing Overhead Dumbbell Triceps Extension",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://fitliferegime.com/wp-content/uploads/2023/07/Standing-Overhead-Dumbbell-Tricep-Extension.gif"
+    },
+    {
+      "id": 34,
+      "name": "Lying Abs Crunches",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Core"
+      ],
+      "type": "Strength",
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/DEC_CRUNCH.gif"
+    },
+    {
+      "id": 35,
+      "name": "Machine Crunches",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Core"
+      ],
+      "type": "Strength",
+      "image": "https://bodybuilding-wizard.com/wp-content/uploads/2015/05/machine-crunch-animation.gif"
+    }		
+
+	
 	
   ]
