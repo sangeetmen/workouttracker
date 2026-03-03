@@ -383,7 +383,127 @@ const sampleExercises = [
       ],
       "type": "Strength",
       "image": "https://bodybuilding-wizard.com/wp-content/uploads/2015/05/machine-crunch-animation.gif"
-    }		
+    },
+    {
+      "id": 37,
+      "name": "Decline Chest Press Free Barbell",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Chest",
+        "Triceps",
+        "Shoulders"
+      ],
+      "type": "Strength",
+      "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif"
+    },
+    {
+      "id": 38,
+      "name": "Incline Chest Press Free Barbell",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Chest",
+        "Triceps",
+        "Shoulders"
+      ],
+      "type": "Strength",
+      "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif"
+    }, 
+	{
+      "id": 39,
+      "name": "Triceps Cable Rope Pushdown",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DIPS_MC.gif"
+    }, 
+	{
+      "id": 40,
+      "name": "Triceps Cable Overhead Extension",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DIPS_MC.gif"
+    }, 
+	{
+      "id": 41,
+      "name": "Triceps Overhead Extension (Dumbbell)",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://burnfit.io/wp-content/uploads/2023/11/SEAT_DIPS_MC.gif"
+    }, 
+	{
+      "id": 42,
+      "name": "Cable Rope Hammer Curls",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Biceps"		
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif"
+    },
+	{
+      "id": 43,
+      "name": "Dumbbell Bicep Curls(R)",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Biceps"		
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif"
+    },
+	{
+      "id": 44,
+      "name": "Dumbbell Bicep Curls(L)",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Biceps"		
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Curl.gif"
+    },
+    {
+      "id": 45,
+      "name": "Lat Pull Down (Reverse Grip)",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Lats",
+        "Back",
+		"Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
+    },
+    {
+      "id": 46,
+      "name": "Seated Cable Row",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Lats",
+        "Back",
+		"Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
+    },
+    {
+      "id": 47,
+      "name": "Stiff Arm Cable Bar Pulldown",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Lats",
+        "Back",
+		"Triceps"
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
+    }
 
 	
 	
