@@ -169,9 +169,7 @@ $(document).ready(function() {
             });
             
             // Exercise form
-            $('#exerciseForm').on('submit', handleExerciseSubmit);
-            $('#exerciseImage').on('change', handleImageUpload);
-            $('#exerciseImageUrl').on('input', handleImageUrl);
+            $('#exerciseForm').on('submit', handleExerciseSubmit);           
             
             // Workout form
             $('#workoutForm').on('submit', handleWorkoutSubmit);
@@ -328,11 +326,7 @@ $(document).ready(function() {
             }
             
             filteredExercises.forEach(exercise => {
-                const imageHtml = exercise.image ? 
-                    `<img src="${exercise.image}" class="exercise-image mb-2" alt="${exercise.name}">` :
-                    `<div class="exercise-image mb-2 d-flex align-items-center justify-content-center bg-secondary rounded">
-                        <i class="bi bi-image" style="font-size: 2rem; opacity: 0.5;"></i>
-                    </div>`;
+               
                 
                 const muscleGroupBadges = exercise.muscleGroups.map(mg => 
                     `<span class="badge bg-info me-1 mb-1">${mg}</span>`
@@ -343,10 +337,7 @@ $(document).ready(function() {
                         <div class="card exercise-card" data-exercise-id="${exercise.id}" style="cursor: pointer;">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        ${imageHtml}
-                                    </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <div class="d-flex justify-content-between align-items-start mb-2">
                                             <h5 class="card-title mb-0">${exercise.name}</h5>
                                             <span class="badge bg-primary">${exercise.category}</span>
@@ -462,15 +453,7 @@ $(document).ready(function() {
             
             let modalBody = `
                 <div class="row mb-4">
-                    <div class="col-md-4">
-                        ${exercise.image ? 
-                            `<img src="${exercise.image}" class="img-fluid rounded" alt="${exercise.name}">` :
-                            `<div class="bg-secondary rounded d-flex align-items-center justify-content-center" style="height: 200px;">
-                                <i class="bi bi-image" style="font-size: 3rem; opacity: 0.5;"></i>
-                            </div>`
-                        }
-                    </div>
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <p><strong>Category:</strong> <span class="badge bg-primary">${exercise.category}</span></p>
                         <p><strong>Type:</strong> <span class="badge bg-secondary">${exercise.type}</span></p>
                         <p><strong>Muscle Groups:</strong><br>
@@ -1028,8 +1011,7 @@ $(document).ready(function() {
                 name: $('#exerciseName').val().trim(),
                 category: $('#exerciseCategory').val(),
                 type: $('#exerciseType').val(),
-                muscleGroups: $('#exerciseMuscles').val() || [],
-                image: $('#imagePreview img').attr('src') || ''
+                muscleGroups: $('#exerciseMuscles').val() || []
             };
             
             // Validation
@@ -1051,7 +1033,7 @@ $(document).ready(function() {
             
             // Reset form
             $('#exerciseForm')[0].reset();
-            $('#imagePreview').empty();
+           
 			
             
             showAlert('Exercise added successfully!', 'success');
@@ -1159,35 +1141,6 @@ $(document).ready(function() {
             showAlert('Workout saved successfully!', 'success');
         }
         
-        // Handle image upload
-        function handleImageUpload(e) {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                    showAlert('Image file size must be less than 5MB', 'danger');
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imageUrl = e.target.result;
-                    $('#imagePreview').html(`<img src="${imageUrl}" class="image-preview" alt="Preview">`);
-                    $('#exerciseImageUrl').val(''); // Clear URL field
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-        
-        // Handle image URL input
-        function handleImageUrl() {
-            const url = $('#exerciseImageUrl').val().trim();
-            if (url) {
-                $('#imagePreview').html(`<img src="${url}" class="image-preview" alt="Preview" 
-                    onerror="this.style.display='none'; $('#imagePreview').html('<div class=\"alert alert-warning\">Invalid image URL</div>');">`);                $('#exerciseImage').val(''); // Clear file input
-            } else {
-                $('#imagePreview').empty();
-            }
-        }
         
         // Show alert message
         function showAlert(message, type) {
