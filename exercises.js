@@ -385,6 +385,16 @@ const sampleExercises = [
       "image": "https://bodybuilding-wizard.com/wp-content/uploads/2015/05/machine-crunch-animation.gif"
     },
     {
+      "id": 36,
+      "name": "Lat Raises Machine",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Lats"
+      ],
+      "type": "Strength",
+      "image": "https://bodybuilding-wizard.com/wp-content/uploads/2015/05/machine-crunch-animation.gif"
+    },
+    {
       "id": 37,
       "name": "Decline Chest Press Free Barbell",
       "category": "Upper Body",
@@ -503,6 +513,16 @@ const sampleExercises = [
       ],
       "type": "Strength",
       "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Lat-Pulldown.gif"
+    },
+    {
+      "id": 48,
+      "name": "Reverse Machine Fly ",
+      "category": "Upper Body",
+      "muscleGroups": [
+        "Shoulders"
+      ],
+      "type": "Strength",
+      "image": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Pec-Deck-Fly.gif"
     }
 
 	
