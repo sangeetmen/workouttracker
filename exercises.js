@@ -12,7 +12,7 @@ const sampleExercises = [
       "image": "https://i.pinimg.com/originals/d8/1b/47/d81b4799318a6b03520967910cbbc66d.gif"
     },
     {
-      "id": 2,
+      "id": 2, 
       "name": "Body Weighted Squats",
       "category": "Lower Body",
       "muscleGroups": [
